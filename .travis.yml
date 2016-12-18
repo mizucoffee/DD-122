@@ -21,6 +21,7 @@ android:
     - 'google-gdk-license-.+'
 
 before_script:
+  - android list targets
   - echo n | android create avd -n test22 -f -t android-22
   - emulator -avd test -no-skin -no-audio -no-window &
   - android-wait-for-emulator
