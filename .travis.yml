@@ -31,3 +31,4 @@ cache:
   directories:
   - $HOME/.m2
   - $HOME/.gradle
+  - ${TRAVIS_BUILD_DIR}/android-sdk/extras/
