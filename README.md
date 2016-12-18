@@ -1,8 +1,8 @@
 # Hatsuyuki Android Chinachu Client
 
 [![Build Status](https://travis-ci.org/Hatsuyuki-Project/Hatsuyuki-Android-Chinachu-Client.svg?branch=master)](https://travis-ci.org/Hatsuyuki-Project/Hatsuyuki-Android-Chinachu-Client)
-[![GitHub issues](https://img.shields.io/github/issues/badges/shields.svg)](https://github.com/Hatsuyuki-Project/Hatsuyuki-Android-Chinachu-Client/issues)
-[![GitHub pull requests](https://img.shields.io/github/issues-pr/cdnjs/cdnjs.svg)](https://github.com/Hatsuyuki-Project/Hatsuyuki-Android-Chinachu-Client/pulls)
+[![GitHub issues](https://img.shields.io/github/issues/Hatsuyuki-Project/Hatsuyuki-Android-Chinachu-Client.svg)](https://github.com/Hatsuyuki-Project/Hatsuyuki-Android-Chinachu-Client/issues)
+[![GitHub pull requests](https://img.shields.io/github/issues-pr/Hatsuyuki-Project/Hatsuyuki-Android-Chinachu-Client.svg)](https://github.com/Hatsuyuki-Project/Hatsuyuki-Android-Chinachu-Client/pulls)
 [![license](https://img.shields.io/github/license/mashape/apistatus.svg)](http://kawakawaritsuki.mit-license.org/)
 
 ## Description
