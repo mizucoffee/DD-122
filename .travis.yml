@@ -15,5 +15,6 @@ android:
     - 'android-sdk-license-.+'
     - 'google-gdk-license-.+'
 
-before_script:
-  - android update sdk --no-ui --all --filter build-tools-25.0.0,android-25,extra-android-m2repository
+dependencies:
+  pre:
+    - android update sdk --no-ui --all --filter build-tools-25.0.0,android-25,extra-android-m2repository
