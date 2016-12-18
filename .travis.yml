@@ -1,0 +1,17 @@
+language: android
+android:
+  components:
+    - build-tools-25.0.0
+    - android-25
+    - tools
+    - tools
+    - platform-tools
+    - sys-img-armeabi-v7a-android-25
+    - extra-android-m2repository
+      # - add-on
+      # - extra
+  licenses:
+    - 'android-sdk-preview-license-52d11cd2'
+    - 'android-sdk-license-.+'
+    - 'google-gdk-license-.+'
+
