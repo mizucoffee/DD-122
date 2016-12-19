@@ -22,8 +22,7 @@ import net.mizucoffee.hatsuyuki_chinachu.selectserver.SelectServerActivity;
 
 import butterknife.OnClick;
 
-public class DashboardActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener,DashboardView {
+public class DashboardActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,DashboardView {
 
     private GuideFragment        mGuideFragment;
     private LiveFragment         mLiveFragment;

@@ -5,5 +5,5 @@ package net.mizucoffee.hatsuyuki_chinachu.selectserver;
  */
 
 public interface SelectServerView {
-
+    void intentAdd();
 }

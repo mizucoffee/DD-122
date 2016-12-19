@@ -21,7 +21,8 @@
         <activity
             android:name=".selectserver.SelectServerActivity"
             android:label="@string/title_activity_select_server"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".selectserver.addserver.AddServerActivity"></activity>
     </application>
 
 </manifest>
