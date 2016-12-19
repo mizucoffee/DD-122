@@ -107,7 +107,7 @@
         android:layout_margin="@dimen/fab_margin"
         android:layout_gravity="bottom|end"
         app:srcCompat="@drawable/ic_done"
-        android:id="@+id/floatingActionButton" />
+        android:id="@+id/fab" />
 
 
 </FrameLayout>
