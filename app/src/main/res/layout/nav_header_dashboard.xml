@@ -10,7 +10,7 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/button4"
+        android:id="@+id/nav_button"
         style="@style/Widget.AppCompat.Button.Borderless" />
 
     <LinearLayout

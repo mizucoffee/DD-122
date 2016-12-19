@@ -1,10 +1,10 @@
-package net.mizucoffee.hatsuyuki_chinachu;
+package net.mizucoffee.hatsuyuki_chinachu.dashboard;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentTransaction;
-import android.telecom.GatewayInfo;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -14,16 +14,22 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
+import android.widget.Toast;
 
-import static android.R.attr.fragment;
+import net.mizucoffee.hatsuyuki_chinachu.R;
+import net.mizucoffee.hatsuyuki_chinachu.selectserver.SelectServerActivity;
+
+import butterknife.OnClick;
 
 public class DashboardActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener,DashboardView {
 
-    private GuideFragment mGuideFragment;
-    private LiveFragment mLiveFragment;
-    private RecordedFragment mRecordedFragment;
-    private TimerFragment mTimerFragment;
+    private GuideFragment        mGuideFragment;
+    private LiveFragment         mLiveFragment;
+    private RecordedFragment     mRecordedFragment;
+    private TimerFragment        mTimerFragment;
+    private DashboardPresenter   mPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +38,8 @@ public class DashboardActivity extends AppCompatActivity
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        mPresenter = new DashboardPresenterImpl(this);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -50,6 +58,14 @@ public class DashboardActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        View headerLayout = navigationView.getHeaderView(0);
+        Button headerBtn = (Button)headerLayout.findViewById(R.id.nav_button);
+        headerBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mPresenter.openSelectServer();
+            }
+        });
 
         mGuideFragment = new GuideFragment();
         mLiveFragment = new LiveFragment();
@@ -62,6 +78,13 @@ public class DashboardActivity extends AppCompatActivity
     }
 
     @Override
+    protected void onDestroy() {
+        mPresenter.onDestroy();
+        super.onDestroy();
+    }
+
+
+    @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
@@ -72,18 +95,8 @@ public class DashboardActivity extends AppCompatActivity
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.recorded, menu);
-        return true;
-    }
-
-    @Override
-        public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
+    public void intentSelectServer() {
+        startActivity(new Intent(this, SelectServerActivity.class));
     }
 
     @SuppressWarnings("StatementWithEmptyBody")

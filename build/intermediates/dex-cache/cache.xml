@@ -30,6 +30,15 @@
     </item>
     <item
         is-multidex="true"
+        jar="/Users/mizucoffee/AndroidStudioProjects/Hatsuyuki_Chinachu/app/build/intermediates/exploded-aar/com.jakewharton/butterknife/8.4.0/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="a07818a1ecabdb149998823429cce555af4b9cba">
+        <dex dex="/Users/mizucoffee/AndroidStudioProjects/Hatsuyuki_Chinachu/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.jakewharton-butterknife-8.4.0_58dbcddf5efa6ada2a0ab1a072911ad945d8875a/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
         jar="/Users/mizucoffee/AndroidStudioProjects/Hatsuyuki_Chinachu/app/build/intermediates/exploded-aar/com.android.support/support-fragment/25.0.1/jars/libs/internal_impl-25.0.1.jar"
         jumboMode="true"
         optimize="true"
@@ -75,11 +84,20 @@
     </item>
     <item
         is-multidex="true"
+        jar="/Users/mizucoffee/.gradle/caches/modules-2/files-2.1/com.jakewharton/butterknife-annotations/8.4.0/ea392375cf9ff59234a82e7928a204215ccc98cd/butterknife-annotations-8.4.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="ea392375cf9ff59234a82e7928a204215ccc98cd">
+        <dex dex="/Users/mizucoffee/AndroidStudioProjects/Hatsuyuki_Chinachu/app/build/intermediates/transforms/dex/debug/folders/1000/10/butterknife-annotations-8.4.0_22c1402eb93a43cd809b6f204b3877d2a59137e6/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
         jar="/Users/mizucoffee/AndroidStudioProjects/Hatsuyuki_Chinachu/app/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
         jumboMode="true"
         optimize="true"
         revision="25.0.0"
-        sha1="d66ba06b351067843165b3252128a8dbf39aa6af">
+        sha1="6780b9068fe45f9afee2a903646e20fc28e9711c">
         <dex dex="/Users/mizucoffee/AndroidStudioProjects/Hatsuyuki_Chinachu/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run-bootstrap_88e4a5b3b3d700878fac52ba2b912293df45c156/classes.dex" />
     </item>
     <item

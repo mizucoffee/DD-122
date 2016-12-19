@@ -1,4 +1,4 @@
-package net.mizucoffee.hatsuyuki_chinachu;
+package net.mizucoffee.hatsuyuki_chinachu.dashboard;
 
 
 import android.os.Bundle;
@@ -7,12 +7,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class TimerFragment extends Fragment {
+import net.mizucoffee.hatsuyuki_chinachu.R;
+
+public class RecordedFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
-        return inflater.inflate(R.layout.fragment_timer, container, false);
+        return inflater.inflate(R.layout.fragment_recorded, container, false);
     }
 
 }

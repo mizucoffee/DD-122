@@ -34,4 +34,4 @@ cache:
   directories:
   - $HOME/.m2
   - $HOME/.gradle
-  - $HOME/android-sdk/extras/
+  - /usr/local/android-sdk/extras/
