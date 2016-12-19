@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="net.mizucoffee.hatsuyuki_chinachu.RecordedActivity">
+    tools:context="net.mizucoffee.hatsuyuki_chinachu.DashboardActivity">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -21,7 +21,15 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/content_recorded" />
+    <LinearLayout
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        tools:context="net.mizucoffee.hatsuyuki_chinachu.DashboardActivity"
+        tools:showIn="@layout/app_bar_dashboard"
+        android:orientation="horizontal"/>
+
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
