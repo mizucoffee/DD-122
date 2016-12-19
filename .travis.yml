@@ -4,16 +4,16 @@ jdk:
   - oraclejdk8
 android:
   components:
-    - tools
-    - platform-tools
-    - tools
-    - build-tools-25.0.0
-    - android-25
-    - extra-android-support
-    - extra
-    - extra-google-m2repository
-    - extra-android-m2repository
-    - sys-img-armeabi-v7a-android-21
+#    - tools
+#    - platform-tools
+#    - tools
+#    - build-tools-25.0.0
+#    - android-25
+#    - extra-android-support
+#    - extra
+#    - extra-google-m2repository
+#    - extra-android-m2repository
+#    - sys-img-armeabi-v7a-android-21
 
   licenses:
     - 'android-sdk-preview-license-52d11cd2'
@@ -21,10 +21,6 @@ android:
     - 'google-gdk-license-.+'
 
 before_script:
-  - android list targets
-  - ls -al ../
-  - which android
-  - which android-update-sdk
   - echo n | android create avd -n test -f -t android-21 --abi default/armeabi-v7a
   - emulator -avd test -no-skin -no-audio -no-window &
   - android-wait-for-emulator
