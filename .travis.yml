@@ -23,6 +23,8 @@ android:
 before_script:
   - android list targets
   - ls -al ../
+  - which android
+  - which android-update-sdk
   - echo n | android create avd -n test -f -t android-21 --abi default/armeabi-v7a
   - emulator -avd test -no-skin -no-audio -no-window &
   - android-wait-for-emulator

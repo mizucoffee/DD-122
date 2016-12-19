@@ -5,18 +5,18 @@
         <item
             android:id="@+id/nav_live"
             android:title="Live"
-            android:icon="@drawable/ic_tv_black_48dp" />
+            android:icon="@drawable/ic_tv" />
         <item
             android:id="@+id/nav_guide"
-            android:icon="@drawable/ic_list_black_48dp"
+            android:icon="@drawable/ic_list"
             android:title="Guide" />
         <item
             android:id="@+id/nav_recorded"
-            android:icon="@drawable/ic_play_circle_outline_black_48dp"
+            android:icon="@drawable/ic_play"
             android:title="Recorded" />
         <item
             android:id="@+id/nav_timers"
-            android:icon="@drawable/ic_av_timer_black_48dp"
+            android:icon="@drawable/ic_timer"
             android:title="Timer" />
     </group>
 
