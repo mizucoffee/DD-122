@@ -12,6 +12,114 @@
     </item>
     <item
         is-multidex="true"
+        jar="/Users/mizucoffee/AndroidStudioProjects/Hatsuyuki_Chinachu/app/build/intermediates/exploded-aar/com.android.support/support-core-utils/25.0.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="00d4c8eebf2b681073c72a26bd0849549e51c7cb">
+        <dex dex="/Users/mizucoffee/AndroidStudioProjects/Hatsuyuki_Chinachu/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-core-utils-25.0.1_b0d9c41723cb930032afc17e06faafef9773319c/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/mizucoffee/AndroidStudioProjects/Hatsuyuki_Chinachu/app/build/intermediates/exploded-aar/com.android.support/support-vector-drawable/25.0.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="b24e1c688744078e1fa833ffadf696794761bbe5">
+        <dex dex="/Users/mizucoffee/AndroidStudioProjects/Hatsuyuki_Chinachu/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-vector-drawable-25.0.1_5b521c3c14b7c654d0d9b680da920d89ca7f54c0/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/mizucoffee/.gradle/caches/modules-2/files-2.1/com.jakewharton/butterknife-annotations/8.4.0/ea392375cf9ff59234a82e7928a204215ccc98cd/butterknife-annotations-8.4.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="ea392375cf9ff59234a82e7928a204215ccc98cd">
+        <dex dex="/Users/mizucoffee/AndroidStudioProjects/Hatsuyuki_Chinachu/app/build/intermediates/transforms/dex/debug/folders/1000/10/butterknife-annotations-8.4.0_22c1402eb93a43cd809b6f204b3877d2a59137e6/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/mizucoffee/AndroidStudioProjects/Hatsuyuki_Chinachu/app/build/intermediates/exploded-aar/com.android.support/support-fragment/25.0.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="26c6eef571592c91f29e56fda0bac73321de0c92">
+        <dex dex="/Users/mizucoffee/AndroidStudioProjects/Hatsuyuki_Chinachu/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-fragment-25.0.1_db483ef4b0da7fcfd2d7428e8ba2a693fff5329f/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/mizucoffee/AndroidStudioProjects/Hatsuyuki_Chinachu/app/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="b2f00a08eef207e2fdba7dfb26b280900651908d">
+        <dex dex="/Users/mizucoffee/AndroidStudioProjects/Hatsuyuki_Chinachu/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run-bootstrap_88e4a5b3b3d700878fac52ba2b912293df45c156/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/mizucoffee/.gradle/caches/modules-2/files-2.1/com.squareup.retrofit2/retrofit/2.1.0/2de7cd8b95b7021b1d597f049bcb422055119f2c/retrofit-2.1.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="2de7cd8b95b7021b1d597f049bcb422055119f2c">
+        <dex dex="/Users/mizucoffee/AndroidStudioProjects/Hatsuyuki_Chinachu/app/build/intermediates/transforms/dex/debug/folders/1000/10/retrofit-2.1.0_bdc6bc7995d1007ed2e1c4cdfa17c95f3147b367/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/mizucoffee/AndroidStudioProjects/Hatsuyuki_Chinachu/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.0.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="f7ac4b327fdb9e2ee386f5adc46164927658de4b">
+        <dex dex="/Users/mizucoffee/AndroidStudioProjects/Hatsuyuki_Chinachu/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-appcompat-v7-25.0.1_0aa29686d5e45b0c2b6de2d062c8750dd034f777/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/mizucoffee/AndroidStudioProjects/Hatsuyuki_Chinachu/app/build/intermediates/exploded-aar/com.android.support/cardview-v7/25.0.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="1108575c7dc7b7f5b378b3290ac90de81a9b8830">
+        <dex dex="/Users/mizucoffee/AndroidStudioProjects/Hatsuyuki_Chinachu/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-cardview-v7-25.0.1_2e74988a3ebba13d248c889acb970542b1f4bcb9/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/mizucoffee/AndroidStudioProjects/Hatsuyuki_Chinachu/app/build/intermediates/exploded-aar/com.android.support/transition/25.0.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="c1b6ab157e8e12cb08b9ee82bb5e3c5d22632eb3">
+        <dex dex="/Users/mizucoffee/AndroidStudioProjects/Hatsuyuki_Chinachu/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-transition-25.0.1_31555e92d30fa5b1c20193e08f5a7db9e8ca181c/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/mizucoffee/.gradle/caches/modules-2/files-2.1/com.squareup.okhttp3/okhttp/3.3.0/2b802460eea20f8f2ad9c08c74e0f14718e88aa9/okhttp-3.3.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="2b802460eea20f8f2ad9c08c74e0f14718e88aa9">
+        <dex dex="/Users/mizucoffee/AndroidStudioProjects/Hatsuyuki_Chinachu/app/build/intermediates/transforms/dex/debug/folders/1000/10/okhttp-3.3.0_017613928d8a1840a1d978e8bd8eee488eb12196/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/mizucoffee/AndroidStudioProjects/Hatsuyuki_Chinachu/app/build/intermediates/exploded-aar/com.android.support/support-media-compat/25.0.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="6a1479afe9f1b3645e1cd9a87318976893472818">
+        <dex dex="/Users/mizucoffee/AndroidStudioProjects/Hatsuyuki_Chinachu/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-media-compat-25.0.1_31d0304409052b8ac59272ac7d3f25e37c42a97b/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/mizucoffee/Library/Android/sdk/extras/android/m2repository/com/android/support/support-annotations/25.0.1/support-annotations-25.0.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="a09194311f8f89c3e6db09d79f50897a889d615e">
+        <dex dex="/Users/mizucoffee/AndroidStudioProjects/Hatsuyuki_Chinachu/app/build/intermediates/transforms/dex/debug/folders/1000/10/support-annotations-25.0.1_c0adc9e91f8d246ae45cb0dbb62476bf3aa1f6ba/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
         jar="/Users/mizucoffee/AndroidStudioProjects/Hatsuyuki_Chinachu/app/build/intermediates/exploded-aar/com.android.support/support-compat/25.0.1/jars/classes.jar"
         jumboMode="true"
         optimize="true"
@@ -57,84 +165,12 @@
     </item>
     <item
         is-multidex="true"
-        jar="/Users/mizucoffee/AndroidStudioProjects/Hatsuyuki_Chinachu/app/build/intermediates/exploded-aar/com.android.support/support-core-utils/25.0.1/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.0"
-        sha1="00d4c8eebf2b681073c72a26bd0849549e51c7cb">
-        <dex dex="/Users/mizucoffee/AndroidStudioProjects/Hatsuyuki_Chinachu/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-core-utils-25.0.1_b0d9c41723cb930032afc17e06faafef9773319c/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/Users/mizucoffee/AndroidStudioProjects/Hatsuyuki_Chinachu/app/build/intermediates/exploded-aar/com.android.support/support-vector-drawable/25.0.1/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.0"
-        sha1="b24e1c688744078e1fa833ffadf696794761bbe5">
-        <dex dex="/Users/mizucoffee/AndroidStudioProjects/Hatsuyuki_Chinachu/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-vector-drawable-25.0.1_5b521c3c14b7c654d0d9b680da920d89ca7f54c0/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
         jar="/Users/mizucoffee/AndroidStudioProjects/Hatsuyuki_Chinachu/app/build/intermediates/exploded-aar/com.android.support/animated-vector-drawable/25.0.1/jars/classes.jar"
         jumboMode="true"
         optimize="true"
         revision="25.0.0"
         sha1="772bed2d992b67b9d0327f766cc95cd63031dcd3">
         <dex dex="/Users/mizucoffee/AndroidStudioProjects/Hatsuyuki_Chinachu/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-animated-vector-drawable-25.0.1_7cec7ce6553990e3aadcccb4966fe65ed49ab7ef/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/Users/mizucoffee/.gradle/caches/modules-2/files-2.1/com.jakewharton/butterknife-annotations/8.4.0/ea392375cf9ff59234a82e7928a204215ccc98cd/butterknife-annotations-8.4.0.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.0"
-        sha1="ea392375cf9ff59234a82e7928a204215ccc98cd">
-        <dex dex="/Users/mizucoffee/AndroidStudioProjects/Hatsuyuki_Chinachu/app/build/intermediates/transforms/dex/debug/folders/1000/10/butterknife-annotations-8.4.0_22c1402eb93a43cd809b6f204b3877d2a59137e6/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/Users/mizucoffee/AndroidStudioProjects/Hatsuyuki_Chinachu/app/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.0"
-        sha1="f4f64ae6a2abcea1c572e946fac59c8359665003">
-        <dex dex="/Users/mizucoffee/AndroidStudioProjects/Hatsuyuki_Chinachu/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run-bootstrap_88e4a5b3b3d700878fac52ba2b912293df45c156/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/Users/mizucoffee/AndroidStudioProjects/Hatsuyuki_Chinachu/app/build/intermediates/exploded-aar/com.android.support/support-fragment/25.0.1/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.0"
-        sha1="26c6eef571592c91f29e56fda0bac73321de0c92">
-        <dex dex="/Users/mizucoffee/AndroidStudioProjects/Hatsuyuki_Chinachu/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-fragment-25.0.1_db483ef4b0da7fcfd2d7428e8ba2a693fff5329f/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/Users/mizucoffee/.gradle/caches/modules-2/files-2.1/com.squareup.retrofit2/retrofit/2.1.0/2de7cd8b95b7021b1d597f049bcb422055119f2c/retrofit-2.1.0.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.0"
-        sha1="2de7cd8b95b7021b1d597f049bcb422055119f2c">
-        <dex dex="/Users/mizucoffee/AndroidStudioProjects/Hatsuyuki_Chinachu/app/build/intermediates/transforms/dex/debug/folders/1000/10/retrofit-2.1.0_bdc6bc7995d1007ed2e1c4cdfa17c95f3147b367/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/Users/mizucoffee/AndroidStudioProjects/Hatsuyuki_Chinachu/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.0.1/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.0"
-        sha1="f7ac4b327fdb9e2ee386f5adc46164927658de4b">
-        <dex dex="/Users/mizucoffee/AndroidStudioProjects/Hatsuyuki_Chinachu/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-appcompat-v7-25.0.1_0aa29686d5e45b0c2b6de2d062c8750dd034f777/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/Users/mizucoffee/AndroidStudioProjects/Hatsuyuki_Chinachu/app/build/intermediates/exploded-aar/com.android.support/cardview-v7/25.0.1/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.0"
-        sha1="1108575c7dc7b7f5b378b3290ac90de81a9b8830">
-        <dex dex="/Users/mizucoffee/AndroidStudioProjects/Hatsuyuki_Chinachu/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-cardview-v7-25.0.1_2e74988a3ebba13d248c889acb970542b1f4bcb9/classes.dex" />
     </item>
     <item
         is-multidex="true"
@@ -165,15 +201,6 @@
     </item>
     <item
         is-multidex="true"
-        jar="/Users/mizucoffee/AndroidStudioProjects/Hatsuyuki_Chinachu/app/build/intermediates/exploded-aar/com.android.support/transition/25.0.1/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.0"
-        sha1="c1b6ab157e8e12cb08b9ee82bb5e3c5d22632eb3">
-        <dex dex="/Users/mizucoffee/AndroidStudioProjects/Hatsuyuki_Chinachu/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-transition-25.0.1_31555e92d30fa5b1c20193e08f5a7db9e8ca181c/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
         jar="/Users/mizucoffee/AndroidStudioProjects/Hatsuyuki_Chinachu/app/build/intermediates/exploded-aar/com.android.support/support-v4/25.0.1/jars/classes.jar"
         jumboMode="true"
         optimize="true"
@@ -196,17 +223,8 @@
         jumboMode="true"
         optimize="true"
         revision="25.0.0"
-        sha1="2327bc042b00d7ad035649f7967712ebb49c0b63">
+        sha1="074d56e96b23cd29e7133fe9a49c98007d73ebd7">
         <dex dex="/Users/mizucoffee/AndroidStudioProjects/Hatsuyuki_Chinachu/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run_12aaa04af8c347c3b3ba309b5054cf87396c64ec/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/Users/mizucoffee/.gradle/caches/modules-2/files-2.1/com.squareup.okhttp3/okhttp/3.3.0/2b802460eea20f8f2ad9c08c74e0f14718e88aa9/okhttp-3.3.0.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.0"
-        sha1="2b802460eea20f8f2ad9c08c74e0f14718e88aa9">
-        <dex dex="/Users/mizucoffee/AndroidStudioProjects/Hatsuyuki_Chinachu/app/build/intermediates/transforms/dex/debug/folders/1000/10/okhttp-3.3.0_017613928d8a1840a1d978e8bd8eee488eb12196/classes.dex" />
     </item>
     <item
         is-multidex="true"
@@ -225,24 +243,6 @@
         revision="25.0.0"
         sha1="c5b7145fb34779b6639147b8f2f8dd77c0db771b">
         <dex dex="/Users/mizucoffee/AndroidStudioProjects/Hatsuyuki_Chinachu/app/build/intermediates/transforms/dex/debug/folders/1000/10/internal_impl-25.0.1_c997c7244b792777a2e2522229cfeeb616441b7f/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/Users/mizucoffee/AndroidStudioProjects/Hatsuyuki_Chinachu/app/build/intermediates/exploded-aar/com.android.support/support-media-compat/25.0.1/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.0"
-        sha1="6a1479afe9f1b3645e1cd9a87318976893472818">
-        <dex dex="/Users/mizucoffee/AndroidStudioProjects/Hatsuyuki_Chinachu/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-media-compat-25.0.1_31d0304409052b8ac59272ac7d3f25e37c42a97b/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/Users/mizucoffee/Library/Android/sdk/extras/android/m2repository/com/android/support/support-annotations/25.0.1/support-annotations-25.0.1.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.0"
-        sha1="a09194311f8f89c3e6db09d79f50897a889d615e">
-        <dex dex="/Users/mizucoffee/AndroidStudioProjects/Hatsuyuki_Chinachu/app/build/intermediates/transforms/dex/debug/folders/1000/10/support-annotations-25.0.1_c0adc9e91f8d246ae45cb0dbb62476bf3aa1f6ba/classes.dex" />
     </item>
 
 </items>
