@@ -19,18 +19,18 @@ public class AddServerActivity extends AppCompatActivity implements AddServerVie
     private AddServerPresenter mPresenter;
 
     @BindView(R.id.fab)
-    private FloatingActionButton fab;
+    public FloatingActionButton fab;
 
     @BindView(R.id.nameEt)
-    private EditText nameEt;
+    public EditText nameEt;
     @BindView(R.id.hostEt)
-    private EditText hostEt;
+    public EditText hostEt;
     @BindView(R.id.portEt)
-    private EditText portEt;
+    public EditText portEt;
     @BindView(R.id.userNameEt)
-    private EditText userNameEt;
+    public EditText userNameEt;
     @BindView(R.id.passWordEt)
-    private EditText passWordEt;
+    public EditText passWordEt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

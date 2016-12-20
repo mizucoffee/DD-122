@@ -1,31 +1,36 @@
 language: Android
 sudo: false
 jdk:
-  - oraclejdk8
+- oraclejdk8
 android:
   components:
-    - tools
-    - platform-tools
-    - tools
-    - build-tools-25.0.0
-    - android-25
-    - extra-android-support
-    - extra
-    - sys-img-armeabi-v7a-android-21
-
+  - tools
+  - platform-tools
+  - tools
+  - build-tools-25.0.0
+  - android-25
+  - extra-android-support
+  - extra
+  - sys-img-armeabi-v7a-android-21
   licenses:
-    - 'android-sdk-preview-license-52d11cd2'
-    - 'android-sdk-license-.+'
-    - 'google-gdk-license-.+'
-
+  - android-sdk-preview-license-52d11cd2
+  - android-sdk-license-.+
+  - google-gdk-license-.+
 before_script:
-  - echo n | android create avd -n test -f -t android-21 --abi default/armeabi-v7a
-  - emulator -avd test -no-skin -no-audio -no-window &
-  - android-wait-for-emulator
-  - adb shell input keyevent 82 &
-
+- echo n | android create avd -n test -f -t android-21 --abi default/armeabi-v7a
+- emulator -avd test -no-skin -no-audio -no-window &
+- android-wait-for-emulator
+- adb shell input keyevent 82 &
 cache:
   directories:
   - $HOME/.m2
   - $HOME/.gradle
   - /usr/local/android-sdk/
+notifications:
+  slack:
+    secure: keH0ExKGkkbvK73vRB6q/2E46KdLLPKl4bCXQ4erng3GlPUe7k0dkkJqg9iMwPk+9H2fBMpRvXsXUritOHbR8/5PPn1HxSckAuFoqCAVWSns9q0x38jGSQ9CdAe7vEyFcCKxNsjl8a9vYwQtSKK6XjelWwauVG8wCDda9WGik1j8wyzvDrEDlzd+cBJKZBBdpuFXafRHYc7o3HZ/+dqn6+1mZh8SMH1f9bDgTwEwj5e8czucedbogzug5FWXSx/wdCQyOMM0Pa2/bCO3xkmdf3VhnKvoq8rvxugue7FoX7vhcbub+8j2+mjKodQzL+rLY+5ae4bwxtRItvosZGteIjZlkoXV+f5o6qSLeCbIQKMyPJValOijr9PcyE8yHfyV73Y76JIjyxLyA8aicBKoAsqvz8nefi4xonNBqXWRQPCyOzhPD9VxZKIQiNkxa4/qNO8OrQ1ZqBsJmVm1WPBYp+j0JDmXxfKrs/W9tC6WdOuRHtSdvPmn6MCpdyud4/7aOiBHkQHsi1CSOQgdLKCGpYkOHND8QtLlmV+pS1zI9Hr1Nq0B7ks4ZKAXwOo9lM/qjJizGDKCQsC+GeJ6cO7MHoTa4FBkwz09G6lkcQWCeEAyAmWzQlCqxHu1lT8WOoFfXS6G09Oqt392FxKG+QpFXHEUHx+52E/UmS71SHI4nZU=
+  email:
+    recipients:
+      - kawakawaritsuki.dev@gmail.com
+    on_success: naver
+    on_failure: always
