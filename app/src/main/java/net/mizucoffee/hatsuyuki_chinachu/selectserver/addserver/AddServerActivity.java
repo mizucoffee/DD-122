@@ -1,5 +1,6 @@
 package net.mizucoffee.hatsuyuki_chinachu.selectserver.addserver;
 
+import android.content.SharedPreferences;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -44,12 +45,23 @@ public class AddServerActivity extends AppCompatActivity implements AddServerVie
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //エラー処理追加
+
+                if(hostEt.getText().toString().equals("")) {hostEt.setError("入力してください"); return;}
+
                 ServerConnection sc = new ServerConnection();
 
-                sc.setName(nameEt.getText().toString());
+                if(nameEt.getText().toString().equals(""))
+                    sc.setName("Server");
+                else
+                    sc.setName(nameEt.getText().toString());
+
                 sc.setHost(hostEt.getText().toString());
-                sc.setPort(portEt.getText().toString());
+
+                if(portEt.getText().toString().equals(""))
+                    sc.setPort("10772");
+                else
+                    sc.setPort(portEt.getText().toString());
+
                 sc.setUsername(userNameEt.getText().toString());
                 sc.setPassword(passWordEt.getText().toString());
 
@@ -60,8 +72,18 @@ public class AddServerActivity extends AppCompatActivity implements AddServerVie
     }
 
     @Override
+    public SharedPreferences getActivitySharedPreferences(String name ,int mode){
+        return getSharedPreferences(name,mode);
+    }
+
+    @Override
     protected void onDestroy() {
         super.onDestroy();
         mPresenter.onDestroy();
+    }
+
+    @Override
+    public void finishActivity(){
+        finish();
     }
 }

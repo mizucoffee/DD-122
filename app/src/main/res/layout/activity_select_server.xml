@@ -21,13 +21,11 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <LinearLayout
+    <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-
-
-    </LinearLayout>
+        android:layout_height="match_parent"
+        android:id="@+id/recycler"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>wge
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"

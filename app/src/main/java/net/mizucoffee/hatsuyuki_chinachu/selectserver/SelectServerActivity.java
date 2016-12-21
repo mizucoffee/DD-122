@@ -1,21 +1,34 @@
 package net.mizucoffee.hatsuyuki_chinachu.selectserver;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 
 import net.mizucoffee.hatsuyuki_chinachu.R;
-import net.mizucoffee.hatsuyuki_chinachu.dashboard.DashboardPresenter;
-import net.mizucoffee.hatsuyuki_chinachu.dashboard.DashboardPresenterImpl;
+import net.mizucoffee.hatsuyuki_chinachu.model.ServerConnection;
 import net.mizucoffee.hatsuyuki_chinachu.selectserver.addserver.AddServerActivity;
+
+import java.util.ArrayList;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 public class SelectServerActivity extends AppCompatActivity implements SelectServerView{
 
     private SelectServerPresenter mPresenter;
+
+    @BindView(R.id.recycler)
+//    public SelectServerCardRecyclerView recyclerView;
+    public RecyclerView mRecyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +47,41 @@ public class SelectServerActivity extends AppCompatActivity implements SelectSer
             }
         });
 
-        mPresenter.getList();
+        ButterKnife.bind(this);
+
+        mRecyclerView = new RecyclerView(this);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        ArrayList<ServerConnection> connections = new ArrayList<>();
+        ServerConnection con = new ServerConnection();
+        con.setHost("host");
+        con.setName("server");
+        con.setPort("10472");
+        connections.add(con);
+
+
+        SelectServerCardRecyclerAdapter adapter = new SelectServerCardRecyclerAdapter(this, connections, new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.v("FUBUKI","Clicked");
+            }
+        });
+
+
+        mRecyclerView.setAdapter(adapter);
+
+//        mPresenter.getList();
+    }
+
+    @Override
+    public void setRecyclerView(ArrayList<ServerConnection> connections){
+        Log.i("FUBUKI", "setRecycler");
+        mRecyclerView.setAdapter(new SelectServerCardRecyclerAdapter(this, connections, new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.v("FUBUKI","Clicked");
+            }
+        }));
     }
 
     @Override
@@ -46,5 +93,10 @@ public class SelectServerActivity extends AppCompatActivity implements SelectSer
     protected void onDestroy() {
         super.onDestroy();
         mPresenter.onDestroy();
+    }
+
+    @Override
+    public SharedPreferences getActivitySharedPreferences(String name , int mode){
+        return getSharedPreferences(name,mode);
     }
 }

@@ -1,8 +1,11 @@
 package net.mizucoffee.hatsuyuki_chinachu.selectserver;
 
-import net.mizucoffee.hatsuyuki_chinachu.dashboard.DashboardInteractor;
-import net.mizucoffee.hatsuyuki_chinachu.dashboard.DashboardInteractorImpl;
-import net.mizucoffee.hatsuyuki_chinachu.dashboard.DashboardView;
+import android.content.Context;
+import android.content.SharedPreferences;
+
+import net.mizucoffee.hatsuyuki_chinachu.model.ServerConnection;
+
+import java.util.ArrayList;
 
 /**
  * Created by mizucoffee on 12/20/16.
@@ -25,10 +28,16 @@ public class SelectServerPresenterImpl implements SelectServerPresenter {
 
     @Override
     public void getList(){
-        mSelectServerInteractor.getList(new SelectServerInteractor.OnGetFinishedListener() {
+        final SharedPreferences data = mSelectServerView.getActivitySharedPreferences("HatsuyukiChinachu", Context.MODE_PRIVATE);
+        mSelectServerInteractor.load(data,new SelectServerInteractor.OnLoadFinishedListener() {
             @Override
-            public void onSuccess() {
-                //mSelectServerView // リストに追加処理。View
+            public void onSuccess(ArrayList<ServerConnection> sc) {
+                mSelectServerView.setRecyclerView(sc);
+            }
+
+            @Override
+            public void onNotFound() {
+
             }
         });
     }
