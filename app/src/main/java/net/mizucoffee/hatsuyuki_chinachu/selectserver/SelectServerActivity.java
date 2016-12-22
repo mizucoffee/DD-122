@@ -49,28 +49,8 @@ public class SelectServerActivity extends AppCompatActivity implements SelectSer
 
         ButterKnife.bind(this);
 
-        mRecyclerView = new RecyclerView(this);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-
-        ArrayList<ServerConnection> connections = new ArrayList<>();
-        ServerConnection con = new ServerConnection();
-        con.setHost("host");
-        con.setName("server");
-        con.setPort("10472");
-        connections.add(con);
-
-
-        SelectServerCardRecyclerAdapter adapter = new SelectServerCardRecyclerAdapter(this, connections, new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Log.v("FUBUKI","Clicked");
-            }
-        });
-
-
-        mRecyclerView.setAdapter(adapter);
-
-//        mPresenter.getList();
+        mPresenter.getList();
     }
 
     @Override

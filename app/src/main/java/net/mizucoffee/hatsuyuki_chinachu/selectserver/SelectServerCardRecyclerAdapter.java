@@ -21,19 +21,15 @@ import java.util.ArrayList;
 
 public class SelectServerCardRecyclerAdapter extends RecyclerView.Adapter<SelectServerCardRecyclerAdapter.ViewHolder>{
     private ArrayList<ServerConnection> connections;
-    private Context context;
+    private LayoutInflater mLayoutInflater;
     private View.OnClickListener mOnClick;
 
     public SelectServerCardRecyclerAdapter(Context context, ArrayList<ServerConnection> connections, View.OnClickListener onClickListener) {
         super();
-        System.out.println(context);
-        System.out.println(connections);
-        System.out.println(onClickListener);
 
         this.connections = connections;
-        this.context = context;
         this.mOnClick = onClickListener;
-
+        this.mLayoutInflater = LayoutInflater.from(context);
     }
 
     @Override
@@ -51,7 +47,7 @@ public class SelectServerCardRecyclerAdapter extends RecyclerView.Adapter<Select
 
     @Override
     public SelectServerCardRecyclerAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.select_server_card_layout, parent, false);
+        View view = mLayoutInflater.inflate(R.layout.select_server_card_layout, parent, false);
         return new ViewHolder(view);
     }
 
