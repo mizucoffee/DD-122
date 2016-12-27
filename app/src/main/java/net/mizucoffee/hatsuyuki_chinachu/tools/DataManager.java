@@ -19,9 +19,15 @@ public class DataManager {
     }
 
     public void addServerConnection(ServerConnection serverConnection){
-        ArrayList<ServerConnection> sc = string2Array(loadServerConnections());
-        sc.add(serverConnection);
-        saveServerConnections(sc);
+        if(loadServerConnections().equals("")){
+            ArrayList<ServerConnection> sc = new ArrayList<>();
+            sc.add(serverConnection);
+            saveServerConnections(sc);
+        } else {
+            ArrayList<ServerConnection> sc = string2Array(loadServerConnections());
+            sc.add(serverConnection);
+            saveServerConnections(sc);
+        }
     }
 
     public void editServerConnection(ServerConnection serverConnection,int index){
@@ -46,19 +52,19 @@ public class DataManager {
         saveServerConnections(sc);
     }
 
-    public ArrayList<ServerConnection> string2Array(String s){
+    public static ArrayList<ServerConnection> string2Array(String s){
         return new Gson().fromJson(s, new TypeToken<ArrayList<ServerConnection>>(){}.getType());
     }
 
-    public String array2String(ArrayList<ServerConnection> sc){
+    public static String array2String(ArrayList<ServerConnection> sc){
         return new Gson().toJson(sc);
     }
 
-    public ServerConnection string2ServerConnection(String s){
+    public static ServerConnection string2ServerConnection(String s){
         return new Gson().fromJson(s, new TypeToken<ArrayList<ServerConnection>>(){}.getType());
     }
 
-    public String serverConnection2String(ServerConnection sc){
+    public static String serverConnection2String(ServerConnection sc){
         return new Gson().toJson(sc);
     }
 

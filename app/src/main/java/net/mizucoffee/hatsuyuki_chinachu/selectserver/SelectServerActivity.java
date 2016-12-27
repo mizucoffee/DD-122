@@ -1,9 +1,11 @@
 package net.mizucoffee.hatsuyuki_chinachu.selectserver;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -84,5 +86,15 @@ public class SelectServerActivity extends AppCompatActivity implements SelectSer
     @Override
     public SharedPreferences getActivitySharedPreferences(String name , int mode){
         return getSharedPreferences(name,mode);
+    }
+
+    @Override
+    public void showAlertDialog(String title,String message,DialogInterface.OnClickListener onClickListener){
+        new AlertDialog.Builder(SelectServerActivity.this)
+                .setTitle(title)
+                .setMessage(message)
+                .setPositiveButton("OK",onClickListener)
+                .setNegativeButton("Cancel", null)
+                .show();
     }
 }

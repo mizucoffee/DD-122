@@ -1,6 +1,7 @@
 package net.mizucoffee.hatsuyuki_chinachu.selectserver;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.view.MenuItem;
 import android.view.View;
 
@@ -49,10 +50,15 @@ public class SelectServerPresenterImpl implements SelectServerPresenter {
     }
 
     @Override
-    public boolean onMenuItemClick(MenuItem item, int position) {
+    public boolean onMenuItemClick(MenuItem item,final int position) {
         if(item.getItemId() == R.id.menu_delete){
-            mSelectServerInteractor.delete(position);
-            getList();
+            mSelectServerView.showAlertDialog("Confirm", "Do you really want to delete this?", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    mSelectServerInteractor.delete(position);
+                    getList();
+                }
+            });
         }
         return false;
     }

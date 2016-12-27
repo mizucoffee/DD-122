@@ -1,16 +1,14 @@
 package net.mizucoffee.hatsuyuki_chinachu.selectserver.addserver;
 
 import android.content.SharedPreferences;
+import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 
 import net.mizucoffee.hatsuyuki_chinachu.R;
 import net.mizucoffee.hatsuyuki_chinachu.model.ServerConnection;
-import net.mizucoffee.hatsuyuki_chinachu.selectserver.SelectServerPresenter;
-import net.mizucoffee.hatsuyuki_chinachu.selectserver.SelectServerPresenterImpl;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -66,6 +64,7 @@ public class AddServerActivity extends AppCompatActivity implements AddServerVie
                 sc.setPassword(passWordEt.getText().toString());
 
                 mPresenter.save(sc);
+
 
             }
         });

@@ -2,10 +2,8 @@ package net.mizucoffee.hatsuyuki_chinachu.selectserver.addserver;
 
 import android.content.SharedPreferences;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-
 import net.mizucoffee.hatsuyuki_chinachu.model.ServerConnection;
+import net.mizucoffee.hatsuyuki_chinachu.tools.DataManager;
 
 import java.util.ArrayList;
 
@@ -15,20 +13,20 @@ import java.util.ArrayList;
 
 public class AddServerInteractorImpl implements AddServerInteractor {
 
-    @Override
-    public void save(ArrayList<ServerConnection> sc, SharedPreferences data){
+    DataManager mDataManager;
 
+    public AddServerInteractorImpl(SharedPreferences sharedPreferences){
+        mDataManager = new DataManager(sharedPreferences);
     }
 
     @Override
-    public void load(SharedPreferences data,OnLoadFinishedListener listenr){
-        String source = data.getString("ServerConnections","" );
-        if(source.equals("")){
-            listenr.onNotFound();
-            return;
-        }
-        Gson gson = new Gson();
-        ArrayList<ServerConnection> sc = gson.fromJson(source, new TypeToken<ArrayList<ServerConnection>>(){}.getType());
-        listenr.onSuccess(sc);
+    public void save(ServerConnection sc){
+        mDataManager.addServerConnection(sc);
+    }
+
+    @Override
+    public ArrayList<ServerConnection> load(){
+        if(mDataManager.loadServerConnections().equals("")) return null;
+        return DataManager.string2Array(mDataManager.loadServerConnections());
     }
 }
