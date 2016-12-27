@@ -1,14 +1,16 @@
 package net.mizucoffee.hatsuyuki_chinachu.selectserver;
 
 import android.content.Context;
+import android.support.v7.widget.CardView;
+import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import net.mizucoffee.hatsuyuki_chinachu.R;
 import net.mizucoffee.hatsuyuki_chinachu.model.ServerConnection;
@@ -23,13 +25,15 @@ public class SelectServerCardRecyclerAdapter extends RecyclerView.Adapter<Select
     private ArrayList<ServerConnection> connections;
     private LayoutInflater mLayoutInflater;
     private View.OnClickListener mOnClick;
+    private OnListMenuItemClickListener mOnListMenuClickListener;
 
-    public SelectServerCardRecyclerAdapter(Context context, ArrayList<ServerConnection> connections, View.OnClickListener onClickListener) {
+    public SelectServerCardRecyclerAdapter(Context context, ArrayList<ServerConnection> connections, View.OnClickListener onClickListener,OnListMenuItemClickListener onListMenuItemClickListener) {
         super();
 
         this.connections = connections;
         this.mOnClick = onClickListener;
         this.mLayoutInflater = LayoutInflater.from(context);
+        this.mOnListMenuClickListener = onListMenuItemClickListener;
     }
 
     @Override
@@ -43,6 +47,22 @@ public class SelectServerCardRecyclerAdapter extends RecyclerView.Adapter<Select
         vh.serverHost.setText(connections.get(vh.getAdapterPosition()).getHost());
 
         vh.card.setOnClickListener(mOnClick);
+        vh.imageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                PopupMenu popup = new PopupMenu(view.getContext(),view );
+                MenuInflater inflater = popup.getMenuInflater();
+                inflater.inflate(R.menu.select_popup_menu, popup.getMenu());
+                popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                        return mOnListMenuClickListener.onMenuItemClick(item,vh.getAdapterPosition());
+                    }
+                });
+                popup.show();
+            }
+        });
+
     }
 
     @Override
@@ -54,13 +74,15 @@ public class SelectServerCardRecyclerAdapter extends RecyclerView.Adapter<Select
     class ViewHolder extends RecyclerView.ViewHolder {
         TextView serverName;
         TextView serverHost;
-        Button card;
+        CardView card;
+        ImageButton imageButton;
 
         public ViewHolder(View v) {
             super(v);
             serverName = (TextView)v.findViewById(R.id.server_name);
             serverHost = (TextView)v.findViewById(R.id.server_host);
-            card = (Button)v.findViewById(R.id.card);
+            card = (CardView) v.findViewById(R.id.card_view);
+            imageButton = (ImageButton)v.findViewById(R.id.imageButton);
         }
     }
 }

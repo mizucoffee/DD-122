@@ -1,8 +1,10 @@
 package net.mizucoffee.hatsuyuki_chinachu.selectserver;
 
 import android.content.Context;
-import android.content.SharedPreferences;
+import android.view.MenuItem;
+import android.view.View;
 
+import net.mizucoffee.hatsuyuki_chinachu.R;
 import net.mizucoffee.hatsuyuki_chinachu.model.ServerConnection;
 
 import java.util.ArrayList;
@@ -13,12 +15,12 @@ import java.util.ArrayList;
 
 public class SelectServerPresenterImpl implements SelectServerPresenter {
 
-    SelectServerView mSelectServerView;
-    SelectServerInteractor mSelectServerInteractor;
+    private SelectServerView mSelectServerView;
+    private SelectServerInteractor mSelectServerInteractor;
 
     public SelectServerPresenterImpl(SelectServerView selectServerView) {
         this.mSelectServerView = selectServerView;
-        this.mSelectServerInteractor = new SelectServerInteractorImpl();
+        this.mSelectServerInteractor = new SelectServerInteractorImpl(mSelectServerView.getActivitySharedPreferences("HatsuyukiChinachu", Context.MODE_PRIVATE));
     }
 
     @Override
@@ -28,8 +30,7 @@ public class SelectServerPresenterImpl implements SelectServerPresenter {
 
     @Override
     public void getList(){
-        final SharedPreferences data = mSelectServerView.getActivitySharedPreferences("HatsuyukiChinachu", Context.MODE_PRIVATE);
-        mSelectServerInteractor.load(data,new SelectServerInteractor.OnLoadFinishedListener() {
+        mSelectServerInteractor.load(new SelectServerInteractor.OnLoadFinishedListener() {
             @Override
             public void onSuccess(ArrayList<ServerConnection> sc) {
                 mSelectServerView.setRecyclerView(sc);
@@ -46,4 +47,20 @@ public class SelectServerPresenterImpl implements SelectServerPresenter {
     public void intentAdd(){
         mSelectServerView.intentAdd();
     }
+
+    @Override
+    public boolean onMenuItemClick(MenuItem item, int position) {
+        if(item.getItemId() == R.id.menu_delete){
+            mSelectServerInteractor.delete(position);
+            getList();
+        }
+        return false;
+    }
+
+    @Override
+    public void onClick(View view) {
+
+    }
+
+
 }

@@ -1,14 +1,8 @@
 package net.mizucoffee.hatsuyuki_chinachu.selectserver;
 
 import android.content.SharedPreferences;
-import android.util.Log;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-
-import net.mizucoffee.hatsuyuki_chinachu.model.ServerConnection;
-
-import java.util.ArrayList;
+import net.mizucoffee.hatsuyuki_chinachu.tools.DataManager;
 
 /**
  * Created by mizucoffee on 12/20/16.
@@ -16,17 +10,24 @@ import java.util.ArrayList;
 
 public class SelectServerInteractorImpl implements SelectServerInteractor {
 
+    DataManager mDataManager;
+
+    public SelectServerInteractorImpl(SharedPreferences sharedPreferences){
+        mDataManager = new DataManager(sharedPreferences);
+    }
+
     @Override
-    public void load(SharedPreferences data,OnLoadFinishedListener listener){
-        String con = data.getString("ServerConnections","" );
-        if(con.equals("")){
-            Log.i("FUBUKI", "load: notfound");
+    public void load(OnLoadFinishedListener listener){
+        String source = mDataManager.loadServerConnections();
+        if(source.equals("")){
             listener.onNotFound();
             return;
         }
-        Gson gson = new Gson();
-        ArrayList sc = gson.fromJson(con, new TypeToken<ArrayList<ServerConnection>>(){}.getType());
-        Log.i("FUBUKI", "load: success");
-        listener.onSuccess(sc);
+        listener.onSuccess(mDataManager.string2Array(source));
+    }
+
+    @Override
+    public void delete(int position){
+        mDataManager.deleteServerConnection(position);
     }
 }

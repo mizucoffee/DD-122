@@ -1,6 +1,5 @@
 package net.mizucoffee.hatsuyuki_chinachu.selectserver;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -9,7 +8,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
 
@@ -29,6 +27,7 @@ public class SelectServerActivity extends AppCompatActivity implements SelectSer
     @BindView(R.id.recycler)
 //    public SelectServerCardRecyclerView recyclerView;
     public RecyclerView mRecyclerView;
+    private SelectServerCardRecyclerAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,17 +55,24 @@ public class SelectServerActivity extends AppCompatActivity implements SelectSer
     @Override
     public void setRecyclerView(ArrayList<ServerConnection> connections){
         Log.i("FUBUKI", "setRecycler");
-        mRecyclerView.setAdapter(new SelectServerCardRecyclerAdapter(this, connections, new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Log.v("FUBUKI","Clicked");
-            }
-        }));
+        adapter = new SelectServerCardRecyclerAdapter(this, connections,mPresenter, mPresenter);
+        mRecyclerView.setAdapter(adapter);
     }
+
 
     @Override
     public void intentAdd() {
-        startActivity(new Intent(this, AddServerActivity.class));
+        startActivityForResult(new Intent(this, AddServerActivity.class),0);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode){
+            case 0:
+                mPresenter.getList();
+        }
+
     }
 
     @Override
