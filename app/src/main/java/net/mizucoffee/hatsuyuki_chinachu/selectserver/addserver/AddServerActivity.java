@@ -7,6 +7,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
 
+import com.google.gson.Gson;
+
 import net.mizucoffee.hatsuyuki_chinachu.R;
 import net.mizucoffee.hatsuyuki_chinachu.model.ServerConnection;
 
@@ -30,6 +32,9 @@ public class AddServerActivity extends AppCompatActivity implements AddServerVie
     public EditText userNameEt;
     @BindView(R.id.passWordEt)
     public EditText passWordEt;
+    int position;
+
+    private boolean isEdit = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,11 +45,24 @@ public class AddServerActivity extends AppCompatActivity implements AddServerVie
 
         ButterKnife.bind(this);
 
+
+        if (getIntent().getStringExtra("data") != null) {
+            ServerConnection sc = new Gson().fromJson(getIntent().getStringExtra("data"),ServerConnection.class);
+            nameEt.setText(sc.getName());
+            hostEt.setText(sc.getHost());
+            portEt.setText(sc.getPort());
+            userNameEt.setText(sc.getUsername());
+            passWordEt.setText(sc.getPassword());
+            position = getIntent().getIntExtra("position",0);
+            isEdit = true;
+        }
+
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
                 if(hostEt.getText().toString().equals("")) {hostEt.setError("入力してください"); return;}
+                if(Integer.parseInt(portEt.getText().toString()) < 1 || Integer.parseInt(portEt.getText().toString()) > 65535) {portEt.setError("ポート番号は1-65535で指定される必要があります"); return;}
 
                 ServerConnection sc = new ServerConnection();
 
@@ -63,9 +81,10 @@ public class AddServerActivity extends AppCompatActivity implements AddServerVie
                 sc.setUsername(userNameEt.getText().toString());
                 sc.setPassword(passWordEt.getText().toString());
 
-                mPresenter.save(sc);
-
-
+                if(isEdit)
+                    mPresenter.edited(sc,position);
+                else
+                    mPresenter.save(sc);
             }
         });
     }

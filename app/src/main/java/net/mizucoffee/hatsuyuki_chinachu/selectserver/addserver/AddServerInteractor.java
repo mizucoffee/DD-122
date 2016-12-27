@@ -11,4 +11,5 @@ import java.util.ArrayList;
 public interface AddServerInteractor {
     ArrayList<ServerConnection> load();
     void save(ServerConnection sc);
+    void edited(ServerConnection sc,int position);
 }

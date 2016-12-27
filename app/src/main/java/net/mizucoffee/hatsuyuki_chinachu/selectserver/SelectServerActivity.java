@@ -13,6 +13,8 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 
+import com.google.gson.Gson;
+
 import net.mizucoffee.hatsuyuki_chinachu.R;
 import net.mizucoffee.hatsuyuki_chinachu.model.ServerConnection;
 import net.mizucoffee.hatsuyuki_chinachu.selectserver.addserver.AddServerActivity;
@@ -65,6 +67,14 @@ public class SelectServerActivity extends AppCompatActivity implements SelectSer
     @Override
     public void intentAdd() {
         startActivityForResult(new Intent(this, AddServerActivity.class),0);
+    }
+
+    @Override
+    public void intentEdit(ServerConnection sc,int position) {
+        Intent i = new Intent(this, AddServerActivity.class);
+        i.putExtra("data",new Gson().toJson(sc));
+        i.putExtra("position",position);
+        startActivityForResult(i,0);
     }
 
     @Override

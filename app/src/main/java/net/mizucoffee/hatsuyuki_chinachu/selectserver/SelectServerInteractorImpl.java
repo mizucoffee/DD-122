@@ -2,6 +2,7 @@ package net.mizucoffee.hatsuyuki_chinachu.selectserver;
 
 import android.content.SharedPreferences;
 
+import net.mizucoffee.hatsuyuki_chinachu.model.ServerConnection;
 import net.mizucoffee.hatsuyuki_chinachu.tools.DataManager;
 
 /**
@@ -29,5 +30,10 @@ public class SelectServerInteractorImpl implements SelectServerInteractor {
     @Override
     public void delete(int position){
         mDataManager.deleteServerConnection(position);
+    }
+
+    @Override
+    public ServerConnection edit(int position){
+        return mDataManager.getServerConnections(position);
     }
 }

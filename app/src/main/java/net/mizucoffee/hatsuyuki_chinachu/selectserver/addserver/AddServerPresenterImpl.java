@@ -28,4 +28,10 @@ public class AddServerPresenterImpl implements AddServerPresenter {
         mAddServerInteractor.save(sc);
         mAddServerView.finishActivity();
     }
+
+    @Override
+    public void edited(ServerConnection sc,int position) {
+        mAddServerInteractor.edited(sc,position);
+        mAddServerView.finishActivity();
+    }
 }

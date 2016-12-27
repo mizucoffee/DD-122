@@ -46,6 +46,11 @@ public class DataManager {
         return mSharedPreferences.getString("ServerConnections","" );
     }
 
+    public ServerConnection getServerConnections(int position){
+        String s = mSharedPreferences.getString("ServerConnections","" );
+        return string2Array(s).get(position);
+    }
+
     public void deleteServerConnection(int index){
         ArrayList<ServerConnection> sc = string2Array(loadServerConnections());
         sc.remove(index);

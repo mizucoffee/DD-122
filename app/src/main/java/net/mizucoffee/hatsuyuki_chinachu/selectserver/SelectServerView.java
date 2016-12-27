@@ -13,6 +13,7 @@ import java.util.ArrayList;
 
 public interface SelectServerView {
     void intentAdd();
+    void intentEdit(ServerConnection sc,int position);
     SharedPreferences getActivitySharedPreferences(String name , int mode);
     void setRecyclerView(ArrayList<ServerConnection> connections);
     void showAlertDialog(String title,String description,DialogInterface.OnClickListener onClickListener);

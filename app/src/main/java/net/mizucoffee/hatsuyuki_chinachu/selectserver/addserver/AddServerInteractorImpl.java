@@ -25,6 +25,11 @@ public class AddServerInteractorImpl implements AddServerInteractor {
     }
 
     @Override
+    public void edited(ServerConnection sc,int position){
+        mDataManager.editServerConnection(sc,position);
+    }
+
+    @Override
     public ArrayList<ServerConnection> load(){
         if(mDataManager.loadServerConnections().equals("")) return null;
         return DataManager.string2Array(mDataManager.loadServerConnections());

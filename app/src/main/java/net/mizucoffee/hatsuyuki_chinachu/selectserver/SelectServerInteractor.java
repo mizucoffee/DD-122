@@ -15,4 +15,5 @@ public interface SelectServerInteractor {
     }
     void load(OnLoadFinishedListener listener);
     void delete(int position);
+    ServerConnection edit(int position);
 }

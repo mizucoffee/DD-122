@@ -9,4 +9,5 @@ import net.mizucoffee.hatsuyuki_chinachu.model.ServerConnection;
 public interface AddServerPresenter {
     void onDestroy();
     void save(ServerConnection sc);
+    void edited(ServerConnection sc,int position);
 }

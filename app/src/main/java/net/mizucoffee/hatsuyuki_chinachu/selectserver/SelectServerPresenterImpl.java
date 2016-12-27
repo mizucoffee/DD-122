@@ -59,6 +59,9 @@ public class SelectServerPresenterImpl implements SelectServerPresenter {
                     getList();
                 }
             });
+        }else if(item.getItemId() == R.id.menu_edit){
+            ServerConnection sc = mSelectServerInteractor.edit(position);
+            mSelectServerView.intentEdit(sc,position);
         }
         return false;
     }
