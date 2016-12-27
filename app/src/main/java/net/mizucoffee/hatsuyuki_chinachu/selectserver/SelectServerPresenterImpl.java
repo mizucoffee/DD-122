@@ -1,7 +1,6 @@
 package net.mizucoffee.hatsuyuki_chinachu.selectserver;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.view.MenuItem;
 import android.view.View;
 
@@ -10,17 +9,13 @@ import net.mizucoffee.hatsuyuki_chinachu.model.ServerConnection;
 
 import java.util.ArrayList;
 
-/**
- * Created by mizucoffee on 12/20/16.
- */
+class SelectServerPresenterImpl implements SelectServerPresenter {
 
-public class SelectServerPresenterImpl implements SelectServerPresenter {
-
-    private SelectServerView mSelectServerView;
+    private SelectServerView       mSelectServerView;
     private SelectServerInteractor mSelectServerInteractor;
 
-    public SelectServerPresenterImpl(SelectServerView selectServerView) {
-        this.mSelectServerView = selectServerView;
+    SelectServerPresenterImpl(SelectServerView selectServerView) {
+        this.mSelectServerView       = selectServerView;
         this.mSelectServerInteractor = new SelectServerInteractorImpl(mSelectServerView.getActivitySharedPreferences("HatsuyukiChinachu", Context.MODE_PRIVATE));
     }
 
@@ -51,17 +46,18 @@ public class SelectServerPresenterImpl implements SelectServerPresenter {
 
     @Override
     public boolean onMenuItemClick(MenuItem item,final int position) {
-        if(item.getItemId() == R.id.menu_delete){
-            mSelectServerView.showAlertDialog("Confirm", "Do you really want to delete this?", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialogInterface, int i) {
+        switch (item.getItemId()){
+            case R.id.menu_delete:
+                mSelectServerView.showAlertDialog("Confirm", "Do you really want to delete this?", (dialogInterface, i) -> {
                     mSelectServerInteractor.delete(position);
                     getList();
-                }
-            });
-        }else if(item.getItemId() == R.id.menu_edit){
-            ServerConnection sc = mSelectServerInteractor.edit(position);
-            mSelectServerView.intentEdit(sc,position);
+                });
+                break;
+
+            case R.id.menu_edit:
+                ServerConnection sc = mSelectServerInteractor.edit(position);
+                mSelectServerView.intentEdit(sc,position);
+                break;
         }
         return false;
     }

@@ -7,11 +7,7 @@ import net.mizucoffee.hatsuyuki_chinachu.model.ServerConnection;
 
 import java.util.ArrayList;
 
-/**
- * Created by mizucoffee on 12/19/16.
- */
-
-public interface SelectServerView {
+interface SelectServerView {
     void intentAdd();
     void intentEdit(ServerConnection sc,int position);
     SharedPreferences getActivitySharedPreferences(String name , int mode);

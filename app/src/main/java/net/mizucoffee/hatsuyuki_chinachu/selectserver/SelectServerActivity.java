@@ -11,7 +11,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.View;
 
 import com.google.gson.Gson;
 
@@ -27,11 +26,10 @@ import butterknife.ButterKnife;
 public class SelectServerActivity extends AppCompatActivity implements SelectServerView{
 
     private SelectServerPresenter mPresenter;
+    private SelectServerCardRecyclerAdapter mAdapter;
 
     @BindView(R.id.recycler)
-//    public SelectServerCardRecyclerView recyclerView;
     public RecyclerView mRecyclerView;
-    private SelectServerCardRecyclerAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,12 +41,7 @@ public class SelectServerActivity extends AppCompatActivity implements SelectSer
         mPresenter = new SelectServerPresenterImpl(this);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mPresenter.intentAdd();
-            }
-        });
+        fab.setOnClickListener(v -> mPresenter.intentAdd());
 
         ButterKnife.bind(this);
 
@@ -59,8 +52,8 @@ public class SelectServerActivity extends AppCompatActivity implements SelectSer
     @Override
     public void setRecyclerView(ArrayList<ServerConnection> connections){
         Log.i("FUBUKI", "setRecycler");
-        adapter = new SelectServerCardRecyclerAdapter(this, connections,mPresenter, mPresenter);
-        mRecyclerView.setAdapter(adapter);
+        mAdapter = new SelectServerCardRecyclerAdapter(this, connections,mPresenter, mPresenter);
+        mRecyclerView.setAdapter(mAdapter);
     }
 
 

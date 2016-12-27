@@ -5,16 +5,12 @@ import android.content.SharedPreferences;
 import net.mizucoffee.hatsuyuki_chinachu.model.ServerConnection;
 import net.mizucoffee.hatsuyuki_chinachu.tools.DataManager;
 
-/**
- * Created by mizucoffee on 12/20/16.
- */
+class SelectServerInteractorImpl implements SelectServerInteractor {
 
-public class SelectServerInteractorImpl implements SelectServerInteractor {
+    private DataManager mDataManager;
 
-    DataManager mDataManager;
-
-    public SelectServerInteractorImpl(SharedPreferences sharedPreferences){
-        mDataManager = new DataManager(sharedPreferences);
+    SelectServerInteractorImpl(SharedPreferences sp){
+        mDataManager = new DataManager(sp);
     }
 
     @Override
@@ -24,7 +20,7 @@ public class SelectServerInteractorImpl implements SelectServerInteractor {
             listener.onNotFound();
             return;
         }
-        listener.onSuccess(mDataManager.string2Array(source));
+        listener.onSuccess(DataManager.string2Array(source));
     }
 
     @Override
