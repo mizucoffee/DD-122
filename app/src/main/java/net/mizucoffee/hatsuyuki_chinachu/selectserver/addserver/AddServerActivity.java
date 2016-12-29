@@ -4,7 +4,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
 import android.widget.EditText;
 
 import com.google.gson.Gson;
@@ -22,16 +21,16 @@ public class AddServerActivity extends AppCompatActivity implements AddServerVie
     @BindView(R.id.fab)
     public FloatingActionButton fab;
 
-    @BindView(R.id.nameEt)
+    @BindView(R.id.name_et)
     public EditText nameEt;
-    @BindView(R.id.hostEt)
+    @BindView(R.id.host_et)
     public EditText hostEt;
-    @BindView(R.id.portEt)
+    @BindView(R.id.port_et)
     public EditText portEt;
-    @BindView(R.id.userNameEt)
-    public EditText userNameEt;
-    @BindView(R.id.passWordEt)
-    public EditText passWordEt;
+    @BindView(R.id.username_et)
+    public EditText usernameEt;
+    @BindView(R.id.password_et)
+    public EditText passwordEt;
     int position;
 
     private boolean isEdit = false;
@@ -51,15 +50,13 @@ public class AddServerActivity extends AppCompatActivity implements AddServerVie
             nameEt.setText(sc.getName());
             hostEt.setText(sc.getHost());
             portEt.setText(sc.getPort());
-            userNameEt.setText(sc.getUsername());
-            passWordEt.setText(sc.getPassword());
+            usernameEt.setText(sc.getUsername());
+            passwordEt.setText(sc.getPassword());
             position = getIntent().getIntExtra("position",0);
             isEdit = true;
         }
 
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        fab.setOnClickListener(view -> {
 
                 if(hostEt.getText().toString().equals("")) {hostEt.setError("入力してください"); return;}
                 if(Integer.parseInt(portEt.getText().toString()) < 1 || Integer.parseInt(portEt.getText().toString()) > 65535) {portEt.setError("ポート番号は1-65535で指定される必要があります"); return;}
@@ -78,14 +75,13 @@ public class AddServerActivity extends AppCompatActivity implements AddServerVie
                 else
                     sc.setPort(portEt.getText().toString());
 
-                sc.setUsername(userNameEt.getText().toString());
-                sc.setPassword(passWordEt.getText().toString());
+                sc.setUsername(usernameEt.getText().toString());
+                sc.setPassword(passwordEt.getText().toString());
 
                 if(isEdit)
-                    mPresenter.edited(sc,position);
+                    mPresenter.editedServerconnection(sc,position);
                 else
-                    mPresenter.save(sc);
-            }
+                    mPresenter.addServerConnection(sc);
         });
     }
 

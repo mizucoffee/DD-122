@@ -56,7 +56,7 @@ class SelectServerCardRecyclerAdapter extends RecyclerView.Adapter<SelectServerC
 
     @Override
     public SelectServerCardRecyclerAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = mLayoutInflater.inflate(R.layout.select_server_card_layout, parent, false);
+        View view = mLayoutInflater.inflate(R.layout.card_select_server_layout, parent, false);
         return new ViewHolder(view);
     }
 
@@ -71,7 +71,7 @@ class SelectServerCardRecyclerAdapter extends RecyclerView.Adapter<SelectServerC
             serverName  = (TextView)    v.findViewById (R.id.server_name);
             serverHost  = (TextView)    v.findViewById (R.id.server_host);
             card        = (CardView)    v.findViewById (R.id.card_view);
-            imageButton = (ImageButton) v.findViewById (R.id.imageButton);
+            imageButton = (ImageButton) v.findViewById (R.id.image_button);
         }
     }
 }

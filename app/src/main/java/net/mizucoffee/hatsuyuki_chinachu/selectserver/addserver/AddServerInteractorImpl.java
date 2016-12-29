@@ -7,30 +7,26 @@ import net.mizucoffee.hatsuyuki_chinachu.tools.DataManager;
 
 import java.util.ArrayList;
 
-/**
- * Created by mizucoffee on 12/20/16.
- */
-
-public class AddServerInteractorImpl implements AddServerInteractor {
+class AddServerInteractorImpl implements AddServerInteractor {
 
     DataManager mDataManager;
 
-    public AddServerInteractorImpl(SharedPreferences sharedPreferences){
+    AddServerInteractorImpl(SharedPreferences sharedPreferences){
         mDataManager = new DataManager(sharedPreferences);
     }
 
     @Override
-    public void save(ServerConnection sc){
+    public void addServerConnection(ServerConnection sc){
         mDataManager.addServerConnection(sc);
     }
 
     @Override
-    public void edited(ServerConnection sc,int position){
+    public void editedServerConnection(ServerConnection sc, int position){
         mDataManager.editServerConnection(sc,position);
     }
 
     @Override
-    public ArrayList<ServerConnection> load(){
+    public ArrayList<ServerConnection> loadServerConnections(){
         if(mDataManager.loadServerConnections().equals("")) return null;
         return DataManager.string2Array(mDataManager.loadServerConnections());
     }

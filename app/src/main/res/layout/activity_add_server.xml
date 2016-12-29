@@ -27,7 +27,7 @@
                 android:layout_height="wrap_content"
                 android:inputType="text"
                 android:hint="@string/server_name"
-                android:id="@+id/nameEt" />
+                android:id="@+id/name_et" />
 
         </android.support.design.widget.TextInputLayout>
 
@@ -48,7 +48,7 @@
                     android:hint="@string/host_address"
                     android:inputType="text"
                     android:ems="5"
-                    android:id="@+id/hostEt"
+                    android:id="@+id/host_et"
                     />
 
             </android.support.design.widget.TextInputLayout>
@@ -65,7 +65,7 @@
                     android:text="@string/default_port"
                     android:hint="@string/port"
                     android:ems="5"
-                    android:id="@+id/portEt" />
+                    android:id="@+id/port_et" />
 
             </android.support.design.widget.TextInputLayout>
         </LinearLayout>
@@ -80,7 +80,7 @@
                 android:layout_height="wrap_content"
                 android:inputType="text"
                 android:hint="@string/username"
-                android:id="@+id/userNameEt" />
+                android:id="@+id/username_et" />
 
         </android.support.design.widget.TextInputLayout>
 
@@ -94,7 +94,7 @@
                 android:layout_height="wrap_content"
                 android:inputType="textPassword"
                 android:hint="@string/password"
-                android:id="@+id/passWordEt" />
+                android:id="@+id/password_et" />
 
         </android.support.design.widget.TextInputLayout>
 

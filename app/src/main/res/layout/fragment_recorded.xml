@@ -7,6 +7,6 @@
     <include
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        layout="@layout/recorded_card_layout"/>
+        layout="@layout/card_recorded_layout"/>
 
 </FrameLayout>

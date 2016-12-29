@@ -37,13 +37,12 @@ public class SelectServerActivity extends AppCompatActivity implements SelectSer
         setContentView(R.layout.activity_select_server);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        ButterKnife.bind(this);
 
         mPresenter = new SelectServerPresenterImpl(this);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(v -> mPresenter.intentAdd());
-
-        ButterKnife.bind(this);
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mPresenter.getList();
@@ -73,11 +72,7 @@ public class SelectServerActivity extends AppCompatActivity implements SelectSer
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        switch (requestCode){
-            case 0:
-                mPresenter.getList();
-        }
-
+        if(requestCode == 0){mPresenter.getList();}
     }
 
     @Override

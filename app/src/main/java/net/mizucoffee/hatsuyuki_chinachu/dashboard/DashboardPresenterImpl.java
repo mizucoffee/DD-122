@@ -20,7 +20,7 @@ public class DashboardPresenterImpl implements DashboardPresenter {
     }
 
     @Override
-    public void openSelectServer() {
+    public void intentSelectServer() {
         mDashboardView.intentSelectServer();
     }
 }

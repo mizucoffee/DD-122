@@ -11,8 +11,8 @@ interface SelectServerInteractor {
         void onNotFound();
     }
 
-    void load(OnLoadFinishedListener listener);
-    void delete(int position);
-    ServerConnection edit(int position);
+    void loadServerConnections(OnLoadFinishedListener listener);
+    void deleteServerConnection(int position);
+    ServerConnection editServerConnection(int position);
 
 }

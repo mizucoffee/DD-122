@@ -26,7 +26,7 @@ class SelectServerPresenterImpl implements SelectServerPresenter {
 
     @Override
     public void getList(){
-        mSelectServerInteractor.load(new SelectServerInteractor.OnLoadFinishedListener() {
+        mSelectServerInteractor.loadServerConnections(new SelectServerInteractor.OnLoadFinishedListener() {
             @Override
             public void onSuccess(ArrayList<ServerConnection> sc) {
                 mSelectServerView.setRecyclerView(sc);
@@ -48,14 +48,14 @@ class SelectServerPresenterImpl implements SelectServerPresenter {
     public boolean onMenuItemClick(MenuItem item,final int position) {
         switch (item.getItemId()){
             case R.id.menu_delete:
-                mSelectServerView.showAlertDialog("Confirm", "Do you really want to delete this?", (dialogInterface, i) -> {
-                    mSelectServerInteractor.delete(position);
+                mSelectServerView.showAlertDialog("Confirm", "Do you really want to deleteServerConnection this?", (dialogInterface, i) -> {
+                    mSelectServerInteractor.deleteServerConnection(position);
                     getList();
                 });
                 break;
 
             case R.id.menu_edit:
-                ServerConnection sc = mSelectServerInteractor.edit(position);
+                ServerConnection sc = mSelectServerInteractor.editServerConnection(position);
                 mSelectServerView.intentEdit(sc,position);
                 break;
         }

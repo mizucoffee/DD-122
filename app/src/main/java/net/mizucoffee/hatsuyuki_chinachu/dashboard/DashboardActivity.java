@@ -52,7 +52,7 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
 
         View headerLayout = mNavigationView.getHeaderView(0);
         Button headerBtn = (Button)headerLayout.findViewById(R.id.nav_button);
-        headerBtn.setOnClickListener(v -> mPresenter.openSelectServer());
+        headerBtn.setOnClickListener(v -> mPresenter.intentSelectServer());
 
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.add(R.id.container, mRecordedFragment);

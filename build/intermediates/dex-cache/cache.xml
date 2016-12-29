@@ -3,6 +3,15 @@
 
     <item
         is-multidex="true"
+        jar="/Users/mizucoffee/tatsu/app/build/intermediates/exploded-aar/com.android.support/support-media-compat/25.0.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="6a1479afe9f1b3645e1cd9a87318976893472818">
+        <dex dex="/Users/mizucoffee/tatsu/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-media-compat-25.0.1_4cca64dec4ee1e903a3ff90ddf666eedac7fe9f1/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
         jar="/Users/mizucoffee/AndroidStudioProjects/Hatsuyuki_Chinachu/app/build/intermediates/exploded-aar/com.android.support/support-core-ui/25.0.1/jars/libs/internal_impl-25.0.1.jar"
         jumboMode="true"
         optimize="true"
@@ -12,12 +21,30 @@
     </item>
     <item
         is-multidex="true"
+        jar="/Users/mizucoffee/tatsu/app/build/intermediates/exploded-aar/com.android.support/support-core-utils/25.0.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="00d4c8eebf2b681073c72a26bd0849549e51c7cb">
+        <dex dex="/Users/mizucoffee/tatsu/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-core-utils-25.0.1_56c42f073fdece16236b9aa742b054a1fa57cb79/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
         jar="/Users/mizucoffee/AndroidStudioProjects/Hatsuyuki_Chinachu/app/build/intermediates/exploded-aar/com.android.support/support-core-utils/25.0.1/jars/classes.jar"
         jumboMode="true"
         optimize="true"
         revision="25.0.0"
         sha1="00d4c8eebf2b681073c72a26bd0849549e51c7cb">
         <dex dex="/Users/mizucoffee/AndroidStudioProjects/Hatsuyuki_Chinachu/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-core-utils-25.0.1_b0d9c41723cb930032afc17e06faafef9773319c/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/mizucoffee/tatsu/app/build/intermediates/exploded-aar/com.android.support/design/25.0.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="3b236883e0df6002cabb01ce57d00a5b1e5de610">
+        <dex dex="/Users/mizucoffee/tatsu/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-design-25.0.1_cc9d088665de0ceb10b665d023ca4377e998cc12/classes.dex" />
     </item>
     <item
         is-multidex="true"
@@ -39,6 +66,15 @@
     </item>
     <item
         is-multidex="true"
+        jar="/Users/mizucoffee/tatsu/app/build/intermediates/exploded-aar/com.android.support/transition/25.0.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="c1b6ab157e8e12cb08b9ee82bb5e3c5d22632eb3">
+        <dex dex="/Users/mizucoffee/tatsu/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-transition-25.0.1_7f15131ff129bb65f635033ec4c43c317e397e7a/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
         jar="/Users/mizucoffee/AndroidStudioProjects/Hatsuyuki_Chinachu/app/build/intermediates/exploded-aar/com.android.support/support-fragment/25.0.1/jars/classes.jar"
         jumboMode="true"
         optimize="true"
@@ -54,6 +90,15 @@
         revision="25.0.0"
         sha1="f17f7d4d75b137ef80de102b28f96125ad2fbece">
         <dex dex="/Users/mizucoffee/AndroidStudioProjects/Hatsuyuki_Chinachu/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run-bootstrap_88e4a5b3b3d700878fac52ba2b912293df45c156/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/mizucoffee/tatsu/app/build/intermediates/exploded-aar/com.android.support/support-core-ui/25.0.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="bc7e99e8d0fc279a05aa91378530f467ad62d443">
+        <dex dex="/Users/mizucoffee/tatsu/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-core-ui-25.0.1_23a18b8e7df74593f8a97c78db10a8870537b72e/classes.dex" />
     </item>
     <item
         is-multidex="true"
@@ -84,12 +129,39 @@
     </item>
     <item
         is-multidex="true"
+        jar="/Users/mizucoffee/tatsu/app/build/intermediates/exploded-aar/com.android.support/support-v4/25.0.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="d7c42c80f6509b9ea4db28ca7859ffae08ec5741">
+        <dex dex="/Users/mizucoffee/tatsu/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-v4-25.0.1_1fbdc8ec0199bacc8c215cc38814ad32e69cb45c/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/mizucoffee/tatsu/app/build/intermediates/exploded-aar/com.android.support/support-compat/25.0.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="51eba4a4dd73044f90a9d58dd7ca34adbebfcf4e">
+        <dex dex="/Users/mizucoffee/tatsu/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-compat-25.0.1_419711181b2833cf27ca50732a4ffec9689e47dc/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
         jar="/Users/mizucoffee/AndroidStudioProjects/Hatsuyuki_Chinachu/app/build/intermediates/exploded-aar/com.android.support/transition/25.0.1/jars/classes.jar"
         jumboMode="true"
         optimize="true"
         revision="25.0.0"
         sha1="c1b6ab157e8e12cb08b9ee82bb5e3c5d22632eb3">
         <dex dex="/Users/mizucoffee/AndroidStudioProjects/Hatsuyuki_Chinachu/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-transition-25.0.1_31555e92d30fa5b1c20193e08f5a7db9e8ca181c/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/mizucoffee/tatsu/app/build/intermediates/exploded-aar/com.android.support/support-core-utils/25.0.1/jars/libs/internal_impl-25.0.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="c5b7145fb34779b6639147b8f2f8dd77c0db771b">
+        <dex dex="/Users/mizucoffee/tatsu/app/build/intermediates/transforms/dex/debug/folders/1000/10/internal_impl-25.0.1_5235fa9c2c2c3901c56205ca2100eeee43415fe6/classes.dex" />
     </item>
     <item
         is-multidex="true"
@@ -102,12 +174,30 @@
     </item>
     <item
         is-multidex="true"
+        jar="/Users/mizucoffee/tatsu/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.0.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="f7ac4b327fdb9e2ee386f5adc46164927658de4b">
+        <dex dex="/Users/mizucoffee/tatsu/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-appcompat-v7-25.0.1_12537643ffcdccb247ed6db8912183f9ced405d3/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
         jar="/Users/mizucoffee/AndroidStudioProjects/Hatsuyuki_Chinachu/app/build/intermediates/exploded-aar/com.android.support/support-media-compat/25.0.1/jars/classes.jar"
         jumboMode="true"
         optimize="true"
         revision="25.0.0"
         sha1="6a1479afe9f1b3645e1cd9a87318976893472818">
         <dex dex="/Users/mizucoffee/AndroidStudioProjects/Hatsuyuki_Chinachu/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-media-compat-25.0.1_31d0304409052b8ac59272ac7d3f25e37c42a97b/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/mizucoffee/tatsu/app/build/intermediates/exploded-aar/com.android.support/support-fragment/25.0.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="26c6eef571592c91f29e56fda0bac73321de0c92">
+        <dex dex="/Users/mizucoffee/tatsu/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-fragment-25.0.1_7a2783707fb65f10db7f5a72c57ad32638c1beef/classes.dex" />
     </item>
     <item
         is-multidex="true"
@@ -120,6 +210,15 @@
     </item>
     <item
         is-multidex="true"
+        jar="/Users/mizucoffee/tatsu/app/build/intermediates/exploded-aar/com.android.support/cardview-v7/25.0.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="1108575c7dc7b7f5b378b3290ac90de81a9b8830">
+        <dex dex="/Users/mizucoffee/tatsu/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-cardview-v7-25.0.1_23c5d4d495d1d621c223edb8f24402e55491618a/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
         jar="/Users/mizucoffee/AndroidStudioProjects/Hatsuyuki_Chinachu/app/build/intermediates/exploded-aar/com.android.support/support-compat/25.0.1/jars/classes.jar"
         jumboMode="true"
         optimize="true"
@@ -129,12 +228,39 @@
     </item>
     <item
         is-multidex="true"
+        jar="/Users/mizucoffee/tatsu/app/build/intermediates/exploded-aar/com.android.support/animated-vector-drawable/25.0.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="772bed2d992b67b9d0327f766cc95cd63031dcd3">
+        <dex dex="/Users/mizucoffee/tatsu/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-animated-vector-drawable-25.0.1_fd2e4ea34e5900697191160069c7dd56cfeae192/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
         jar="/Users/mizucoffee/AndroidStudioProjects/Hatsuyuki_Chinachu/app/build/intermediates/exploded-aar/com.android.support/support-core-ui/25.0.1/jars/classes.jar"
         jumboMode="true"
         optimize="true"
         revision="25.0.0"
         sha1="bc7e99e8d0fc279a05aa91378530f467ad62d443">
         <dex dex="/Users/mizucoffee/AndroidStudioProjects/Hatsuyuki_Chinachu/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-core-ui-25.0.1_aa8d060360594f04640ea0277ce2741843fd6301/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/mizucoffee/tatsu/app/build/intermediates/exploded-aar/com.android.support/support-media-compat/25.0.1/jars/libs/internal_impl-25.0.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="f83b00041ecfba705603fec40363416c7de69719">
+        <dex dex="/Users/mizucoffee/tatsu/app/build/intermediates/transforms/dex/debug/folders/1000/10/internal_impl-25.0.1_ab13886aeed0bcf878edfc1f30da6cdf21adf646/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/mizucoffee/tatsu/app/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="e64d9e95065fbcde88d8f51a1ab9f06d45da4151">
+        <dex dex="/Users/mizucoffee/tatsu/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run-bootstrap_fc5b825907dcba269e25a728f62f4a3ddf153b12/classes.dex" />
     </item>
     <item
         is-multidex="true"
@@ -165,12 +291,48 @@
     </item>
     <item
         is-multidex="true"
+        jar="/Users/mizucoffee/tatsu/app/build/intermediates/exploded-aar/com.jakewharton/butterknife/8.4.0/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="a07818a1ecabdb149998823429cce555af4b9cba">
+        <dex dex="/Users/mizucoffee/tatsu/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.jakewharton-butterknife-8.4.0_fa914d9be34d73ca8dd18c545f7b2611cea7eaea/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
         jar="/Users/mizucoffee/AndroidStudioProjects/Hatsuyuki_Chinachu/app/build/intermediates/exploded-aar/com.android.support/animated-vector-drawable/25.0.1/jars/classes.jar"
         jumboMode="true"
         optimize="true"
         revision="25.0.0"
         sha1="772bed2d992b67b9d0327f766cc95cd63031dcd3">
         <dex dex="/Users/mizucoffee/AndroidStudioProjects/Hatsuyuki_Chinachu/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-animated-vector-drawable-25.0.1_7cec7ce6553990e3aadcccb4966fe65ed49ab7ef/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/mizucoffee/tatsu/app/build/intermediates/exploded-aar/com.android.support/support-compat/25.0.1/jars/libs/internal_impl-25.0.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="3af8cc51ef7088e56f132780da8c0bd858b6a6ad">
+        <dex dex="/Users/mizucoffee/tatsu/app/build/intermediates/transforms/dex/debug/folders/1000/10/internal_impl-25.0.1_7f6205a7f2c78dd7a8f8461e6fa08e75ceaa60e7/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/mizucoffee/tatsu/app/build/intermediates/exploded-aar/com.android.support/support-fragment/25.0.1/jars/libs/internal_impl-25.0.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="c0bd6ffb002a85b5e7cad29f8558d1cc59539679">
+        <dex dex="/Users/mizucoffee/tatsu/app/build/intermediates/transforms/dex/debug/folders/1000/10/internal_impl-25.0.1_6d53b51c75d38f66b6519a19af1a4a76fd78a376/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/mizucoffee/tatsu/app/build/intermediates/exploded-aar/com.android.support/support-vector-drawable/25.0.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="b24e1c688744078e1fa833ffadf696794761bbe5">
+        <dex dex="/Users/mizucoffee/tatsu/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-vector-drawable-25.0.1_9ed14b3491dc6d271f9c8ec2c7effbeb1673a9a2/classes.dex" />
     </item>
     <item
         is-multidex="true"
@@ -192,12 +354,30 @@
     </item>
     <item
         is-multidex="true"
+        jar="/Users/mizucoffee/tatsu/app/build/intermediates/exploded-aar/com.android.support/support-core-ui/25.0.1/jars/libs/internal_impl-25.0.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="e5343c9d19cb19ff55f6b268c7f3fe8c9d224f6f">
+        <dex dex="/Users/mizucoffee/tatsu/app/build/intermediates/transforms/dex/debug/folders/1000/10/internal_impl-25.0.1_59ca7fc044388120cdcdf157fd5098da882ee6fc/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
         jar="/Users/mizucoffee/.gradle/caches/modules-2/files-2.1/com.squareup.okio/okio/1.8.0/5ea7af56cc7c567ed9856d99efb30740e9b17ff/okio-1.8.0.jar"
         jumboMode="true"
         optimize="true"
         revision="25.0.0"
         sha1="05ea7af56cc7c567ed9856d99efb30740e9b17ff">
         <dex dex="/Users/mizucoffee/AndroidStudioProjects/Hatsuyuki_Chinachu/app/build/intermediates/transforms/dex/debug/folders/1000/10/okio-1.8.0_bf6dbbcc7b75ef223aa27b9ae3dbd2f98caed357/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/mizucoffee/tatsu/app/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="a87aaf2e2da801f35ed510d3ac404c7f2734776e">
+        <dex dex="/Users/mizucoffee/tatsu/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run_c2490cffdb7c9c52b6c34c2c63c8f52bf969a41e/classes.dex" />
     </item>
     <item
         is-multidex="true"
@@ -243,6 +423,15 @@
         revision="25.0.0"
         sha1="c5b7145fb34779b6639147b8f2f8dd77c0db771b">
         <dex dex="/Users/mizucoffee/AndroidStudioProjects/Hatsuyuki_Chinachu/app/build/intermediates/transforms/dex/debug/folders/1000/10/internal_impl-25.0.1_c997c7244b792777a2e2522229cfeeb616441b7f/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/mizucoffee/tatsu/app/build/intermediates/exploded-aar/com.android.support/recyclerview-v7/25.0.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="297d4bcf6ed4e747a1bf7d0d094a2d911a8d3a8e">
+        <dex dex="/Users/mizucoffee/tatsu/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-recyclerview-v7-25.0.1_bb24d2e56c866e41cd4d8460f6c99a867cce2d65/classes.dex" />
     </item>
 
 </items>

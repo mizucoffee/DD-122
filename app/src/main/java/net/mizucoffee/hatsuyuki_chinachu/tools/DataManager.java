@@ -6,10 +6,6 @@ import com.google.gson.reflect.TypeToken;
 import net.mizucoffee.hatsuyuki_chinachu.model.ServerConnection;
 import java.util.ArrayList;
 
-/**
- * Created by mizucoffee on 12/23/16.
- */
-
 public class DataManager {
 
     private SharedPreferences mSharedPreferences;

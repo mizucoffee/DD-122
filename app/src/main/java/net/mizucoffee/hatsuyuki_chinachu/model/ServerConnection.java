@@ -1,56 +1,52 @@
 package net.mizucoffee.hatsuyuki_chinachu.model;
 
-/**
- * Created by mizucoffee on 12/19/16.
- */
-
 public class ServerConnection {
 
-    private String name;
+    private String mName;
 
-    private String host;
-    private String port;
+    private String mHost;
+    private String mPort;
 
-    private String username;
-    private String password;
+    private String mUsername;
+    private String mPassword;
 
     public String getName() {
-        return name;
+        return mName;
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.mName = name;
     }
 
     public String getHost() {
-        return host;
+        return mHost;
     }
 
     public void setHost(String host) {
-        this.host = host;
+        this.mHost = host;
     }
 
     public String getPort() {
-        return port;
+        return mPort;
     }
 
     public void setPort(String port) {
-        this.port = port;
+        this.mPort = port;
     }
 
     public String getUsername() {
-        return username;
+        return mUsername;
     }
 
     public void setUsername(String username) {
-        this.username = username;
+        this.mUsername = username;
     }
 
     public String getPassword() {
-        return password;
+        return mPassword;
     }
 
     public void setPassword(String password) {
-        this.password = password;
+        this.mPassword = password;
     }
 }

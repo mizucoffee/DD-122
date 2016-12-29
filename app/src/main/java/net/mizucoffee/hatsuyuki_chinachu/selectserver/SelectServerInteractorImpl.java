@@ -14,7 +14,7 @@ class SelectServerInteractorImpl implements SelectServerInteractor {
     }
 
     @Override
-    public void load(OnLoadFinishedListener listener){
+    public void loadServerConnections(OnLoadFinishedListener listener){
         String source = mDataManager.loadServerConnections();
         if(source.equals("")){
             listener.onNotFound();
@@ -24,12 +24,12 @@ class SelectServerInteractorImpl implements SelectServerInteractor {
     }
 
     @Override
-    public void delete(int position){
+    public void deleteServerConnection(int position){
         mDataManager.deleteServerConnection(position);
     }
 
     @Override
-    public ServerConnection edit(int position){
+    public ServerConnection editServerConnection(int position){
         return mDataManager.getServerConnections(position);
     }
 }
