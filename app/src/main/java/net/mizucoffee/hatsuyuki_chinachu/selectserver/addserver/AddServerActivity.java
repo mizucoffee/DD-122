@@ -10,9 +10,9 @@ import com.google.gson.Gson;
 
 import net.mizucoffee.hatsuyuki_chinachu.R;
 import net.mizucoffee.hatsuyuki_chinachu.model.ServerConnection;
+import net.mizucoffee.hatsuyuki_chinachu.tools.Shirayuki;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 public class AddServerActivity extends AppCompatActivity implements AddServerView{
 
@@ -39,11 +39,10 @@ public class AddServerActivity extends AppCompatActivity implements AddServerVie
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_server);
+        Shirayuki.initActivity(this);
+
 
         mPresenter = new AddServerPresenterImpl(this);
-
-        ButterKnife.bind(this);
-
 
         if (getIntent().getStringExtra("data") != null) {
             ServerConnection sc = new Gson().fromJson(getIntent().getStringExtra("data"),ServerConnection.class);

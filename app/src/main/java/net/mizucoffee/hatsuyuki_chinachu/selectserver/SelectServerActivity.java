@@ -9,19 +9,17 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
-import android.util.Log;
 
 import com.google.gson.Gson;
 
 import net.mizucoffee.hatsuyuki_chinachu.R;
 import net.mizucoffee.hatsuyuki_chinachu.model.ServerConnection;
 import net.mizucoffee.hatsuyuki_chinachu.selectserver.addserver.AddServerActivity;
+import net.mizucoffee.hatsuyuki_chinachu.tools.Shirayuki;
 
 import java.util.ArrayList;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 public class SelectServerActivity extends AppCompatActivity implements SelectServerView{
 
@@ -35,9 +33,7 @@ public class SelectServerActivity extends AppCompatActivity implements SelectSer
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_server);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        ButterKnife.bind(this);
+        Shirayuki.initActivity(this);
 
         mPresenter = new SelectServerPresenterImpl(this);
 
@@ -50,7 +46,6 @@ public class SelectServerActivity extends AppCompatActivity implements SelectSer
 
     @Override
     public void setRecyclerView(ArrayList<ServerConnection> connections){
-        Log.i("FUBUKI", "setRecycler");
         mAdapter = new SelectServerCardRecyclerAdapter(this, connections,mPresenter, mPresenter);
         mRecyclerView.setAdapter(mAdapter);
     }

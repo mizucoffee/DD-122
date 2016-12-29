@@ -259,7 +259,7 @@
         jumboMode="true"
         optimize="true"
         revision="25.0.0"
-        sha1="e64d9e95065fbcde88d8f51a1ab9f06d45da4151">
+        sha1="f157370613dd0ca7f6dc14a49b5e571b714dcd15">
         <dex dex="/Users/mizucoffee/tatsu/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run-bootstrap_fc5b825907dcba269e25a728f62f4a3ddf153b12/classes.dex" />
     </item>
     <item
@@ -376,7 +376,7 @@
         jumboMode="true"
         optimize="true"
         revision="25.0.0"
-        sha1="a87aaf2e2da801f35ed510d3ac404c7f2734776e">
+        sha1="34fd498c213629a3ce6370bc539e6ddd315176b3">
         <dex dex="/Users/mizucoffee/tatsu/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run_c2490cffdb7c9c52b6c34c2c63c8f52bf969a41e/classes.dex" />
     </item>
     <item

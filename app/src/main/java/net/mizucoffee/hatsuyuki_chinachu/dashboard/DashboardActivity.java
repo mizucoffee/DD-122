@@ -8,16 +8,15 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
 
 import net.mizucoffee.hatsuyuki_chinachu.R;
 import net.mizucoffee.hatsuyuki_chinachu.selectserver.SelectServerActivity;
+import net.mizucoffee.hatsuyuki_chinachu.tools.Shirayuki;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
+
+import static butterknife.ButterKnife.findById;
 
 public class DashboardActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,DashboardView {
 
@@ -37,22 +36,16 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
-
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        ButterKnife.bind(this);
+        Shirayuki.initActivity(this);
 
         mPresenter = new DashboardPresenterImpl(this);
 
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, mDrawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, mDrawer, findById(this,R.id.toolbar), R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         mDrawer.addDrawerListener(toggle);
         toggle.syncState();
 
         mNavigationView.setNavigationItemSelectedListener(this);
-
-        View headerLayout = mNavigationView.getHeaderView(0);
-        Button headerBtn = (Button)headerLayout.findViewById(R.id.nav_button);
-        headerBtn.setOnClickListener(v -> mPresenter.intentSelectServer());
+        findById(mNavigationView.getHeaderView(0),R.id.nav_button).setOnClickListener(v -> mPresenter.intentSelectServer());
 
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.add(R.id.container, mRecordedFragment);
