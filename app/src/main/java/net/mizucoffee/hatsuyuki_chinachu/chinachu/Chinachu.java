@@ -9,4 +9,5 @@ package net.mizucoffee.hatsuyuki_chinachu.chinachu;
  */
 
 public class Chinachu {
+
 }

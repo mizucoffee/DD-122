@@ -97,7 +97,7 @@
         jumboMode="true"
         optimize="true"
         revision="25.0.0"
-        sha1="5903851d8885d2163f16bb7816e1e9aadae9c4f9">
+        sha1="06d3953c0e784e039d2ed37969d60b36ff524911">
         <dex dex="/Users/mizucoffee/AndroidStudioProjects/Hatsuyuki_Chinachu/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run-bootstrap_88e4a5b3b3d700878fac52ba2b912293df45c156/classes.dex" />
     </item>
     <item
@@ -117,6 +117,15 @@
         revision="25.0.0"
         sha1="2de7cd8b95b7021b1d597f049bcb422055119f2c">
         <dex dex="/Users/mizucoffee/AndroidStudioProjects/Hatsuyuki_Chinachu/app/build/intermediates/transforms/dex/debug/folders/1000/10/retrofit-2.1.0_bdc6bc7995d1007ed2e1c4cdfa17c95f3147b367/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/mizucoffee/.gradle/caches/modules-2/files-2.1/com.squareup.retrofit2/converter-gson/2.1.0/aa557d71ead91cbf26e0c316a0f593d168303309/converter-gson-2.1.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="aa557d71ead91cbf26e0c316a0f593d168303309">
+        <dex dex="/Users/mizucoffee/AndroidStudioProjects/Hatsuyuki_Chinachu/app/build/intermediates/transforms/dex/debug/folders/1000/10/converter-gson-2.1.0_51a52a625fb30a9be4d71f54e4d204f0c67d9809/classes.dex" />
     </item>
     <item
         is-multidex="true"

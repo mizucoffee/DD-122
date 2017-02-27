@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
 import net.mizucoffee.hatsuyuki_chinachu.R;
+import net.mizucoffee.hatsuyuki_chinachu.dashboard.recorded.RecordedFragment;
 import net.mizucoffee.hatsuyuki_chinachu.selectserver.SelectServerActivity;
 import net.mizucoffee.hatsuyuki_chinachu.tools.Shirayuki;
 
@@ -18,14 +19,14 @@ import butterknife.BindView;
 
 import static butterknife.ButterKnife.findById;
 
-public class DashboardActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,DashboardView {
+public class DashboardActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, DashboardView {
 
-    private GuideFragment        mGuideFragment    = new GuideFragment();
-    private LiveFragment         mLiveFragment     = new LiveFragment();
-    private RecordedFragment     mRecordedFragment = new RecordedFragment();
-    private TimerFragment        mTimerFragment    = new TimerFragment();
+    private GuideFragment mGuideFragment = new GuideFragment();
+    private LiveFragment mLiveFragment = new LiveFragment();
+    private RecordedFragment mRecordedFragment = new RecordedFragment();
+    private TimerFragment mTimerFragment = new TimerFragment();
 
-    private DashboardPresenter   mPresenter;
+    private DashboardPresenter mPresenter;
 
     @BindView(R.id.drawer_layout)
     public DrawerLayout mDrawer;
@@ -40,12 +41,12 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
 
         mPresenter = new DashboardPresenterImpl(this);
 
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, mDrawer, findById(this,R.id.toolbar), R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, mDrawer, findById(this, R.id.toolbar), R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         mDrawer.addDrawerListener(toggle);
         toggle.syncState();
 
         mNavigationView.setNavigationItemSelectedListener(this);
-        findById(mNavigationView.getHeaderView(0),R.id.nav_button).setOnClickListener(v -> mPresenter.intentSelectServer());
+        findById(mNavigationView.getHeaderView(0), R.id.nav_button).setOnClickListener(v -> mPresenter.intentSelectServer());
 
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.add(R.id.container, mRecordedFragment);
@@ -77,7 +78,7 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
 
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.nav_live:
                 transaction.replace(R.id.container, mLiveFragment);
                 break;

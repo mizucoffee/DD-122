@@ -40,8 +40,7 @@ public class AddServerActivity extends AppCompatActivity implements AddServerVie
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_server);
         Shirayuki.initActivity(this);
-
-
+        
         mPresenter = new AddServerPresenterImpl(this);
 
         if (getIntent().getStringExtra("data") != null) {

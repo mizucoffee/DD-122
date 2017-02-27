@@ -1,8 +1,13 @@
 package net.mizucoffee.hatsuyuki_chinachu.chinachu.api;
 
-/**
- * Created by mizucoffee on 12/28/16.
- */
+import net.mizucoffee.hatsuyuki_chinachu.chinachu.api.model.gamma.Recorded;
 
-public class ChinachuGammaApi {
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.http.GET;
+
+public interface ChinachuGammaApi {
+    @GET("/api/recorded.json")
+    Call<List<Recorded>> getRecorded();
 }

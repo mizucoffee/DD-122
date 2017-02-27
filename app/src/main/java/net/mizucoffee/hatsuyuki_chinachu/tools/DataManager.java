@@ -69,13 +69,13 @@ public class DataManager {
         return new Gson().toJson(sc);
     }
 
-    public void setConnection(ServerConnection sc){
+    public void setServerConnection(ServerConnection sc){
         SharedPreferences.Editor editor = mSharedPreferences.edit();
         editor.putString("ServerConnection", serverConnection2String(sc));
         editor.apply();
     }
 
-    public ServerConnection getConnection(){
+    public ServerConnection getServerConnection(){
         return new Gson().fromJson(mSharedPreferences.getString("ServerConnection",""),ServerConnection.class);
     }
 }

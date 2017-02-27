@@ -32,4 +32,9 @@ class SelectServerInteractorImpl implements SelectServerInteractor {
     public ServerConnection editServerConnection(int position){
         return mDataManager.getServerConnections(position);
     }
+
+    @Override
+    public void setServerConnection(ServerConnection sc){
+        mDataManager.setServerConnection(sc);
+    }
 }
