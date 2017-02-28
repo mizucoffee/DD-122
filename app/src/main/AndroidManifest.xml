@@ -25,6 +25,7 @@
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".selectserver.addserver.AddServerActivity"
+            android:windowSoftInputMode="adjustResize"
             android:theme="@style/AppTheme.NoActionBar"/>
         
     </application>

@@ -11,7 +11,7 @@
 初雪...です。たまには...頑張ります。
 こたつで...アニメを見たい...ので作ります。
 
-[<img src="https://dply.me/rlr6yr/button/large" alt="Try it on your device via DeployGate">](https://dply.me/bfymsx#install)
+[<img src="https://dply.me/rlr6yr/button/large" alt="Try it on your device via DeployGate">](https://dply.me/bfymsx)
 
 ## License
 [The MIT License](http://kawakawaritsuki.mit-license.org) (c) [@kawakawaritsuki](https://github.com/kawakawaritsuki)
