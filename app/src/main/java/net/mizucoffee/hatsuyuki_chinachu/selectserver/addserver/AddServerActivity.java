@@ -78,8 +78,10 @@ public class AddServerActivity extends AppCompatActivity implements AddServerVie
 
                 if(isEdit)
                     mPresenter.editedServerconnection(sc,position);
-                else
+                else {
+                    sc.setId(System.currentTimeMillis());
                     mPresenter.addServerConnection(sc);
+                }
         });
     }
 

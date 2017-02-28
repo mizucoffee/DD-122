@@ -14,12 +14,12 @@ import android.widget.TextView;
 
 import net.mizucoffee.hatsuyuki_chinachu.R;
 import net.mizucoffee.hatsuyuki_chinachu.dashboard.recorded.RecordedFragment;
-import net.mizucoffee.hatsuyuki_chinachu.model.ServerConnection;
 import net.mizucoffee.hatsuyuki_chinachu.selectserver.SelectServerActivity;
 import net.mizucoffee.hatsuyuki_chinachu.tools.Shirayuki;
 
 import butterknife.BindView;
 
+import static android.R.attr.mode;
 import static butterknife.ButterKnife.findById;
 
 public class DashboardActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, DashboardView {
@@ -35,11 +35,6 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
     public DrawerLayout mDrawer;
     @BindView(R.id.nav_view)
     public NavigationView mNavigationView;
-
-    private ServerConnection serverConnection;
-    //TODO: onactivityresultでip自動更新
-
-    private boolean isFirst = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,12 +57,9 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
                 mDrawer.closeDrawer(GravityCompat.START);
         });
 
-        if(!isFirst){
-            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-            transaction.add(R.id.container, mRecordedFragment);
-            transaction.commit();
-        }
-
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.add(R.id.container, mRecordedFragment);
+        transaction.commit();
     }
 
     @Override
@@ -78,11 +70,6 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
     @Override
     public void setNavAddress(String address){
         ((TextView)mNavigationView.getHeaderView(0).findViewById(R.id.addressTv)).setText(address);
-    }
-
-    @Override
-    public void setFirst(boolean b){
-        isFirst = b;
     }
 
     @Override
@@ -141,17 +128,8 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
     }
 
     @Override
-    public void setServerConnection(ServerConnection sc) {
-        serverConnection = sc;
+    public String getStringFromXml(int resId){
+        return getString(resId);
     }
 
-    @Override
-    public ServerConnection getServerConnection() {
-        return serverConnection;
-    }
-
-    @Override
-    public void activityFinish(){
-        finish();
-    }
 }

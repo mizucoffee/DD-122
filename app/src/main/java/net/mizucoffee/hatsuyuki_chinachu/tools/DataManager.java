@@ -61,21 +61,20 @@ public class DataManager {
         return new Gson().toJson(sc);
     }
 
-    public static ServerConnection string2ServerConnection(String s){
-        return new Gson().fromJson(s, new TypeToken<ArrayList<ServerConnection>>(){}.getType());
-    }
-
-    public static String serverConnection2String(ServerConnection sc){
-        return new Gson().toJson(sc);
-    }
-
     public void setServerConnection(ServerConnection sc){
         SharedPreferences.Editor editor = mSharedPreferences.edit();
-        editor.putString("ServerConnection", serverConnection2String(sc));
+        editor.putLong("CurrentServerConnection", sc.getId());
         editor.apply();
     }
 
-    public ServerConnection getServerConnection(){
-        return new Gson().fromJson(mSharedPreferences.getString("ServerConnection",""),ServerConnection.class);
+    public ServerConnection getServerConnection(){//存在しない時はnullを返す
+        ArrayList<ServerConnection> sc = string2Array(loadServerConnections());
+        if(sc == null) return null;
+        for(ServerConnection serverConnection : sc){
+            if(serverConnection.getId() == mSharedPreferences.getLong("CurrentServerConnection",0)){
+                return serverConnection;
+            }
+        }
+        return null;
     }
 }

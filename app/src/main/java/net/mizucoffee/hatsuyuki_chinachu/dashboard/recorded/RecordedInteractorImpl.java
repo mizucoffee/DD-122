@@ -56,6 +56,6 @@ public class RecordedInteractorImpl implements RecordedInteractor {
 
     @Override
     public void getRecordedList(Callback callback){
-        api.getRecorded().enqueue(callback);
+        if(api != null) api.getRecorded().enqueue(callback);
     }
 }

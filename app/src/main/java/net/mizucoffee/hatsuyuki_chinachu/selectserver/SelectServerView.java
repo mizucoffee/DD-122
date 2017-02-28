@@ -14,4 +14,5 @@ interface SelectServerView {
     void setRecyclerView(ArrayList<ServerConnection> connections);
     void showAlertDialog(String title,String description,DialogInterface.OnClickListener onClickListener);
     void finishActivity();
+    void showSnackbar(String text);
 }

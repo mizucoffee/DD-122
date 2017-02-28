@@ -37,4 +37,9 @@ class SelectServerInteractorImpl implements SelectServerInteractor {
     public void setServerConnection(ServerConnection sc){
         mDataManager.setServerConnection(sc);
     }
+
+    @Override
+    public ServerConnection getServerConnection(){
+        return mDataManager.getServerConnection();
+    }
 }

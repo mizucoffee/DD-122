@@ -4,4 +4,5 @@ interface SelectServerPresenter extends OnCardClickListener,OnMenuItemClickListe
     void onDestroy();
     void getList();
     void intentAdd();
+    void checkStatus();
 }

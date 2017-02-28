@@ -57,7 +57,7 @@ public class RecordedFragment extends Fragment implements RecordedView{
 
     @Override
     public void networkError(){
-        Snackbar.make(mRecyclerView, "サーバーへの接続に失敗しました", Snackbar.LENGTH_SHORT).show();
+        Snackbar.make(mRecyclerView, "サーバーへの接続に失敗しました", Snackbar.LENGTH_LONG).show();
     }
 
     private DashboardActivity activity = null;

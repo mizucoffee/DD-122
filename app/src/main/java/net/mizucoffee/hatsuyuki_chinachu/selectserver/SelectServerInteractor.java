@@ -16,5 +16,5 @@ interface SelectServerInteractor {
     ServerConnection editServerConnection(int position);
 
     void setServerConnection(ServerConnection sc);
-
+    ServerConnection getServerConnection();
 }

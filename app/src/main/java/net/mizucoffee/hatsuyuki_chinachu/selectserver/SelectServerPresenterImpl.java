@@ -6,7 +6,6 @@ import android.view.View;
 
 import net.mizucoffee.hatsuyuki_chinachu.R;
 import net.mizucoffee.hatsuyuki_chinachu.model.ServerConnection;
-import net.mizucoffee.hatsuyuki_chinachu.tools.Shirayuki;
 
 import java.util.ArrayList;
 
@@ -49,8 +48,20 @@ class SelectServerPresenterImpl implements SelectServerPresenter {
     public boolean onMenuItemClick(MenuItem item,final int position) {
         switch (item.getItemId()){
             case R.id.menu_delete:
-                mSelectServerView.showAlertDialog("Confirm", "Do you really want to deleteServerConnection this?", (dialogInterface, i) -> {
+                mSelectServerView.showAlertDialog("Confirm", "Do you really want to delete ServerConnection this?", (dialogInterface, i) -> {
                     mSelectServerInteractor.deleteServerConnection(position);
+                    mSelectServerInteractor.loadServerConnections(new SelectServerInteractor.OnLoadFinishedListener() {
+                        @Override
+                        public void onSuccess(ArrayList<ServerConnection> sc) {
+                            if(sc.size() != 0)
+                                mSelectServerInteractor.setServerConnection(sc.get(0));
+                        }
+
+                        @Override
+                        public void onNotFound() {
+
+                        }
+                    });
                     getList();
                 });
                 break;
@@ -79,5 +90,25 @@ class SelectServerPresenterImpl implements SelectServerPresenter {
         });
     }
 
+    @Override
+    public void checkStatus() {
+
+        mSelectServerInteractor.loadServerConnections(new SelectServerInteractor.OnLoadFinishedListener() {
+            @Override
+            public void onSuccess(ArrayList<ServerConnection> sc) {
+                if(sc.size() == 0){
+                    mSelectServerView.showSnackbar("まずはサーバー登録をしましょう");
+                }else if(mSelectServerInteractor.getServerConnection() == null) {
+                    mSelectServerView.showSnackbar("サーバーを選択しましょう");
+                }
+            }
+
+            @Override
+            public void onNotFound() {
+                mSelectServerView.showSnackbar("まずはサーバー登録をしましょう");
+            }
+        });
+
+    }
 
 }
