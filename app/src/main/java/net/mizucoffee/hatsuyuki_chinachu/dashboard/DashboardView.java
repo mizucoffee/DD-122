@@ -15,4 +15,6 @@ public interface DashboardView {
     ServerConnection getServerConnection();
     void activityFinish();
     void setFirst(boolean b);
+    void setNavTitle(String title);
+    void setNavAddress(String address);
 }

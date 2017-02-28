@@ -42,8 +42,7 @@ public class RecordedPresenterImpl implements RecordedPresenter {
             @Override
             public void onFailure(Call<List<Recorded>> call, Throwable t) {
                 mRecordedView.removeRecyclerView();
-                t.printStackTrace();
-                //TODO: エラー処理
+                mRecordedView.networkError();
             }
         });
     }

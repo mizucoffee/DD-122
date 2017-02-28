@@ -10,6 +10,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import net.mizucoffee.hatsuyuki_chinachu.R;
 import net.mizucoffee.hatsuyuki_chinachu.dashboard.recorded.RecordedFragment;
@@ -53,8 +54,13 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
         mDrawer.addDrawerListener(toggle);
         toggle.syncState();
 
+        mNavigationView.setCheckedItem(R.id.nav_recorded);
         mNavigationView.setNavigationItemSelectedListener(this);
-        findById(mNavigationView.getHeaderView(0), R.id.nav_button).setOnClickListener(v -> mPresenter.intentSelectServer());
+        findById(mNavigationView.getHeaderView(0), R.id.nav_button).setOnClickListener(v -> {
+            mPresenter.intentSelectServer();
+            if (mDrawer.isDrawerOpen(GravityCompat.START))
+                mDrawer.closeDrawer(GravityCompat.START);
+        });
 
         if(!isFirst){
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
@@ -62,6 +68,16 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
             transaction.commit();
         }
 
+    }
+
+    @Override
+    public void setNavTitle(String title){
+        ((TextView)mNavigationView.getHeaderView(0).findViewById(R.id.titleTv)).setText(title);
+    }
+
+    @Override
+    public void setNavAddress(String address){
+        ((TextView)mNavigationView.getHeaderView(0).findViewById(R.id.addressTv)).setText(address);
     }
 
     @Override

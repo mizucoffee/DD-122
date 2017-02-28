@@ -16,4 +16,5 @@ public interface RecordedView {
     DashboardActivity getDashboardActivity();
     void removeRecyclerView();
     SharedPreferences getActivitySharedPreferences(String name, int mode);
+    void networkError();
 }

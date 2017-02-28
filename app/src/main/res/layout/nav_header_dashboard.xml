@@ -37,13 +37,15 @@
             android:layout_height="wrap_content"
             android:paddingTop="@dimen/nav_header_vertical_spacing"
             android:text="Server Name"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:id="@+id/titleTv" />
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/addressTv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Connected" />
+            android:text="Address"
+            android:fontFamily="sans-serif" />
 
     </LinearLayout>
 

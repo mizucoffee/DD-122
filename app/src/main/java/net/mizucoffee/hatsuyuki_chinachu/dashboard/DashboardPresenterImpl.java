@@ -36,6 +36,8 @@ public class DashboardPresenterImpl implements DashboardPresenter {
             public void onSuccess(ServerConnection sc) {
                 Shirayuki.log(sc.getName());
                 mDashboardView.setServerConnection(sc);
+                mDashboardView.setNavTitle(sc.getName());
+                mDashboardView.setNavAddress(sc.getAddress());
             }
 
             @Override
