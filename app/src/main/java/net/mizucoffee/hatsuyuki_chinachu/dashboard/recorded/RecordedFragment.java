@@ -41,7 +41,7 @@ public class RecordedFragment extends Fragment implements RecordedView{
         mPresenter = new RecordedPresenterImpl(this);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        mPresenter.getRecorded();
+        mPresenter.getRecorded(getActivity());
     }
 
     @Override

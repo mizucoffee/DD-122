@@ -9,6 +9,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import net.mizucoffee.hatsuyuki_chinachu.R;
 import net.mizucoffee.hatsuyuki_chinachu.chinachu.api.model.gamma.Recorded;
 
@@ -21,6 +23,7 @@ class RecordedCardRecyclerAdapter extends RecyclerView.Adapter<RecordedCardRecyc
 
     private List<Recorded> recorded;
     private LayoutInflater mLayoutInflater;
+    private Context context;
 //    private View.OnClickListener mOnClick;
 //    private OnListMenuItemClickListener mOnListMenuClickListener;
 
@@ -29,6 +32,7 @@ class RecordedCardRecyclerAdapter extends RecyclerView.Adapter<RecordedCardRecyc
 
         this.recorded = recorded;
         this.mLayoutInflater = LayoutInflater.from(context);
+        this.context = context;
 //        this.mOnClick = onClickListener;
 //        this.mOnListMenuClickListener = onListMenuItemClickListener;
     }
@@ -46,6 +50,8 @@ class RecordedCardRecyclerAdapter extends RecyclerView.Adapter<RecordedCardRecyc
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd E HH:mm");
         SimpleDateFormat sdf1 = new SimpleDateFormat("HH:mm");
         vh.timeTv.setText(sdf.format(program.getStart())+"-"+sdf1.format(program.getEnd()) + " " + (program.getSeconds() / 60) + "min");
+        Picasso.with(context).load("http://192.168.50.50:10472/api/recorded/" + program.getId() + "/preview.png").into(vh.imageView);
+        //TODO: IP変更
     }
 
     @Override

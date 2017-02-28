@@ -1,5 +1,7 @@
 package net.mizucoffee.hatsuyuki_chinachu.dashboard.recorded;
 
+import android.app.Activity;
+
 import net.mizucoffee.hatsuyuki_chinachu.chinachu.api.model.gamma.Recorded;
 
 import java.util.List;
@@ -28,7 +30,7 @@ public class RecordedPresenterImpl implements RecordedPresenter {
     }
 
     @Override
-    public void getRecorded(){
+    public void getRecorded(Activity a){
         mRecordedInteractor.getRecordedList(new Callback<List<Recorded>>() {
             @Override
             public void onResponse(Call<List<Recorded>> call, Response<List<Recorded>> response) {
