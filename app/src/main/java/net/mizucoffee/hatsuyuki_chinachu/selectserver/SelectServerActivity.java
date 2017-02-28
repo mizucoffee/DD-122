@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -13,6 +14,7 @@ import android.support.v7.widget.RecyclerView;
 import com.google.gson.Gson;
 
 import net.mizucoffee.hatsuyuki_chinachu.R;
+import net.mizucoffee.hatsuyuki_chinachu.dashboard.DashboardActivity;
 import net.mizucoffee.hatsuyuki_chinachu.model.ServerConnection;
 import net.mizucoffee.hatsuyuki_chinachu.selectserver.addserver.AddServerActivity;
 import net.mizucoffee.hatsuyuki_chinachu.tools.Shirayuki;
@@ -29,11 +31,15 @@ public class SelectServerActivity extends AppCompatActivity implements SelectSer
     @BindView(R.id.recycler)
     public RecyclerView mRecyclerView;
 
+    private boolean isFirst;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_server);
         Shirayuki.initActivity(this);
+
+        isFirst = getIntent().getBooleanExtra("first",false);
 
         mPresenter = new SelectServerPresenterImpl(this);
 
@@ -42,6 +48,16 @@ public class SelectServerActivity extends AppCompatActivity implements SelectSer
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mPresenter.getList();
+
+        if(isFirst){
+            if(mAdapter.getItemCount() == 1)
+                Snackbar.make(findViewById(R.id.recycler), "まずはサーバー登録をしましょう", Snackbar.LENGTH_SHORT)
+                        .setAction("NEW SERVER", (v) -> mPresenter.intentAdd())
+                        .show();
+            else
+                Snackbar.make(findViewById(R.id.recycler), "サーバー選択をしましょう", Snackbar.LENGTH_SHORT)
+                        .show();
+        }
     }
 
     @Override
@@ -49,7 +65,6 @@ public class SelectServerActivity extends AppCompatActivity implements SelectSer
         mAdapter = new SelectServerCardRecyclerAdapter(this, connections,mPresenter, mPresenter);
         mRecyclerView.setAdapter(mAdapter);
     }
-
 
     @Override
     public void intentAdd() {
@@ -89,5 +104,25 @@ public class SelectServerActivity extends AppCompatActivity implements SelectSer
                 .setPositiveButton("OK",onClickListener)
                 .setNegativeButton("Cancel", null)
                 .show();
+    }
+
+    @Override
+    public void onBackPressed() {
+        if(mAdapter.getItemCount() == 0) super.onBackPressed();
+
+        if (isFirst) {
+            startActivity(new Intent(this, DashboardActivity.class));
+            finish();
+        }else
+            super.onBackPressed();
+    }
+
+    @Override
+    public void finishActivity() {
+        if (isFirst) {
+            startActivity(new Intent(this, DashboardActivity.class));
+            finish();
+        }else
+            super.onBackPressed();
     }
 }

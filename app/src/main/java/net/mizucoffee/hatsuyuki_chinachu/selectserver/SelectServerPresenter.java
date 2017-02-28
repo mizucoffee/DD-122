@@ -1,8 +1,6 @@
 package net.mizucoffee.hatsuyuki_chinachu.selectserver;
 
-import android.view.View;
-
-interface SelectServerPresenter extends View.OnClickListener,OnListMenuItemClickListener {
+interface SelectServerPresenter extends OnCardClickListener,OnMenuItemClickListener {
     void onDestroy();
     void getList();
     void intentAdd();

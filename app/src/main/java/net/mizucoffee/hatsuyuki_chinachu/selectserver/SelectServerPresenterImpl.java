@@ -63,8 +63,19 @@ class SelectServerPresenterImpl implements SelectServerPresenter {
     }
 
     @Override
-    public void onClick(View view) {
+    public void onCardClick(View view,int position) {
+        mSelectServerInteractor.loadServerConnections(new SelectServerInteractor.OnLoadFinishedListener() {
+            @Override
+            public void onSuccess(ArrayList<ServerConnection> sc) {
+                mSelectServerInteractor.setServerConnection(sc.get(position));
+                mSelectServerView.finishActivity();
+            }
 
+            @Override
+            public void onNotFound() {
+
+            }
+        });
     }
 
 

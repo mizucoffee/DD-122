@@ -1,13 +1,7 @@
 package net.mizucoffee.hatsuyuki_chinachu.dashboard.recorded;
 
-import android.app.Activity;
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
-import android.widget.ImageView;
-
-import com.squareup.picasso.Picasso;
-
 import net.mizucoffee.hatsuyuki_chinachu.chinachu.api.ChinachuGammaApi;
+import net.mizucoffee.hatsuyuki_chinachu.dashboard.DashboardActivity;
 
 import retrofit2.Callback;
 import retrofit2.Retrofit;
@@ -21,10 +15,9 @@ public class RecordedInteractorImpl implements RecordedInteractor {
 
     private ChinachuGammaApi api;
 
-    RecordedInteractorImpl(){
+    RecordedInteractorImpl(DashboardActivity activity){
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.50.50:10472/")
-                //TODO: IPをちゃんと指定する
+                .baseUrl("http://" + activity.getServerConnection().getAddress() + "/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 

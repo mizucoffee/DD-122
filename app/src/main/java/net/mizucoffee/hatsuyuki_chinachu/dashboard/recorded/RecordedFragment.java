@@ -1,6 +1,8 @@
 package net.mizucoffee.hatsuyuki_chinachu.dashboard.recorded;
 
 
+import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -12,6 +14,7 @@ import android.view.ViewGroup;
 
 import net.mizucoffee.hatsuyuki_chinachu.R;
 import net.mizucoffee.hatsuyuki_chinachu.chinachu.api.model.gamma.Recorded;
+import net.mizucoffee.hatsuyuki_chinachu.dashboard.DashboardActivity;
 import net.mizucoffee.hatsuyuki_chinachu.tools.Shirayuki;
 
 import java.util.List;
@@ -44,9 +47,26 @@ public class RecordedFragment extends Fragment implements RecordedView{
         mPresenter.getRecorded(getActivity());
     }
 
+    private DashboardActivity activity = null;
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+
+        if (context instanceof Activity){
+            activity = (DashboardActivity)context;
+        }
+
+    }
+
+    @Override
+    public DashboardActivity getDashboardActivity(){
+        return activity;
+    }
+
     @Override
     public void setRecyclerView(List<Recorded> recorded){
-        mAdapter = new RecordedCardRecyclerAdapter(getActivity(), recorded);
+        mAdapter = new RecordedCardRecyclerAdapter(getDashboardActivity(), recorded);
         mRecyclerView.setAdapter(mAdapter);
     }
 

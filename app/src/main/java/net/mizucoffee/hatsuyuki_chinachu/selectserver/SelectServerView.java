@@ -13,4 +13,5 @@ interface SelectServerView {
     SharedPreferences getActivitySharedPreferences(String name , int mode);
     void setRecyclerView(ArrayList<ServerConnection> connections);
     void showAlertDialog(String title,String description,DialogInterface.OnClickListener onClickListener);
+    void finishActivity();
 }

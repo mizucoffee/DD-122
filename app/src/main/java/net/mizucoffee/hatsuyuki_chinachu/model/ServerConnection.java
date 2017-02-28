@@ -49,4 +49,8 @@ public class ServerConnection {
     public void setPassword(String password) {
         this.mPassword = password;
     }
+
+    public String getAddress(){
+        return getHost() + ":" + getPort();
+    }
 }

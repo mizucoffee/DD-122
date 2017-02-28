@@ -21,7 +21,7 @@ public class RecordedPresenterImpl implements RecordedPresenter {
 
     RecordedPresenterImpl(RecordedView recordedView){
         this.mRecordedView = recordedView;
-        mRecordedInteractor = new RecordedInteractorImpl();
+        mRecordedInteractor = new RecordedInteractorImpl(mRecordedView.getDashboardActivity());
     }
 
     @Override

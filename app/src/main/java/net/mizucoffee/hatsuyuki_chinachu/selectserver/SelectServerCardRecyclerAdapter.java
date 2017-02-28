@@ -20,16 +20,16 @@ class SelectServerCardRecyclerAdapter extends RecyclerView.Adapter<SelectServerC
 
     private ArrayList<ServerConnection> connections;
     private LayoutInflater mLayoutInflater;
-    private View.OnClickListener mOnClick;
-    private OnListMenuItemClickListener mOnListMenuClickListener;
+    private OnCardClickListener mOnClick;
+    private OnMenuItemClickListener mOnListMenuClickListener;
 
-    SelectServerCardRecyclerAdapter(Context context, ArrayList<ServerConnection> connections, View.OnClickListener onClickListener,OnListMenuItemClickListener onListMenuItemClickListener) {
+    SelectServerCardRecyclerAdapter(Context context, ArrayList<ServerConnection> connections, OnCardClickListener onClickListener,OnMenuItemClickListener onCardClickListener) {
         super();
 
         this.connections = connections;
         this.mOnClick = onClickListener;
         this.mLayoutInflater = LayoutInflater.from(context);
-        this.mOnListMenuClickListener = onListMenuItemClickListener;
+        this.mOnListMenuClickListener = onCardClickListener;
     }
 
     @Override
@@ -42,7 +42,12 @@ class SelectServerCardRecyclerAdapter extends RecyclerView.Adapter<SelectServerC
         vh.serverName.setText(connections.get(vh.getAdapterPosition()).getName());
         vh.serverHost.setText(connections.get(vh.getAdapterPosition()).getHost());
 
-        vh.card.setOnClickListener(mOnClick);
+        vh.card.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mOnClick.onCardClick(view,position);
+            }
+        });
 
         vh.imageButton.setOnClickListener(view -> {
             PopupMenu popup = new PopupMenu(view.getContext(), view);

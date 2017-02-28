@@ -1,5 +1,10 @@
 package net.mizucoffee.hatsuyuki_chinachu.dashboard;
 
+import android.content.Context;
+
+import net.mizucoffee.hatsuyuki_chinachu.model.ServerConnection;
+import net.mizucoffee.hatsuyuki_chinachu.tools.Shirayuki;
+
 /**
  * Created by mizucoffee on 12/19/16.
  */
@@ -11,7 +16,7 @@ public class DashboardPresenterImpl implements DashboardPresenter {
 
     public DashboardPresenterImpl(DashboardView dashboardView) {
         this.mDashboardView = dashboardView;
-        this.mDashboardInteractor = new DashboardInteractorImpl();
+        this.mDashboardInteractor = new DashboardInteractorImpl(mDashboardView.getActivitySharedPreferences("HatsuyukiChinachu", Context.MODE_PRIVATE));
     }
 
     @Override
@@ -21,6 +26,25 @@ public class DashboardPresenterImpl implements DashboardPresenter {
 
     @Override
     public void intentSelectServer() {
-        mDashboardView.intentSelectServer();
+        mDashboardView.intentSelectServer(false);
+    }
+
+    @Override
+    public void refreshConnection(){
+        mDashboardInteractor.getServerConnection(new DashboardInteractor.OnLoadFinishedListener() {
+            @Override
+            public void onSuccess(ServerConnection sc) {
+                Shirayuki.log("found");
+                mDashboardView.setServerConnection(sc);
+            }
+
+            @Override
+            public void onNotFound() {
+                Shirayuki.log("notfound");//インテント飛ばす
+                mDashboardView.intentSelectServer(true);
+                mDashboardView.activityFinish();
+                mDashboardView.setFirst(true);
+            }
+        });
     }
 }

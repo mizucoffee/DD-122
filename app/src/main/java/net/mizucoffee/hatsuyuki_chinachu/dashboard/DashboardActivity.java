@@ -1,6 +1,7 @@
 package net.mizucoffee.hatsuyuki_chinachu.dashboard;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentTransaction;
@@ -12,6 +13,7 @@ import android.view.MenuItem;
 
 import net.mizucoffee.hatsuyuki_chinachu.R;
 import net.mizucoffee.hatsuyuki_chinachu.dashboard.recorded.RecordedFragment;
+import net.mizucoffee.hatsuyuki_chinachu.model.ServerConnection;
 import net.mizucoffee.hatsuyuki_chinachu.selectserver.SelectServerActivity;
 import net.mizucoffee.hatsuyuki_chinachu.tools.Shirayuki;
 
@@ -33,6 +35,11 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
     @BindView(R.id.nav_view)
     public NavigationView mNavigationView;
 
+    private ServerConnection serverConnection;
+    //TODO: onactivityresultでip自動更新
+
+    private boolean isFirst = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,6 +47,7 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
         Shirayuki.initActivity(this);
 
         mPresenter = new DashboardPresenterImpl(this);
+        mPresenter.refreshConnection();
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, mDrawer, findById(this, R.id.toolbar), R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         mDrawer.addDrawerListener(toggle);
@@ -48,9 +56,17 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
         mNavigationView.setNavigationItemSelectedListener(this);
         findById(mNavigationView.getHeaderView(0), R.id.nav_button).setOnClickListener(v -> mPresenter.intentSelectServer());
 
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.add(R.id.container, mRecordedFragment);
-        transaction.commit();
+        if(!isFirst){
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            transaction.add(R.id.container, mRecordedFragment);
+            transaction.commit();
+        }
+
+    }
+
+    @Override
+    public void setFirst(boolean b){
+        isFirst = b;
     }
 
     @Override
@@ -59,6 +75,11 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
         super.onDestroy();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mPresenter.refreshConnection();
+    }
 
     @Override
     public void onBackPressed() {
@@ -69,8 +90,8 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
     }
 
     @Override
-    public void intentSelectServer() {
-        startActivity(new Intent(this, SelectServerActivity.class));
+    public void intentSelectServer(boolean first) {
+        startActivity(new Intent(this, SelectServerActivity.class).putExtra("first",first));
     }
 
     @Override
@@ -96,5 +117,25 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
         transaction.commit();
         mDrawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    public SharedPreferences getActivitySharedPreferences(String name, int mode){
+        return getSharedPreferences(name,mode);
+    }
+
+    @Override
+    public void setServerConnection(ServerConnection sc) {
+        serverConnection = sc;
+    }
+
+    @Override
+    public ServerConnection getServerConnection() {
+        return serverConnection;
+    }
+
+    @Override
+    public void activityFinish(){
+        finish();
     }
 }

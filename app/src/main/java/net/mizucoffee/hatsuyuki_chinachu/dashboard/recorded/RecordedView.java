@@ -1,6 +1,7 @@
 package net.mizucoffee.hatsuyuki_chinachu.dashboard.recorded;
 
 import net.mizucoffee.hatsuyuki_chinachu.chinachu.api.model.gamma.Recorded;
+import net.mizucoffee.hatsuyuki_chinachu.dashboard.DashboardActivity;
 
 import java.util.List;
 
@@ -10,4 +11,5 @@ import java.util.List;
 
 public interface RecordedView {
     void setRecyclerView(List<Recorded> recorded);
+    DashboardActivity getDashboardActivity();
 }
