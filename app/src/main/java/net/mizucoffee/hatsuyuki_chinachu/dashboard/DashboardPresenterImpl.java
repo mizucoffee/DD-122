@@ -34,13 +34,12 @@ public class DashboardPresenterImpl implements DashboardPresenter {
         mDashboardInteractor.getServerConnection(new DashboardInteractor.OnLoadFinishedListener() {
             @Override
             public void onSuccess(ServerConnection sc) {
-                Shirayuki.log("found");
+                Shirayuki.log(sc.getName());
                 mDashboardView.setServerConnection(sc);
             }
 
             @Override
             public void onNotFound() {
-                Shirayuki.log("notfound");//インテント飛ばす
                 mDashboardView.intentSelectServer(true);
                 mDashboardView.activityFinish();
                 mDashboardView.setFirst(true);

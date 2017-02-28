@@ -6,6 +6,7 @@ import android.view.View;
 
 import net.mizucoffee.hatsuyuki_chinachu.R;
 import net.mizucoffee.hatsuyuki_chinachu.model.ServerConnection;
+import net.mizucoffee.hatsuyuki_chinachu.tools.Shirayuki;
 
 import java.util.ArrayList;
 

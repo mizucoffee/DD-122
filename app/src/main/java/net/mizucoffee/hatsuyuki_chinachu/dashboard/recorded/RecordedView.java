@@ -1,5 +1,7 @@
 package net.mizucoffee.hatsuyuki_chinachu.dashboard.recorded;
 
+import android.content.SharedPreferences;
+
 import net.mizucoffee.hatsuyuki_chinachu.chinachu.api.model.gamma.Recorded;
 import net.mizucoffee.hatsuyuki_chinachu.dashboard.DashboardActivity;
 
@@ -12,4 +14,6 @@ import java.util.List;
 public interface RecordedView {
     void setRecyclerView(List<Recorded> recorded);
     DashboardActivity getDashboardActivity();
+    void removeRecyclerView();
+    SharedPreferences getActivitySharedPreferences(String name, int mode);
 }

@@ -3,6 +3,7 @@ package net.mizucoffee.hatsuyuki_chinachu.dashboard.recorded;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -47,6 +48,13 @@ public class RecordedFragment extends Fragment implements RecordedView{
         mPresenter.getRecorded(getActivity());
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        mPresenter.getRecorded(getActivity());
+    }
+
     private DashboardActivity activity = null;
 
     @Override
@@ -71,8 +79,19 @@ public class RecordedFragment extends Fragment implements RecordedView{
     }
 
     @Override
+    public void removeRecyclerView(){
+        mAdapter = null;
+        mRecyclerView.setAdapter(mAdapter);
+    }
+
+    @Override
     public void onDestroy() {
         super.onDestroy();
         mPresenter.onDestroy();
+    }
+
+    @Override
+    public SharedPreferences getActivitySharedPreferences(String name, int mode){
+        return getActivity().getSharedPreferences(name,mode);
     }
 }

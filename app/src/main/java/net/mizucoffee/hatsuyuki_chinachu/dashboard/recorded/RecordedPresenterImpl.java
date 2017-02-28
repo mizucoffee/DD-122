@@ -1,6 +1,7 @@
 package net.mizucoffee.hatsuyuki_chinachu.dashboard.recorded;
 
 import android.app.Activity;
+import android.content.Context;
 
 import net.mizucoffee.hatsuyuki_chinachu.chinachu.api.model.gamma.Recorded;
 
@@ -21,7 +22,7 @@ public class RecordedPresenterImpl implements RecordedPresenter {
 
     RecordedPresenterImpl(RecordedView recordedView){
         this.mRecordedView = recordedView;
-        mRecordedInteractor = new RecordedInteractorImpl(mRecordedView.getDashboardActivity());
+        mRecordedInteractor = new RecordedInteractorImpl(mRecordedView.getActivitySharedPreferences("HatsuyukiChinachu", Context.MODE_PRIVATE));
     }
 
     @Override
@@ -31,6 +32,7 @@ public class RecordedPresenterImpl implements RecordedPresenter {
 
     @Override
     public void getRecorded(Activity a){
+        mRecordedInteractor.refreshServerConnection();
         mRecordedInteractor.getRecordedList(new Callback<List<Recorded>>() {
             @Override
             public void onResponse(Call<List<Recorded>> call, Response<List<Recorded>> response) {
@@ -39,6 +41,7 @@ public class RecordedPresenterImpl implements RecordedPresenter {
 
             @Override
             public void onFailure(Call<List<Recorded>> call, Throwable t) {
+                mRecordedView.removeRecyclerView();
                 t.printStackTrace();
                 //TODO: エラー処理
             }

@@ -8,4 +8,5 @@ import retrofit2.Callback;
 
 public interface RecordedInteractor {
     void getRecordedList(Callback callback);
+    void refreshServerConnection();
 }
