@@ -25,7 +25,8 @@ public class RecordedInteractorImpl implements RecordedInteractor {
         refreshServerConnection();
     }
 
-    void getServerConnection(DashboardInteractor.OnLoadFinishedListener listener){
+    @Override
+    public void getServerConnection(DashboardInteractor.OnLoadFinishedListener listener){
         ServerConnection s = mDataManager.getServerConnection();
         if(s == null){
             listener.onNotFound();

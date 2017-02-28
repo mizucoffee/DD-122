@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Context;
 
 import net.mizucoffee.hatsuyuki_chinachu.chinachu.api.model.gamma.Recorded;
+import net.mizucoffee.hatsuyuki_chinachu.dashboard.DashboardInteractor;
+import net.mizucoffee.hatsuyuki_chinachu.model.ServerConnection;
 
 import java.util.List;
 
@@ -33,16 +35,27 @@ public class RecordedPresenterImpl implements RecordedPresenter {
     @Override
     public void getRecorded(Activity a){
         mRecordedInteractor.refreshServerConnection();
-        mRecordedInteractor.getRecordedList(new Callback<List<Recorded>>() {
+        mRecordedInteractor.getServerConnection(new DashboardInteractor.OnLoadFinishedListener() {
             @Override
-            public void onResponse(Call<List<Recorded>> call, Response<List<Recorded>> response) {
-                mRecordedView.setRecyclerView(response.body());
+            public void onSuccess(ServerConnection sc) {
+                mRecordedInteractor.getRecordedList(new Callback<List<Recorded>>() {
+                    @Override
+                    public void onResponse(Call<List<Recorded>> call, Response<List<Recorded>> response) {
+                        mRecordedView.setRecyclerView(response.body());
+                    }
+
+                    @Override
+                    public void onFailure(Call<List<Recorded>> call, Throwable t) {
+                        mRecordedView.removeRecyclerView();
+                        mRecordedView.showSnackbar("サーバーへの接続に失敗しました");
+                    }
+                });
             }
 
             @Override
-            public void onFailure(Call<List<Recorded>> call, Throwable t) {
+            public void onNotFound() {
                 mRecordedView.removeRecyclerView();
-                mRecordedView.networkError();
+                mRecordedView.showSnackbar("サーバーを登録しましょう");//おいおい変更。カードにする。
             }
         });
     }
