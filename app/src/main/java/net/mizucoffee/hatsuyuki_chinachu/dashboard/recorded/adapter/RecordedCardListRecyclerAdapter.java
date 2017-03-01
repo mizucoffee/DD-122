@@ -1,6 +1,7 @@
 package net.mizucoffee.hatsuyuki_chinachu.dashboard.recorded.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -10,12 +11,15 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 
 import net.mizucoffee.hatsuyuki_chinachu.R;
 import net.mizucoffee.hatsuyuki_chinachu.chinachu.api.model.gamma.Recorded;
 import net.mizucoffee.hatsuyuki_chinachu.dashboard.DashboardActivity;
+import net.mizucoffee.hatsuyuki_chinachu.dashboard.recorded.detail.DetailActivity;
 import net.mizucoffee.hatsuyuki_chinachu.tools.DataManager;
+import net.mizucoffee.hatsuyuki_chinachu.tools.Shirayuki;
 
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -46,15 +50,20 @@ public class RecordedCardListRecyclerAdapter extends RecyclerView.Adapter<Record
     public void onBindViewHolder(final ViewHolder vh, int position) {
         Recorded program = recorded.get(vh.getAdapterPosition());
         vh.titleTv.setText(program.getTitle());
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd E");
-
-        vh.timeTv.setText(sdf.format(program.getStart()) + " " + (program.getSeconds() / 60) + "min");
+        vh.timeTv.setText(new SimpleDateFormat("yyyy/MM/dd E").format(program.getStart()) + " " + (program.getSeconds() / 60) + "min");
         vh.desTv.setText(program.getDetail());
 
         Picasso.with(context).load("http://" + mDataManager.getServerConnection().getAddress() + "/api/recorded/" + program.getId() + "/preview.png").into(vh.imageView);
 
-        if ((position % 2) != 0)
-            vh.linearLayout.setBackgroundColor(Color.argb(255,235,235,235));
+        if ((position % 2) != 0) vh.linearLayout.setBackgroundColor(Color.argb(255,235,235,235)); else vh.linearLayout.setBackgroundColor(Color.argb(255,255,255,255));
+
+        vh.linearLayout.setOnClickListener((v) -> {
+            Intent intent = new Intent();
+            intent.setClass(context, DetailActivity.class);
+            Shirayuki.log(new Gson().toJson(program));
+            intent.putExtra("program",new Gson().toJson(program));
+            context.startActivity(intent);
+        });
     }
 
     @Override

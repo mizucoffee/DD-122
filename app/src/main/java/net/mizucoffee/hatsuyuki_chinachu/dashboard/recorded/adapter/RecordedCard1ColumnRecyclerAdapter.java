@@ -11,12 +11,15 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 
 import net.mizucoffee.hatsuyuki_chinachu.R;
 import net.mizucoffee.hatsuyuki_chinachu.chinachu.api.model.gamma.Recorded;
 import net.mizucoffee.hatsuyuki_chinachu.dashboard.DashboardActivity;
+import net.mizucoffee.hatsuyuki_chinachu.dashboard.recorded.detail.DetailActivity;
 import net.mizucoffee.hatsuyuki_chinachu.tools.DataManager;
+import net.mizucoffee.hatsuyuki_chinachu.tools.Shirayuki;
 
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -60,6 +63,14 @@ public class RecordedCard1ColumnRecyclerAdapter extends RecyclerView.Adapter<Rec
             vlcIntent.setPackage("org.videolan.vlc");
             vlcIntent.setDataAndTypeAndNormalize(uri, "video/*");
             context.startActivity(vlcIntent);
+        });
+
+        vh.detailBtn.setOnClickListener((v) -> {
+            Intent intent = new Intent();
+            intent.setClass(context, DetailActivity.class);
+            Shirayuki.log(new Gson().toJson(program));
+            intent.putExtra("program",new Gson().toJson(program));
+            context.startActivity(intent);
         });
     }
 

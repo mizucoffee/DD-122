@@ -36,6 +36,7 @@ public class RecordedFragment extends Fragment implements RecordedView{
 
     private RecordedPresenter mPresenter;
     private RecyclerView.Adapter mAdapter;
+    private ListType listType;
 
     @BindView(R.id.recycler)
     public RecyclerView mRecyclerView;
@@ -79,7 +80,6 @@ public class RecordedFragment extends Fragment implements RecordedView{
 
             case R.id.menu_sort:
                 break;
-
             case R.id.menu_list:
                 PopupMenu popup = new PopupMenu(getActivity(), ButterKnife.findById(getActivity(),R.id.menu_list));
                 popup.getMenuInflater().inflate(R.menu.recorded_listtype_popup_menu, popup.getMenu());
@@ -124,6 +124,10 @@ public class RecordedFragment extends Fragment implements RecordedView{
 
     @Override
     public void setRecyclerView(List<Recorded> recorded,ListType listType){
+        if(this.listType == listType) {
+            mAdapter.notifyDataSetChanged();
+            return;
+        }
         switch (listType){
             case CARD_COLUMN1:
                 mRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 1));
@@ -138,7 +142,7 @@ public class RecordedFragment extends Fragment implements RecordedView{
                 mAdapter = new RecordedCardListRecyclerAdapter(getDashboardActivity(), recorded);
                 break;
         }
-
+        this.listType = listType;
         mRecyclerView.setAdapter(mAdapter);
     }
 

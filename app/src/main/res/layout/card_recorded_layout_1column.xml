@@ -82,7 +82,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         style="@style/Widget.AppCompat.Button.Borderless"
-                        android:text="@string/details"
+                        android:text="@string/detail"
                         android:id="@+id/detail_btn"/>
 
                 </LinearLayout>
