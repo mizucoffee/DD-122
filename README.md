@@ -4,6 +4,7 @@
 [![GitHub issues](https://img.shields.io/github/issues/Hatsuyuki-Project/Hatsuyuki-Android-Chinachu-Client.svg)](https://github.com/Hatsuyuki-Project/Hatsuyuki-Android-Chinachu-Client/issues)
 [![GitHub pull requests](https://img.shields.io/github/issues-pr/Hatsuyuki-Project/Hatsuyuki-Android-Chinachu-Client.svg)](https://github.com/Hatsuyuki-Project/Hatsuyuki-Android-Chinachu-Client/pulls)
 [![license](https://img.shields.io/github/license/mashape/apistatus.svg)](http://kawakawaritsuki.mit-license.org/)
+[<img src="https://img.shields.io/badge/deploygate-Download-87CEEB.svg" alt="Download from deploygate">](https://dply.me/bfymsx)
 
 ![Hatsuyuki](https://raw.githubusercontent.com/Hatsuyuki-Project/Hatsuyuki-Android-Chinachu-Client/master/Hatsuyuki.png)
 
