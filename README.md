@@ -1,10 +1,10 @@
 # Hatsuyuki Android Chinachu Client
 
-[![Build Status](https://travis-ci.org/Hatsuyuki-Project/Hatsuyuki-Android-Chinachu-Client.svg?branch=master)](https://travis-ci.org/Hatsuyuki-Project/Hatsuyuki-Android-Chinachu-Client)
-[![GitHub issues](https://img.shields.io/github/issues/Hatsuyuki-Project/Hatsuyuki-Android-Chinachu-Client.svg)](https://github.com/Hatsuyuki-Project/Hatsuyuki-Android-Chinachu-Client/issues)
-[![GitHub pull requests](https://img.shields.io/github/issues-pr/Hatsuyuki-Project/Hatsuyuki-Android-Chinachu-Client.svg)](https://github.com/Hatsuyuki-Project/Hatsuyuki-Android-Chinachu-Client/pulls)
-[![license](https://img.shields.io/github/license/mashape/apistatus.svg)](http://kawakawaritsuki.mit-license.org/)
-[<img src="https://img.shields.io/badge/deploygate-Download-87CEEB.svg" alt="Download from deploygate">](https://dply.me/bfymsx)
+[![Build Status](https://img.shields.io/travis/Hatsuyuki-Project/Hatsuyuki-Android-Chinachu-Client.svg?style=flat-square&branch=master)](https://travis-ci.org/Hatsuyuki-Project/Hatsuyuki-Android-Chinachu-Client)
+[![GitHub issues](https://img.shields.io/github/issues/Hatsuyuki-Project/Hatsuyuki-Android-Chinachu-Client.svg?style=flat-square)](https://github.com/Hatsuyuki-Project/Hatsuyuki-Android-Chinachu-Client/issues)
+[![GitHub pull requests](https://img.shields.io/github/issues-pr/Hatsuyuki-Project/Hatsuyuki-Android-Chinachu-Client.svg?style=flat-square)](https://github.com/Hatsuyuki-Project/Hatsuyuki-Android-Chinachu-Client/pulls)
+[![license](https://img.shields.io/github/license/mashape/apistatus.svg?style=flat-square)](http://kawakawaritsuki.mit-license.org/)
+[<img src="https://img.shields.io/badge/deploygate-Download-87CEEB.svg?style=flat-square" alt="Download from deploygate">](https://dply.me/bfymsx)
 
 ![Hatsuyuki](https://raw.githubusercontent.com/Hatsuyuki-Project/Hatsuyuki-Android-Chinachu-Client/master/Hatsuyuki.png)
 
