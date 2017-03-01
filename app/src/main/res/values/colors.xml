@@ -3,4 +3,19 @@
     <color name="colorPrimary">#3949AB</color>
     <color name="colorPrimaryDark">#283593</color>
     <color name="colorAccent">#7986CB</color>
+
+    <color name="anime">#ffe0ff</color>
+    <color name="information">#ffe0f0</color>
+    <color name="news">#ffe0f0</color>
+    <color name="sports">#e0e0ff</color>
+    <color name="variety">#e0ffff</color>
+    <color name="drama">#ffe0e0</color>
+    <color name="music">#e0ffe0</color>
+    <color name="cinema">#fff0e0</color>
+    <color name="theater">#f7efe7</color>
+    <color name="documentary">#fff7c4</color>
+    <color name="hobby">#cfe5ea</color>
+    <color name="welfare">#cde5f3</color>
+    <color name="etc">#f0f0f0</color>
+
 </resources>

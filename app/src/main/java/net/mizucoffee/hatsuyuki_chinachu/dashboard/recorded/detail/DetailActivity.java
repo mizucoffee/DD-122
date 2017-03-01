@@ -9,7 +9,9 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
@@ -36,6 +38,15 @@ public class DetailActivity extends AppCompatActivity {
 
         setTitle(mRecorded.getTitle());
         ImageView topIv = ButterKnife.findById(this,R.id.img_cover);
+        ((TextView)ButterKnife.findById(this,R.id.detail_title_tv)).setText(mRecorded.getTitle());
+        ((TextView)ButterKnife.findById(this,R.id.detail_subtitle_tv)).setText(mRecorded.getSubTitle());
+        if(mRecorded.getSubTitle().equals("")){
+            ButterKnife.findById(this,R.id.detail_subtitle).setVisibility(View.GONE);
+            ButterKnife.findById(this,R.id.detail_subtitle_tv).setVisibility(View.GONE);
+        }
+        ((TextView)ButterKnife.findById(this,R.id.detail_des_tv)).setText(mRecorded.getDetail());
+        ((TextView)ButterKnife.findById(this,R.id.detail_channel_tv)).setText(mRecorded.getChannel().getName()+" "+mRecorded.getChannel().getId());
+
         mDataManager = new DataManager(getSharedPreferences("HatsuyukiChinachu", Context.MODE_PRIVATE));
 
         Picasso.with(this).load("http://" + mDataManager.getServerConnection().getAddress() + "/api/recorded/" + mRecorded.getId() + "/preview.png").into(topIv);
@@ -53,6 +64,7 @@ public class DetailActivity extends AppCompatActivity {
         if (bar != null) {
             bar.setDisplayHomeAsUpEnabled(true);
         }
+
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item){

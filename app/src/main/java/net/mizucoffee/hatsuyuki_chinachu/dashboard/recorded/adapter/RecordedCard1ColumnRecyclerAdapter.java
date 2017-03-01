@@ -3,12 +3,14 @@ package net.mizucoffee.hatsuyuki_chinachu.dashboard.recorded.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
@@ -56,6 +58,50 @@ public class RecordedCard1ColumnRecyclerAdapter extends RecyclerView.Adapter<Rec
         vh.timeTv.setText(sdf.format(program.getStart())+"-"+sdf1.format(program.getEnd()) + " " + (program.getSeconds() / 60) + "min");
         vh.desTv.setText(program.getDetail());
 
+        int id = R.color.etc;
+        switch (program.getCategory()){
+            case "anime":
+                id =  R.color.anime;
+                break;
+            case "information":
+                id =  R.color.information;
+                break;
+            case "news":
+                id =  R.color.news;
+                break;
+            case "sports":
+                id =  R.color.sports;
+                break;
+            case "variety":
+                id =  R.color.variety;
+                break;
+            case "drama":
+                id =  R.color.drama;
+                break;
+            case "music":
+                id =  R.color.music;
+                break;
+            case "cinema":
+                id =  R.color.cinema;
+                break;
+            case "theater":
+                id =  R.color.theater;
+                break;
+            case "documentary":
+                id =  R.color.documentary;
+                break;
+            case "hobby":
+                id =  R.color.hobby;
+                break;
+            case "welfare":
+                id =  R.color.welfare;
+                break;
+            case "etc":
+                id =  R.color.etc;
+                break;
+        }
+        vh.linearLayout.setBackgroundColor(ContextCompat.getColor(context,id));
+
         Picasso.with(context).load("http://" + mDataManager.getServerConnection().getAddress() + "/api/recorded/" + program.getId() + "/preview.png").into(vh.imageView);
         vh.playBtn.setOnClickListener((v) -> {
             Uri uri = Uri.parse("http://" + mDataManager.getServerConnection().getAddress() + "/api/recorded/" + program.getId() + "/watch.mp4");
@@ -88,6 +134,7 @@ public class RecordedCard1ColumnRecyclerAdapter extends RecyclerView.Adapter<Rec
         private Button playBtn;
         private Button    detailBtn;
         private Button    deleteBtn;
+        private LinearLayout linearLayout;
 
         private ViewHolder(View v) {
             super(v);
@@ -98,6 +145,7 @@ public class RecordedCard1ColumnRecyclerAdapter extends RecyclerView.Adapter<Rec
             playBtn    = ButterKnife.findById(v,R.id.play_btn);
             detailBtn  = ButterKnife.findById(v,R.id.detail_btn);
             deleteBtn  = ButterKnife.findById(v,R.id.delete_btn);
+            linearLayout = ButterKnife.findById(v,R.id.linearLayout);
         }
     }
 }

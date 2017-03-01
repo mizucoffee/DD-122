@@ -2,7 +2,7 @@ package net.mizucoffee.hatsuyuki_chinachu.dashboard.recorded.adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -55,7 +55,49 @@ public class RecordedCardListRecyclerAdapter extends RecyclerView.Adapter<Record
 
         Picasso.with(context).load("http://" + mDataManager.getServerConnection().getAddress() + "/api/recorded/" + program.getId() + "/preview.png").into(vh.imageView);
 
-        if ((position % 2) != 0) vh.linearLayout.setBackgroundColor(Color.argb(255,235,235,235)); else vh.linearLayout.setBackgroundColor(Color.argb(255,255,255,255));
+        int id = R.color.etc;
+        switch (program.getCategory()){
+            case "anime":
+                id =  R.color.anime;
+                break;
+            case "information":
+                id =  R.color.information;
+                break;
+            case "news":
+                id =  R.color.news;
+                break;
+            case "sports":
+                id =  R.color.sports;
+                break;
+            case "variety":
+                id =  R.color.variety;
+                break;
+            case "drama":
+                id =  R.color.drama;
+                break;
+            case "music":
+                id =  R.color.music;
+                break;
+            case "cinema":
+                id =  R.color.cinema;
+                break;
+            case "theater":
+                id =  R.color.theater;
+                break;
+            case "documentary":
+                id =  R.color.documentary;
+                break;
+            case "hobby":
+                id =  R.color.hobby;
+                break;
+            case "welfare":
+                id =  R.color.welfare;
+                break;
+            case "etc":
+                id =  R.color.etc;
+                break;
+        }
+        vh.linearLayout.setBackgroundColor(ContextCompat.getColor(context,id));
 
         vh.linearLayout.setOnClickListener((v) -> {
             Intent intent = new Intent();

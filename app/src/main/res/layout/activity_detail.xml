@@ -57,13 +57,65 @@
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:paddingLeft="16dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="16dp"
+            android:paddingRight="16dp">
+
+            <TextView
+                android:text="Title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp" />
 
             <TextView
                 android:text="TextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/texteView2" />
+                android:id="@+id/detail_title_tv"
+                android:textAppearance="@android:style/TextAppearance.Material.Large" />
+
+            <TextView
+                android:text="Subtitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/detail_subtitle"
+                android:layout_marginTop="8dp" />
+
+            <TextView
+                android:text="TextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/detail_subtitle_tv"
+                android:textAppearance="@android:style/TextAppearance.Material.Large" />
+
+            <TextView
+                android:text="Description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp" />
+
+            <TextView
+                android:text="TextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/detail_des_tv"
+                android:textAppearance="@android:style/TextAppearance.Material.Medium" />
+
+            <TextView
+                android:text="Channel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp" />
+
+            <TextView
+                android:text="TextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/detail_channel_tv"
+                android:textAppearance="@android:style/TextAppearance.Material.Medium" />
+
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 
