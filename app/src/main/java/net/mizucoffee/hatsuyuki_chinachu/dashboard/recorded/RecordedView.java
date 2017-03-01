@@ -2,7 +2,7 @@ package net.mizucoffee.hatsuyuki_chinachu.dashboard.recorded;
 
 import android.content.SharedPreferences;
 
-import net.mizucoffee.hatsuyuki_chinachu.chinachu.api.model.gamma.Recorded;
+import net.mizucoffee.hatsuyuki_chinachu.chinachu.model.recorded.Recorded;
 import net.mizucoffee.hatsuyuki_chinachu.dashboard.DashboardActivity;
 import net.mizucoffee.hatsuyuki_chinachu.dashboard.recorded.enumerate.ListType;
 
@@ -17,5 +17,5 @@ public interface RecordedView {
     DashboardActivity getDashboardActivity();
     void removeRecyclerView();
     SharedPreferences getActivitySharedPreferences(String name, int mode);
-    void showSnackbar(String text);
+    void showSnackBar(String text);
 }

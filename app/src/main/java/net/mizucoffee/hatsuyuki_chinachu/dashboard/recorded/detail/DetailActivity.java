@@ -17,63 +17,66 @@ import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 
 import net.mizucoffee.hatsuyuki_chinachu.R;
-import net.mizucoffee.hatsuyuki_chinachu.chinachu.api.model.gamma.Recorded;
+import net.mizucoffee.hatsuyuki_chinachu.chinachu.model.recorded.Recorded;
 import net.mizucoffee.hatsuyuki_chinachu.tools.DataManager;
+import net.mizucoffee.hatsuyuki_chinachu.tools.Shirayuki;
 
-import butterknife.ButterKnife;
+import butterknife.BindView;
 
 public class DetailActivity extends AppCompatActivity {
 
-    private Recorded mRecorded;
+    private Recorded    mRecorded;
     private DataManager mDataManager;
+
+    @BindView(R.id.toolbar) Toolbar mToolBar;
+    @BindView(R.id.img_cover) ImageView mCoverIv;
+    @BindView(R.id.fab) FloatingActionButton mFab;
+
+    @BindView(R.id.detail_title_tv)     TextView mTitleTv;
+    @BindView(R.id.detail_subtitle_tv)  TextView mSubtitleTv;
+    @BindView(R.id.detail_subtitle)     TextView mSubtitleHeadTv;
+    @BindView(R.id.detail_des_tv)       TextView mDescriptionTv;
+    @BindView(R.id.detail_channel_tv)   TextView mChannelTv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        setSupportActionBar(mToolBar);
+        Shirayuki.initActivity(this);
 
-        mRecorded = new Gson().fromJson(getIntent().getStringExtra("program"), Recorded.class);
-
-        setTitle(mRecorded.getTitle());
-        ImageView topIv = ButterKnife.findById(this,R.id.img_cover);
-        ((TextView)ButterKnife.findById(this,R.id.detail_title_tv)).setText(mRecorded.getTitle());
-        ((TextView)ButterKnife.findById(this,R.id.detail_subtitle_tv)).setText(mRecorded.getSubTitle());
-        if(mRecorded.getSubTitle().equals("")){
-            ButterKnife.findById(this,R.id.detail_subtitle).setVisibility(View.GONE);
-            ButterKnife.findById(this,R.id.detail_subtitle_tv).setVisibility(View.GONE);
-        }
-        ((TextView)ButterKnife.findById(this,R.id.detail_des_tv)).setText(mRecorded.getDetail());
-        ((TextView)ButterKnife.findById(this,R.id.detail_channel_tv)).setText(mRecorded.getChannel().getName()+" "+mRecorded.getChannel().getId());
-
+        mRecorded    = new Gson().fromJson(getIntent().getStringExtra("program"), Recorded.class);
         mDataManager = new DataManager(getSharedPreferences("HatsuyukiChinachu", Context.MODE_PRIVATE));
 
-        Picasso.with(this).load("http://" + mDataManager.getServerConnection().getAddress() + "/api/recorded/" + mRecorded.getId() + "/preview.png").into(topIv);
+        setTitle(mRecorded.getTitle());
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(v -> {
+        mTitleTv.setText(mRecorded.getTitle());
+        mSubtitleTv.setText(mRecorded.getSubTitle());
+
+        if(mRecorded.getSubTitle().equals("")){
+            mSubtitleTv.setVisibility(View.GONE);
+            mSubtitleHeadTv.setVisibility(View.GONE);
+        }
+
+        mDescriptionTv.setText(mRecorded.getDetail());
+        mChannelTv.setText(mRecorded.getChannel().getName()+" "+mRecorded.getChannel().getId());
+
+        Picasso.with(this).load("http://" + mDataManager.getServerConnection().getAddress() + "/api/recorded/" + mRecorded.getId() + "/preview.png?pos=30").into(mCoverIv);
+
+        mFab.setOnClickListener(v -> {
             Uri uri = Uri.parse("http://" + mDataManager.getServerConnection().getAddress() + "/api/recorded/" + mRecorded.getId() + "/watch.mp4");
-            Intent vlcIntent = new Intent(Intent.ACTION_VIEW);
-            vlcIntent.setPackage("org.videolan.vlc");
-            vlcIntent.setDataAndTypeAndNormalize(uri, "video/*");
-            startActivity(vlcIntent);
+            startActivity(new Intent(Intent.ACTION_VIEW).setPackage("org.videolan.vlc").setDataAndTypeAndNormalize(uri, "video/*"));
         });
 
         ActionBar bar = getSupportActionBar();
-        if (bar != null) {
-            bar.setDisplayHomeAsUpEnabled(true);
-        }
-
+        if (bar != null) bar.setDisplayHomeAsUpEnabled(true);
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
-
         int itemId = item.getItemId();
         if(itemId == android.R.id.home){
             finish();
         }
         return super.onOptionsItemSelected(item);
-
     }
 }

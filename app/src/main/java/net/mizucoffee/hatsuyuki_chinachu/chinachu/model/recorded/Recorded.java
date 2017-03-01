@@ -1,4 +1,4 @@
-package net.mizucoffee.hatsuyuki_chinachu.chinachu.api.model.gamma;
+package net.mizucoffee.hatsuyuki_chinachu.chinachu.model.recorded;
 
 import java.util.HashMap;
 import java.util.List;

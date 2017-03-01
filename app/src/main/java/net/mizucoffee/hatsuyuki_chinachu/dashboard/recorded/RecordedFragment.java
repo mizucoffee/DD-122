@@ -5,7 +5,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
@@ -20,11 +19,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import net.mizucoffee.hatsuyuki_chinachu.R;
-import net.mizucoffee.hatsuyuki_chinachu.chinachu.api.model.gamma.Recorded;
+import net.mizucoffee.hatsuyuki_chinachu.chinachu.model.recorded.Recorded;
 import net.mizucoffee.hatsuyuki_chinachu.dashboard.DashboardActivity;
-import net.mizucoffee.hatsuyuki_chinachu.dashboard.recorded.adapter.RecordedCard1ColumnRecyclerAdapter;
-import net.mizucoffee.hatsuyuki_chinachu.dashboard.recorded.adapter.RecordedCard2ColumnRecyclerAdapter;
-import net.mizucoffee.hatsuyuki_chinachu.dashboard.recorded.adapter.RecordedCardListRecyclerAdapter;
+import net.mizucoffee.hatsuyuki_chinachu.dashboard.recorded.adapter.RecordedCardRecyclerAdapter;
 import net.mizucoffee.hatsuyuki_chinachu.dashboard.recorded.enumerate.ListType;
 import net.mizucoffee.hatsuyuki_chinachu.tools.Shirayuki;
 
@@ -36,9 +33,7 @@ import butterknife.ButterKnife;
 public class RecordedFragment extends Fragment implements RecordedView{
 
     private RecordedPresenter mPresenter;
-    private RecyclerView.Adapter mAdapter;
-    private ListType listType;
-    private SearchView searchView;
+    private RecordedCardRecyclerAdapter mAdapter;
 
     @BindView(R.id.recycler)
     public RecyclerView mRecyclerView;
@@ -46,19 +41,20 @@ public class RecordedFragment extends Fragment implements RecordedView{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
-        View view = inflater.inflate(R.layout.fragment_recorded, container, false);
-        Shirayuki.initFragment(this,view);
-        return view;
+        return inflater.inflate(R.layout.fragment_recorded, container, false);
     }
 
     @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        Shirayuki.initFragment(this,view);
 
         mPresenter = new RecordedPresenterImpl(this);
         mRecyclerView.setHasFixedSize(true);
 
+        mAdapter = new RecordedCardRecyclerAdapter(getDashboardActivity());
         mPresenter.getRecorded();
+        setHasOptionsMenu(true);
     }
 
     @Override
@@ -71,7 +67,7 @@ public class RecordedFragment extends Fragment implements RecordedView{
 
         MenuItem menuItem = menu.findItem(R.id.search_menu_search_view);
 
-        searchView = (SearchView)menuItem.getActionView();
+        SearchView searchView = (SearchView)menuItem.getActionView();
         searchView.setIconifiedByDefault(true);
         searchView.setSubmitButtonEnabled(false);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -85,13 +81,6 @@ public class RecordedFragment extends Fragment implements RecordedView{
                 return false;
             }
         });
-    }
-
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        setHasOptionsMenu(true);
-
     }
 
     @Override
@@ -115,13 +104,7 @@ public class RecordedFragment extends Fragment implements RecordedView{
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
-        mPresenter.getRecorded();
-    }
-
-    @Override
-    public void showSnackbar(String text){
+    public void showSnackBar(String text){
         Snackbar.make(mRecyclerView, text, Snackbar.LENGTH_LONG).show();
     }
 
@@ -130,11 +113,7 @@ public class RecordedFragment extends Fragment implements RecordedView{
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-
-        if (context instanceof Activity){
-            activity = (DashboardActivity)context;
-        }
-
+        if (context instanceof Activity) activity = (DashboardActivity)context;
     }
 
     @Override
@@ -144,25 +123,20 @@ public class RecordedFragment extends Fragment implements RecordedView{
 
     @Override
     public void setRecyclerView(List<Recorded> recorded,ListType listType){
-        if(this.listType == listType) {
-            mAdapter.notifyDataSetChanged();
-            return;
-        }
         switch (listType){
             case CARD_COLUMN1:
+            case LIST:
                 mRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 1));
-                mAdapter = new RecordedCard1ColumnRecyclerAdapter(getDashboardActivity(), recorded);
                 break;
             case CARD_COLUMN2:
                 mRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
-                mAdapter = new RecordedCard2ColumnRecyclerAdapter(getDashboardActivity(), recorded);
-                break;
-            case LIST:
-                mRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 1));
-                mAdapter = new RecordedCardListRecyclerAdapter(getDashboardActivity(), recorded);
                 break;
         }
-        this.listType = listType;
+
+        mAdapter.setRecorded(recorded);
+        mAdapter.setListType(listType);
+        mAdapter.notifyDataSetChanged();
+
         mRecyclerView.setAdapter(mAdapter);
     }
 
@@ -176,6 +150,10 @@ public class RecordedFragment extends Fragment implements RecordedView{
     public void onDestroy() {
         super.onDestroy();
         mPresenter.onDestroy();
+    }
+
+    public void reload(){
+        mPresenter.getRecorded();
     }
 
     @Override

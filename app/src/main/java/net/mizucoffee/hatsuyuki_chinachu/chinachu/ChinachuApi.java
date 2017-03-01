@@ -1,6 +1,6 @@
-package net.mizucoffee.hatsuyuki_chinachu.chinachu.api;
+package net.mizucoffee.hatsuyuki_chinachu.chinachu;
 
-import net.mizucoffee.hatsuyuki_chinachu.chinachu.api.model.gamma.Recorded;
+import net.mizucoffee.hatsuyuki_chinachu.chinachu.model.recorded.Recorded;
 
 import java.util.List;
 
@@ -10,7 +10,7 @@ import retrofit2.Response;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
 
-public interface ChinachuGammaApi {
+public interface ChinachuApi {
     @GET("/api/recorded.json")
     Call<List<Recorded>> getRecorded();
 

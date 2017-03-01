@@ -43,6 +43,7 @@ public class SelectServerActivity extends AppCompatActivity implements SelectSer
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mPresenter.getList();
+        setResult(RESULT_CANCELED);
     }
 
     @Override
@@ -105,6 +106,7 @@ public class SelectServerActivity extends AppCompatActivity implements SelectSer
 
     @Override
     public void finishActivity() {
+        setResult(RESULT_OK);
         finish();
     }
 }

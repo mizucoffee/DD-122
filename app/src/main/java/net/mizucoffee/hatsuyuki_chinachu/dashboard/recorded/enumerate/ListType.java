@@ -5,7 +5,5 @@ package net.mizucoffee.hatsuyuki_chinachu.dashboard.recorded.enumerate;
  */
 
 public enum ListType {
-    CARD_COLUMN1,
-    CARD_COLUMN2,
-    LIST;
+    CARD_COLUMN1, CARD_COLUMN2, LIST
 }

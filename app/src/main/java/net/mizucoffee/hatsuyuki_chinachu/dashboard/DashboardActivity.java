@@ -19,7 +19,6 @@ import net.mizucoffee.hatsuyuki_chinachu.tools.Shirayuki;
 
 import butterknife.BindView;
 
-import static android.R.attr.mode;
 import static butterknife.ButterKnife.findById;
 
 public class DashboardActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, DashboardView {
@@ -94,7 +93,7 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
 
     @Override
     public void intentSelectServer(boolean first) {
-        startActivity(new Intent(this, SelectServerActivity.class).putExtra("first",first));
+        startActivityForResult(new Intent(this, SelectServerActivity.class).putExtra("first",first),1);
     }
 
     @Override
@@ -125,6 +124,14 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
     @Override
     public SharedPreferences getActivitySharedPreferences(String name, int mode){
         return getSharedPreferences(name,mode);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == 1 && resultCode == RESULT_OK){
+            mRecordedFragment.reload();
+        }
     }
 
     @Override

@@ -2,7 +2,7 @@ package net.mizucoffee.hatsuyuki_chinachu.dashboard.recorded;
 
 import android.content.Context;
 
-import net.mizucoffee.hatsuyuki_chinachu.chinachu.api.model.gamma.Recorded;
+import net.mizucoffee.hatsuyuki_chinachu.chinachu.model.recorded.Recorded;
 import net.mizucoffee.hatsuyuki_chinachu.dashboard.DashboardInteractor;
 import net.mizucoffee.hatsuyuki_chinachu.dashboard.recorded.enumerate.ListType;
 import net.mizucoffee.hatsuyuki_chinachu.model.ServerConnection;
@@ -48,7 +48,7 @@ public class RecordedPresenterImpl implements RecordedPresenter {
                     @Override
                     public void onFailure(Call<List<Recorded>> call, Throwable t) {
                         mRecordedView.removeRecyclerView();
-                        mRecordedView.showSnackbar("サーバーへの接続に失敗しました");
+                        mRecordedView.showSnackBar("サーバーへの接続に失敗しました");
                     }
                 });
             }
@@ -56,7 +56,7 @@ public class RecordedPresenterImpl implements RecordedPresenter {
             @Override
             public void onNotFound() {
                 mRecordedView.removeRecyclerView();
-                mRecordedView.showSnackbar("サーバーを登録しましょう");//おいおい変更。カードにする。
+                mRecordedView.showSnackBar("サーバーを登録しましょう");//おいおい変更。カードにする。
             }
         });
     }
