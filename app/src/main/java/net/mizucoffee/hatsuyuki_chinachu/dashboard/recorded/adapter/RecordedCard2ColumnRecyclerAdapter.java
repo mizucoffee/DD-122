@@ -25,6 +25,7 @@ import net.mizucoffee.hatsuyuki_chinachu.tools.Shirayuki;
 
 import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.Locale;
 
 import butterknife.ButterKnife;
 
@@ -52,9 +53,10 @@ public class RecordedCard2ColumnRecyclerAdapter extends RecyclerView.Adapter<Rec
     public void onBindViewHolder(final ViewHolder vh, int position) {
         Recorded program = recorded.get(vh.getAdapterPosition());
         vh.titleTv.setText(program.getTitle());
-        vh.timeTv.setText(new SimpleDateFormat("yyyy/MM/dd E").format(program.getStart()) + " " + (program.getSeconds() / 60) + "min");
+        vh.timeTv.setText(new SimpleDateFormat("yyyy/MM/dd E", Locale.getDefault()).format(program.getStart()) + " " + (program.getSeconds() / 60) + "min");
+        vh.linearLayout.setBackgroundColor(ContextCompat.getColor(context,Shirayuki.getColorFromCategory(program.getCategory())));
 
-        Picasso.with(context).load("http://" + mDataManager.getServerConnection().getAddress() + "/api/recorded/" + program.getId() + "/preview.png").into(vh.imageView);
+        Picasso.with(context).load("http://" + mDataManager.getServerConnection().getAddress() + "/api/recorded/" + program.getId() + "/preview.png?pos=30").into(vh.imageView);
         vh.playBtn.setOnClickListener((v) -> {
             Uri uri = Uri.parse("http://" + mDataManager.getServerConnection().getAddress() + "/api/recorded/" + program.getId() + "/watch.mp4");
             Intent vlcIntent = new Intent(Intent.ACTION_VIEW);
@@ -70,50 +72,6 @@ public class RecordedCard2ColumnRecyclerAdapter extends RecyclerView.Adapter<Rec
             intent.putExtra("program",new Gson().toJson(program));
             context.startActivity(intent);
         });
-        int id = R.color.etc;
-        switch (program.getCategory()){
-            case "anime":
-                id =  R.color.anime;
-                break;
-            case "information":
-                id =  R.color.information;
-                break;
-            case "news":
-                id =  R.color.news;
-                break;
-            case "sports":
-                id =  R.color.sports;
-                break;
-            case "variety":
-                id =  R.color.variety;
-                break;
-            case "drama":
-                id =  R.color.drama;
-                break;
-            case "music":
-                id =  R.color.music;
-                break;
-            case "cinema":
-                id =  R.color.cinema;
-                break;
-            case "theater":
-                id =  R.color.theater;
-                break;
-            case "documentary":
-                id =  R.color.documentary;
-                break;
-            case "hobby":
-                id =  R.color.hobby;
-                break;
-            case "welfare":
-                id =  R.color.welfare;
-                break;
-            case "etc":
-                id =  R.color.etc;
-                break;
-        }
-        vh.linearLayout.setBackgroundColor(ContextCompat.getColor(context,id));
-
     }
 
     @Override

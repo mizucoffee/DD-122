@@ -93,21 +93,21 @@
     </item>
     <item
         is-multidex="true"
-        jar="/Users/mizucoffee/AndroidStudioProjects/Hatsuyuki_Chinachu/app/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.0"
-        sha1="721835debf76bbb086cf32300e186fc1611b3788">
-        <dex dex="/Users/mizucoffee/AndroidStudioProjects/Hatsuyuki_Chinachu/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run-bootstrap_88e4a5b3b3d700878fac52ba2b912293df45c156/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
         jar="/Users/mizucoffee/AndroidStudioProjects/Hatsuyuki_Chinachu/app/build/intermediates/exploded-aar/com.android.support/support-fragment/25.0.1/jars/classes.jar"
         jumboMode="true"
         optimize="true"
         revision="25.0.0"
         sha1="26c6eef571592c91f29e56fda0bac73321de0c92">
         <dex dex="/Users/mizucoffee/AndroidStudioProjects/Hatsuyuki_Chinachu/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-fragment-25.0.1_db483ef4b0da7fcfd2d7428e8ba2a693fff5329f/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/mizucoffee/AndroidStudioProjects/Hatsuyuki_Chinachu/app/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="721835debf76bbb086cf32300e186fc1611b3788">
+        <dex dex="/Users/mizucoffee/AndroidStudioProjects/Hatsuyuki_Chinachu/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run-bootstrap_88e4a5b3b3d700878fac52ba2b912293df45c156/classes.dex" />
     </item>
     <item
         is-multidex="true"
@@ -318,21 +318,21 @@
     </item>
     <item
         is-multidex="true"
-        jar="/Users/mizucoffee/AndroidStudioProjects/Hatsuyuki_Chinachu/app/build/intermediates/exploded-aar/com.android.support/support-fragment/25.0.1/jars/libs/internal_impl-25.0.1.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.0"
-        sha1="c0bd6ffb002a85b5e7cad29f8558d1cc59539679">
-        <dex dex="/Users/mizucoffee/AndroidStudioProjects/Hatsuyuki_Chinachu/app/build/intermediates/transforms/dex/debug/folders/1000/10/internal_impl-25.0.1_b35ab1cd6c51d3ebf7b44ab8b1d1f304ba62c475/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
         jar="/Users/mizucoffee/AndroidStudioProjects/Hatsuyuki_Chinachu/app/build/intermediates/exploded-aar/com.jakewharton/butterknife/8.4.0/jars/classes.jar"
         jumboMode="true"
         optimize="true"
         revision="25.0.0"
         sha1="a07818a1ecabdb149998823429cce555af4b9cba">
         <dex dex="/Users/mizucoffee/AndroidStudioProjects/Hatsuyuki_Chinachu/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.jakewharton-butterknife-8.4.0_58dbcddf5efa6ada2a0ab1a072911ad945d8875a/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/mizucoffee/AndroidStudioProjects/Hatsuyuki_Chinachu/app/build/intermediates/exploded-aar/com.android.support/support-fragment/25.0.1/jars/libs/internal_impl-25.0.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="c0bd6ffb002a85b5e7cad29f8558d1cc59539679">
+        <dex dex="/Users/mizucoffee/AndroidStudioProjects/Hatsuyuki_Chinachu/app/build/intermediates/transforms/dex/debug/folders/1000/10/internal_impl-25.0.1_b35ab1cd6c51d3ebf7b44ab8b1d1f304ba62c475/classes.dex" />
     </item>
     <item
         is-multidex="true"

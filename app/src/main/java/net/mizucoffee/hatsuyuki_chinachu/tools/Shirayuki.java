@@ -34,4 +34,24 @@ public class Shirayuki {
         Log.i("SHIRAYUKI",msg);
     }
 
+    public static int getColorFromCategory(String category){
+        int color = R.color.etc;
+        switch (category){
+            case "anime":       color =  R.color.anime;        break;
+            case "information": color =  R.color.information;  break;
+            case "news":        color =  R.color.news;         break;
+            case "sports":      color =  R.color.sports;       break;
+            case "variety":     color =  R.color.variety;      break;
+            case "drama":       color =  R.color.drama;        break;
+            case "music":       color =  R.color.music;        break;
+            case "cinema":      color =  R.color.cinema;       break;
+            case "theater":     color =  R.color.theater;      break;
+            case "documentary": color =  R.color.documentary;  break;
+            case "hobby":       color =  R.color.hobby;        break;
+            case "welfare":     color =  R.color.welfare;      break;
+            case "etc":         color =  R.color.etc;          break;
+        }
+        return color;
+    }
+
 }

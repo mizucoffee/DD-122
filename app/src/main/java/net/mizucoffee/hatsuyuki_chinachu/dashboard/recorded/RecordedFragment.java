@@ -11,6 +11,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -37,6 +38,7 @@ public class RecordedFragment extends Fragment implements RecordedView{
     private RecordedPresenter mPresenter;
     private RecyclerView.Adapter mAdapter;
     private ListType listType;
+    private SearchView searchView;
 
     @BindView(R.id.recycler)
     public RecyclerView mRecyclerView;
@@ -66,12 +68,30 @@ public class RecordedFragment extends Fragment implements RecordedView{
         inflater.inflate(R.menu.recorded, menu);
         menu.findItem(R.id.menu_sort).setVisible(true);
         menu.findItem(R.id.menu_list).setVisible(true);
+
+        MenuItem menuItem = menu.findItem(R.id.search_menu_search_view);
+
+        searchView = (SearchView)menuItem.getActionView();
+        searchView.setIconifiedByDefault(true);
+        searchView.setSubmitButtonEnabled(false);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         setHasOptionsMenu(true);
+
     }
 
     @Override
