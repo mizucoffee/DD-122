@@ -23,6 +23,7 @@ import net.mizucoffee.hatsuyuki_chinachu.chinachu.api.model.gamma.Recorded;
 import net.mizucoffee.hatsuyuki_chinachu.dashboard.DashboardActivity;
 import net.mizucoffee.hatsuyuki_chinachu.dashboard.recorded.adapter.RecordedCard1ColumnRecyclerAdapter;
 import net.mizucoffee.hatsuyuki_chinachu.dashboard.recorded.adapter.RecordedCard2ColumnRecyclerAdapter;
+import net.mizucoffee.hatsuyuki_chinachu.dashboard.recorded.adapter.RecordedCardListRecyclerAdapter;
 import net.mizucoffee.hatsuyuki_chinachu.dashboard.recorded.enumerate.ListType;
 import net.mizucoffee.hatsuyuki_chinachu.tools.Shirayuki;
 
@@ -60,6 +61,7 @@ public class RecordedFragment extends Fragment implements RecordedView{
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
+        menu.clear();
         inflater.inflate(R.menu.recorded, menu);
         menu.findItem(R.id.menu_sort).setVisible(true);
         menu.findItem(R.id.menu_list).setVisible(true);
@@ -132,6 +134,8 @@ public class RecordedFragment extends Fragment implements RecordedView{
                 mAdapter = new RecordedCard2ColumnRecyclerAdapter(getDashboardActivity(), recorded);
                 break;
             case LIST:
+                mRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 1));
+                mAdapter = new RecordedCardListRecyclerAdapter(getDashboardActivity(), recorded);
                 break;
         }
 
