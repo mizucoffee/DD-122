@@ -7,7 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -29,13 +29,15 @@ class RecordedCardRecyclerAdapter extends RecyclerView.Adapter<RecordedCardRecyc
     private LayoutInflater mLayoutInflater;
     private DashboardActivity context;
     private DataManager mDataManager;
+    private int column;
 
-    RecordedCardRecyclerAdapter(DashboardActivity context, List<Recorded> recorded) {
+    RecordedCardRecyclerAdapter(DashboardActivity context, List<Recorded> recorded,int column) {
         super();
 
         this.recorded = recorded;
         this.mLayoutInflater = LayoutInflater.from(context);
         this.context = context;
+        this.column = column;
         mDataManager = new DataManager(context.getActivitySharedPreferences("HatsuyukiChinachu", Context.MODE_PRIVATE));
     }
 
@@ -48,10 +50,16 @@ class RecordedCardRecyclerAdapter extends RecyclerView.Adapter<RecordedCardRecyc
     public void onBindViewHolder(final ViewHolder vh, int position) {
         Recorded program = recorded.get(vh.getAdapterPosition());
         vh.titleTv.setText(program.getTitle());
-        vh.desTv.setText(program.getDetail());
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd E HH:mm");
         SimpleDateFormat sdf1 = new SimpleDateFormat("HH:mm");
-        vh.timeTv.setText(sdf.format(program.getStart())+"-"+sdf1.format(program.getEnd()) + " " + (program.getSeconds() / 60) + "min");
+        SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy/MM/dd E");
+
+        if(column == 1){
+            vh.timeTv.setText(sdf.format(program.getStart())+"-"+sdf1.format(program.getEnd()) + " " + (program.getSeconds() / 60) + "min");
+            vh.desTv.setText(program.getDetail());
+        }else if(column == 2) {
+            vh.timeTv.setText(sdf2.format(program.getStart()) + " " + (program.getSeconds() / 60) + "min");
+        }
         Picasso.with(context).load("http://" + mDataManager.getServerConnection().getAddress() + "/api/recorded/" + program.getId() + "/preview.png").into(vh.imageView);
         //TODO: IP変更
         vh.playBtn.setOnClickListener((v) -> {
@@ -65,8 +73,10 @@ class RecordedCardRecyclerAdapter extends RecyclerView.Adapter<RecordedCardRecyc
 
     @Override
     public RecordedCardRecyclerAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = mLayoutInflater.inflate(R.layout.card_recorded_layout, parent, false);
-        return new ViewHolder(view);
+        int layout = column == 1 ? R.layout.card_recorded_layout_1column : R.layout.card_recorded_layout_2column;
+
+        View view = mLayoutInflater.inflate(layout, parent, false);
+        return new ViewHolder(view,column);
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
@@ -74,16 +84,16 @@ class RecordedCardRecyclerAdapter extends RecyclerView.Adapter<RecordedCardRecyc
         private TextView  titleTv;
         private TextView  timeTv;
         private TextView  desTv;
-        private Button    playBtn;
-        private Button    detailBtn;
-        private Button    deleteBtn;
+        private ImageButton playBtn;
+        private ImageButton    detailBtn;
+        private ImageButton    deleteBtn;
 
-        private ViewHolder(View v) {
+        private ViewHolder(View v, int column) {
             super(v);
             imageView  = ButterKnife.findById(v,R.id.image_view);
             titleTv    = ButterKnife.findById(v,R.id.title_tv);
             timeTv     = ButterKnife.findById(v,R.id.time_tv);
-            desTv      = ButterKnife.findById(v,R.id.des_tv);
+            if(column == 1) desTv      = ButterKnife.findById(v,R.id.des_tv);
             playBtn    = ButterKnife.findById(v,R.id.play_btn);
             detailBtn  = ButterKnife.findById(v,R.id.detail_btn);
             deleteBtn  = ButterKnife.findById(v,R.id.delete_btn);

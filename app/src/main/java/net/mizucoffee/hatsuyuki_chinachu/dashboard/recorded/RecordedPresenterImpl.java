@@ -41,7 +41,7 @@ public class RecordedPresenterImpl implements RecordedPresenter {
                 mRecordedInteractor.getRecordedList(new Callback<List<Recorded>>() {
                     @Override
                     public void onResponse(Call<List<Recorded>> call, Response<List<Recorded>> response) {
-                        mRecordedView.setRecyclerView(response.body());
+                        mRecordedView.setRecyclerView(response.body(),2);//TODO: カラム数
                     }
 
                     @Override

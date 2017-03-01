@@ -12,7 +12,7 @@
             android:title="Guide" />
         <item
             android:id="@+id/nav_recorded"
-            android:icon="@drawable/ic_play"
+            android:icon="@drawable/ic_recorded"
             android:title="Recorded" />
         <item
             android:id="@+id/nav_timers"

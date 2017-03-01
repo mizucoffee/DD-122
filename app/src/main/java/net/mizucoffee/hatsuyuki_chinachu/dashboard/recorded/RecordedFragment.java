@@ -8,7 +8,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -44,7 +44,7 @@ public class RecordedFragment extends Fragment implements RecordedView{
         super.onViewCreated(view, savedInstanceState);
 
         mPresenter = new RecordedPresenterImpl(this);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mRecyclerView.setHasFixedSize(true);
 
         mPresenter.getRecorded(getActivity());
     }
@@ -78,15 +78,16 @@ public class RecordedFragment extends Fragment implements RecordedView{
     }
 
     @Override
-    public void setRecyclerView(List<Recorded> recorded){
-        mAdapter = new RecordedCardRecyclerAdapter(getDashboardActivity(), recorded);
+    public void setRecyclerView(List<Recorded> recorded,int column){
+        mRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(), column));
+        mAdapter = new RecordedCardRecyclerAdapter(getDashboardActivity(), recorded, column);
         mRecyclerView.setAdapter(mAdapter);
     }
 
     @Override
     public void removeRecyclerView(){
         mAdapter = null;
-        mRecyclerView.setAdapter(mAdapter);
+        mRecyclerView.setAdapter(null);
     }
 
     @Override

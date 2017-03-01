@@ -12,7 +12,7 @@ import java.util.List;
  */
 
 public interface RecordedView {
-    void setRecyclerView(List<Recorded> recorded);
+    void setRecyclerView(List<Recorded> recorded,int column);
     DashboardActivity getDashboardActivity();
     void removeRecyclerView();
     SharedPreferences getActivitySharedPreferences(String name, int mode);
