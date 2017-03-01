@@ -1,4 +1,4 @@
-package net.mizucoffee.hatsuyuki_chinachu.dashboard.recorded;
+package net.mizucoffee.hatsuyuki_chinachu.dashboard.recorded.adapter;
 
 import android.content.Context;
 import android.content.Intent;
@@ -23,21 +23,18 @@ import java.util.List;
 
 import butterknife.ButterKnife;
 
-class RecordedCardRecyclerAdapter extends RecyclerView.Adapter<RecordedCardRecyclerAdapter.ViewHolder>{
+public class RecordedCard2ColumnRecyclerAdapter extends RecyclerView.Adapter<RecordedCard2ColumnRecyclerAdapter.ViewHolder>{
 
     private List<Recorded> recorded;
     private LayoutInflater mLayoutInflater;
     private DashboardActivity context;
     private DataManager mDataManager;
-    private int column;
 
-    RecordedCardRecyclerAdapter(DashboardActivity context, List<Recorded> recorded,int column) {
+    public RecordedCard2ColumnRecyclerAdapter(DashboardActivity context, List<Recorded> recorded) {
         super();
-
         this.recorded = recorded;
         this.mLayoutInflater = LayoutInflater.from(context);
         this.context = context;
-        this.column = column;
         mDataManager = new DataManager(context.getActivitySharedPreferences("HatsuyukiChinachu", Context.MODE_PRIVATE));
     }
 
@@ -50,18 +47,9 @@ class RecordedCardRecyclerAdapter extends RecyclerView.Adapter<RecordedCardRecyc
     public void onBindViewHolder(final ViewHolder vh, int position) {
         Recorded program = recorded.get(vh.getAdapterPosition());
         vh.titleTv.setText(program.getTitle());
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd E HH:mm");
-        SimpleDateFormat sdf1 = new SimpleDateFormat("HH:mm");
-        SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy/MM/dd E");
+        vh.timeTv.setText(new SimpleDateFormat("yyyy/MM/dd E").format(program.getStart()) + " " + (program.getSeconds() / 60) + "min");
 
-        if(column == 1){
-            vh.timeTv.setText(sdf.format(program.getStart())+"-"+sdf1.format(program.getEnd()) + " " + (program.getSeconds() / 60) + "min");
-            vh.desTv.setText(program.getDetail());
-        }else if(column == 2) {
-            vh.timeTv.setText(sdf2.format(program.getStart()) + " " + (program.getSeconds() / 60) + "min");
-        }
         Picasso.with(context).load("http://" + mDataManager.getServerConnection().getAddress() + "/api/recorded/" + program.getId() + "/preview.png").into(vh.imageView);
-        //TODO: IP変更
         vh.playBtn.setOnClickListener((v) -> {
             Uri uri = Uri.parse("http://" + mDataManager.getServerConnection().getAddress() + "/api/recorded/" + program.getId() + "/watch.mp4");
             Intent vlcIntent = new Intent(Intent.ACTION_VIEW);
@@ -72,28 +60,24 @@ class RecordedCardRecyclerAdapter extends RecyclerView.Adapter<RecordedCardRecyc
     }
 
     @Override
-    public RecordedCardRecyclerAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        int layout = column == 1 ? R.layout.card_recorded_layout_1column : R.layout.card_recorded_layout_2column;
-
-        View view = mLayoutInflater.inflate(layout, parent, false);
-        return new ViewHolder(view,column);
+    public RecordedCard2ColumnRecyclerAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View view = mLayoutInflater.inflate(R.layout.card_recorded_layout_2column, parent, false);
+        return new ViewHolder(view);
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
         private ImageView imageView;
         private TextView  titleTv;
         private TextView  timeTv;
-        private TextView  desTv;
         private ImageButton playBtn;
         private ImageButton    detailBtn;
         private ImageButton    deleteBtn;
 
-        private ViewHolder(View v, int column) {
+        private ViewHolder(View v) {
             super(v);
             imageView  = ButterKnife.findById(v,R.id.image_view);
             titleTv    = ButterKnife.findById(v,R.id.title_tv);
             timeTv     = ButterKnife.findById(v,R.id.time_tv);
-            if(column == 1) desTv      = ButterKnife.findById(v,R.id.des_tv);
             playBtn    = ButterKnife.findById(v,R.id.play_btn);
             detailBtn  = ButterKnife.findById(v,R.id.detail_btn);
             deleteBtn  = ButterKnife.findById(v,R.id.delete_btn);

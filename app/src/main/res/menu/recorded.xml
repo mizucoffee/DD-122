@@ -1,9 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
     <item
-        android:id="@+id/action_settings"
-        android:orderInCategory="100"
-        android:title="settings"
-        app:showAsAction="never" />
+        android:id="@+id/menu_sort"
+        android:icon="@drawable/ic_sort"
+        android:title="Sort"
+        app:showAsAction="always"/>
+
+    <item
+        android:id="@+id/menu_list"
+        android:icon="@drawable/ic_list_white"
+        app:showAsAction="ifRoom"
+        android:title="ListType" />
 </menu>

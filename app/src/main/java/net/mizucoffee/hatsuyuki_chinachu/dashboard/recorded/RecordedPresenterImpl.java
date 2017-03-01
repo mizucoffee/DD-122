@@ -1,10 +1,10 @@
 package net.mizucoffee.hatsuyuki_chinachu.dashboard.recorded;
 
-import android.app.Activity;
 import android.content.Context;
 
 import net.mizucoffee.hatsuyuki_chinachu.chinachu.api.model.gamma.Recorded;
 import net.mizucoffee.hatsuyuki_chinachu.dashboard.DashboardInteractor;
+import net.mizucoffee.hatsuyuki_chinachu.dashboard.recorded.enumerate.ListType;
 import net.mizucoffee.hatsuyuki_chinachu.model.ServerConnection;
 
 import java.util.List;
@@ -21,6 +21,7 @@ public class RecordedPresenterImpl implements RecordedPresenter {
 
     private RecordedView mRecordedView;
     private RecordedInteractor mRecordedInteractor;
+    private ListType mListType = ListType.CARD_COLUMN1;
 
     RecordedPresenterImpl(RecordedView recordedView){
         this.mRecordedView = recordedView;
@@ -33,7 +34,7 @@ public class RecordedPresenterImpl implements RecordedPresenter {
     }
 
     @Override
-    public void getRecorded(Activity a){
+    public void getRecorded(){
         mRecordedInteractor.refreshServerConnection();
         mRecordedInteractor.getServerConnection(new DashboardInteractor.OnLoadFinishedListener() {
             @Override
@@ -41,7 +42,7 @@ public class RecordedPresenterImpl implements RecordedPresenter {
                 mRecordedInteractor.getRecordedList(new Callback<List<Recorded>>() {
                     @Override
                     public void onResponse(Call<List<Recorded>> call, Response<List<Recorded>> response) {
-                        mRecordedView.setRecyclerView(response.body(),2);//TODO: カラム数
+                        mRecordedView.setRecyclerView(response.body(), mListType);//TODO: カラム数
                     }
 
                     @Override
@@ -58,5 +59,11 @@ public class RecordedPresenterImpl implements RecordedPresenter {
                 mRecordedView.showSnackbar("サーバーを登録しましょう");//おいおい変更。カードにする。
             }
         });
+    }
+
+    @Override
+    public void changeSort(ListType type){
+        mListType = type;
+        getRecorded();
     }
 }
