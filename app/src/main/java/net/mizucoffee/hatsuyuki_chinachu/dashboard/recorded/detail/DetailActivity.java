@@ -76,7 +76,7 @@ public class DetailActivity extends AppCompatActivity {
                 if(mChannelIv.getDrawable() != null) {
                     ViewGroup.LayoutParams params = mChannelIv.getLayoutParams();
                     params.width = mChannelIv.getHeight() / 9 * 16;
-                    mChannelIv.setLayoutParams(params);gi
+                    mChannelIv.setLayoutParams(params);
                 }
             }
         });
