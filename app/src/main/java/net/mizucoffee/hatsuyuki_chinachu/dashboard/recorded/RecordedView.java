@@ -3,7 +3,6 @@ package net.mizucoffee.hatsuyuki_chinachu.dashboard.recorded;
 import android.content.SharedPreferences;
 
 import net.mizucoffee.hatsuyuki_chinachu.dashboard.DashboardActivity;
-import net.mizucoffee.hatsuyuki_chinachu.dashboard.recorded.adapter.RecordedCardRecyclerAdapter;
 import net.mizucoffee.hatsuyuki_chinachu.dashboard.recorded.enumerate.ListType;
 
 /**

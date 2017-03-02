@@ -20,7 +20,6 @@ import android.view.ViewGroup;
 
 import net.mizucoffee.hatsuyuki_chinachu.R;
 import net.mizucoffee.hatsuyuki_chinachu.dashboard.DashboardActivity;
-import net.mizucoffee.hatsuyuki_chinachu.dashboard.recorded.adapter.RecordedCardRecyclerAdapter;
 import net.mizucoffee.hatsuyuki_chinachu.dashboard.recorded.enumerate.ListType;
 import net.mizucoffee.hatsuyuki_chinachu.dashboard.recorded.enumerate.SortType;
 import net.mizucoffee.hatsuyuki_chinachu.tools.Shirayuki;
