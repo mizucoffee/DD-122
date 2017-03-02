@@ -19,13 +19,11 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import net.mizucoffee.hatsuyuki_chinachu.R;
-import net.mizucoffee.hatsuyuki_chinachu.chinachu.model.recorded.Recorded;
 import net.mizucoffee.hatsuyuki_chinachu.dashboard.DashboardActivity;
 import net.mizucoffee.hatsuyuki_chinachu.dashboard.recorded.adapter.RecordedCardRecyclerAdapter;
 import net.mizucoffee.hatsuyuki_chinachu.dashboard.recorded.enumerate.ListType;
+import net.mizucoffee.hatsuyuki_chinachu.dashboard.recorded.enumerate.SortType;
 import net.mizucoffee.hatsuyuki_chinachu.tools.Shirayuki;
-
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -33,7 +31,7 @@ import butterknife.ButterKnife;
 public class RecordedFragment extends Fragment implements RecordedView{
 
     private RecordedPresenter mPresenter;
-    private RecordedCardRecyclerAdapter mAdapter;
+
 
     @BindView(R.id.recycler)
     public RecyclerView mRecyclerView;
@@ -52,7 +50,6 @@ public class RecordedFragment extends Fragment implements RecordedView{
         mPresenter = new RecordedPresenterImpl(this);
         mRecyclerView.setHasFixedSize(true);
 
-        mAdapter = new RecordedCardRecyclerAdapter(getDashboardActivity());
         mPresenter.getRecorded();
         setHasOptionsMenu(true);
     }
@@ -78,6 +75,7 @@ public class RecordedFragment extends Fragment implements RecordedView{
 
             @Override
             public boolean onQueryTextChange(String newText) {
+                mPresenter.searchWord(newText);
                 return false;
             }
         });
@@ -88,14 +86,30 @@ public class RecordedFragment extends Fragment implements RecordedView{
         switch (item.getItemId()) {
 
             case R.id.menu_sort:
-                break;
-            case R.id.menu_list:
-                PopupMenu popup = new PopupMenu(getActivity(), ButterKnife.findById(getActivity(),R.id.menu_list));
-                popup.getMenuInflater().inflate(R.menu.recorded_listtype_popup_menu, popup.getMenu());
+                PopupMenu popup = new PopupMenu(getActivity(), ButterKnife.findById(getActivity(),R.id.menu_sort));
+                popup.getMenuInflater().inflate(R.menu.recorded_sorttype_popup_menu, popup.getMenu());
                 popup.show();
                 popup.setOnMenuItemClickListener((menu) -> {
+                    SortType sortType = SortType.DATE_DES;
+                    switch (menu.getItemId()){
+                        case R.id.dateasc: sortType = SortType.DATE_ASC; break;
+                        case R.id.datedes: sortType = SortType.DATE_DES; break;
+                        case R.id.titleasc: sortType = SortType.TITLE_ASC; break;
+                        case R.id.titledes: sortType = SortType.TITLE_DES; break;
+                        case R.id.catasc: sortType = SortType.CATEGORY_ASC; break;
+                        case R.id.catdes: sortType = SortType.CATEGORY_DES; break;
+                    }
+                    mPresenter.changeSortType(sortType);
+                    return super.onOptionsItemSelected(menu);
+                });
+                break;
+            case R.id.menu_list:
+                PopupMenu popup2 = new PopupMenu(getActivity(), ButterKnife.findById(getActivity(),R.id.menu_list));
+                popup2.getMenuInflater().inflate(R.menu.recorded_listtype_popup_menu, popup2.getMenu());
+                popup2.show();
+                popup2.setOnMenuItemClickListener((menu) -> {
                     ListType listType = menu.getItemId() == R.id.column1 ? ListType.CARD_COLUMN1 : menu.getItemId() == R.id.column2 ? ListType.CARD_COLUMN2 : ListType.LIST;
-                    mPresenter.changeSort(listType);
+                    mPresenter.changeListType(listType);
                     return super.onOptionsItemSelected(menu);
                 });
                 break;
@@ -122,8 +136,8 @@ public class RecordedFragment extends Fragment implements RecordedView{
     }
 
     @Override
-    public void setRecyclerView(List<Recorded> recorded,ListType listType){
-        switch (listType){
+    public void setRecyclerView(RecordedCardRecyclerAdapter adapter,ListType listType){
+        switch (listType) {
             case CARD_COLUMN1:
             case LIST:
                 mRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 1));
@@ -133,16 +147,11 @@ public class RecordedFragment extends Fragment implements RecordedView{
                 break;
         }
 
-        mAdapter.setRecorded(recorded);
-        mAdapter.setListType(listType);
-        mAdapter.notifyDataSetChanged();
-
-        mRecyclerView.setAdapter(mAdapter);
+        mRecyclerView.setAdapter(adapter);
     }
 
     @Override
     public void removeRecyclerView(){
-        mAdapter = null;
         mRecyclerView.setAdapter(null);
     }
 

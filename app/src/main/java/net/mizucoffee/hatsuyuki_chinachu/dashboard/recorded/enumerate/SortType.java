@@ -5,4 +5,5 @@ package net.mizucoffee.hatsuyuki_chinachu.dashboard.recorded.enumerate;
  */
 
 public enum SortType {
+    TITLE_ASC,TITLE_DES,DATE_ASC,DATE_DES,CATEGORY_ASC,CATEGORY_DES
 }

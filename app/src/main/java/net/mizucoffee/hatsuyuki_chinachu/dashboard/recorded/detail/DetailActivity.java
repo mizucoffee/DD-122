@@ -70,11 +70,14 @@ public class DetailActivity extends AppCompatActivity {
         Picasso.with(this).load("http://" + mDataManager.getServerConnection().getAddress() + "/api/channel/" + mRecorded.getChannel().getId() + "/logo.png").into(mChannelIv);
 
         ViewTreeObserver observer = mChannelIv.getViewTreeObserver();
-        observer.addOnGlobalLayoutListener(() -> {
-            if(mChannelIv.getDrawable() != null) {
-                ViewGroup.LayoutParams params = mChannelIv.getLayoutParams();
-                params.width = mChannelIv.getHeight() / 9 * 16;
-                mChannelIv.setLayoutParams(params);
+        observer.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                if(mChannelIv.getDrawable() != null) {
+                    ViewGroup.LayoutParams params = mChannelIv.getLayoutParams();
+                    params.width = mChannelIv.getHeight() / 9 * 16;
+                    mChannelIv.setLayoutParams(params);
+                }
             }
         });
 
