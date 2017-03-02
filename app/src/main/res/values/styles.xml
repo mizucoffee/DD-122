@@ -17,4 +17,94 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+    <style name="anime" parent="AppTheme.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/animePrimary</item>
+        <item name="colorPrimaryDark">@color/animePrimaryDark</item>
+        <item name="colorAccent">@color/animePrimary</item>
+    </style>
+
+    <style name="information" parent="AppTheme.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/informationPrimary</item>
+        <item name="colorPrimaryDark">@color/informationPrimaryDark</item>
+        <item name="colorAccent">@color/informationPrimary</item>
+    </style>
+
+    <style name="news" parent="AppTheme.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/newsPrimary</item>
+        <item name="colorPrimaryDark">@color/newsPrimaryDark</item>
+        <item name="colorAccent">@color/newsPrimary</item>
+    </style>
+
+    <style name="sports" parent="AppTheme.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/sportsPrimary</item>
+        <item name="colorPrimaryDark">@color/sportsPrimaryDark</item>
+        <item name="colorAccent">@color/sportsPrimary</item>
+    </style>
+
+    <style name="variety" parent="AppTheme.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/varietyPrimary</item>
+        <item name="colorPrimaryDark">@color/varietyPrimaryDark</item>
+        <item name="colorAccent">@color/varietyPrimary</item>
+    </style>
+
+    <style name="drama" parent="AppTheme.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/dramaPrimary</item>
+        <item name="colorPrimaryDark">@color/dramaPrimaryDark</item>
+        <item name="colorAccent">@color/dramaPrimary</item>
+    </style>
+
+    <style name="music" parent="AppTheme.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/musicPrimary</item>
+        <item name="colorPrimaryDark">@color/musicPrimaryDark</item>
+        <item name="colorAccent">@color/musicPrimary</item>
+    </style>
+
+    <style name="cinema" parent="AppTheme.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/cinemaPrimary</item>
+        <item name="colorPrimaryDark">@color/cinemaPrimaryDark</item>
+        <item name="colorAccent">@color/cinemaPrimary</item>
+    </style>
+
+    <style name="theater" parent="AppTheme.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/theaterPrimary</item>
+        <item name="colorPrimaryDark">@color/theaterPrimaryDark</item>
+        <item name="colorAccent">@color/theaterPrimary</item>
+    </style>
+
+    <style name="documentary" parent="AppTheme.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/documentaryPrimary</item>
+        <item name="colorPrimaryDark">@color/documentaryPrimaryDark</item>
+        <item name="colorAccent">@color/documentaryPrimary</item>
+    </style>
+
+    <style name="hobby" parent="AppTheme.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/hobbyPrimary</item>
+        <item name="colorPrimaryDark">@color/hobbyPrimaryDark</item>
+        <item name="colorAccent">@color/hobbyPrimary</item>
+    </style>
+
+    <style name="welfare" parent="AppTheme.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/welfarePrimary</item>
+        <item name="colorPrimaryDark">@color/welfarePrimaryDark</item>
+        <item name="colorAccent">@color/welfarePrimary</item>
+    </style>
+
+    <style name="etc" parent="AppTheme.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/etcPrimary</item>
+        <item name="colorPrimaryDark">@color/etcPrimaryDark</item>
+        <item name="colorAccent">@color/etcPrimary</item>
+    </style>
 </resources>

@@ -34,24 +34,44 @@ public class Shirayuki {
         Log.i("SHIRAYUKI",msg);
     }
 
-    public static int getColorFromCategory(String category){
-        int color = R.color.etc;
+    public static int getBackgroundColorFromCategory(String category){
+        int color = R.color.bg_etc;
         switch (category){
-            case "anime":       color =  R.color.anime;        break;
-            case "information": color =  R.color.information;  break;
-            case "news":        color =  R.color.news;         break;
-            case "sports":      color =  R.color.sports;       break;
-            case "variety":     color =  R.color.variety;      break;
-            case "drama":       color =  R.color.drama;        break;
-            case "music":       color =  R.color.music;        break;
-            case "cinema":      color =  R.color.cinema;       break;
-            case "theater":     color =  R.color.theater;      break;
-            case "documentary": color =  R.color.documentary;  break;
-            case "hobby":       color =  R.color.hobby;        break;
-            case "welfare":     color =  R.color.welfare;      break;
-            case "etc":         color =  R.color.etc;          break;
+            case "anime":       color =  R.color.bg_anime;        break;
+            case "information": color =  R.color.bg_information;  break;
+            case "news":        color =  R.color.bg_news;         break;
+            case "sports":      color =  R.color.bg_sports;       break;
+            case "variety":     color =  R.color.bg_variety;      break;
+            case "drama":       color =  R.color.bg_drama;        break;
+            case "music":       color =  R.color.bg_music;        break;
+            case "cinema":      color =  R.color.bg_cinema;       break;
+            case "theater":     color =  R.color.bg_theater;      break;
+            case "documentary": color =  R.color.bg_documentary;  break;
+            case "hobby":       color =  R.color.bg_hobby;        break;
+            case "welfare":     color =  R.color.bg_welfare;      break;
+            case "etc":         color =  R.color.bg_etc;          break;
         }
         return color;
+    }
+
+    public static int getThemeFromCategory(String category){
+        int style = R.style.etc;
+        switch (category){
+            case "anime":       style =  R.style.anime;        break;
+            case "information": style =  R.style.information;  break;
+            case "news":        style =  R.style.news;         break;
+            case "sports":      style =  R.style.sports;       break;
+            case "variety":     style =  R.style.variety;      break;
+            case "drama":       style =  R.style.drama;        break;
+            case "music":       style =  R.style.music;        break;
+            case "cinema":      style =  R.style.cinema;       break;
+            case "theater":     style =  R.style.theater;      break;
+            case "documentary": style =  R.style.documentary;  break;
+            case "hobby":       style =  R.style.hobby;        break;
+            case "welfare":     style =  R.style.welfare;      break;
+            case "etc":         style =  R.style.etc;          break;
+        }
+        return style;
     }
 
 }

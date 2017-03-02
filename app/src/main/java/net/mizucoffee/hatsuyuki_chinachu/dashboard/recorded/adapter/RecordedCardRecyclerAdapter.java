@@ -66,7 +66,7 @@ public class RecordedCardRecyclerAdapter extends RecyclerView.Adapter<RecordedCa
         vh.titleTv.setText(program.getTitle());
         vh.timeTv.setText(sdf1.format(program.getStart())+"-"+sdf2.format(program.getEnd()) + " " + (program.getSeconds() / 60) + "min");
         Picasso.with(mContext).load("http://" + mDataManager.getServerConnection().getAddress() + "/api/recorded/" + program.getId() + "/preview.png?pos=30").into(vh.imageView);
-        vh.linearLayout.setBackgroundColor(ContextCompat.getColor(mContext, Shirayuki.getColorFromCategory(program.getCategory())));
+        vh.linearLayout.setBackgroundColor(ContextCompat.getColor(mContext, Shirayuki.getBackgroundColorFromCategory(program.getCategory())));
 
         switch (mListType){
             case CARD_COLUMN1:

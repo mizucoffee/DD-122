@@ -41,12 +41,14 @@ public class DetailActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_detail);
-        setSupportActionBar(mToolBar);
-        Shirayuki.initActivity(this);
 
         mRecorded    = new Gson().fromJson(getIntent().getStringExtra("program"), Recorded.class);
         mDataManager = new DataManager(getSharedPreferences("HatsuyukiChinachu", Context.MODE_PRIVATE));
+
+        setTheme(Shirayuki.getThemeFromCategory(mRecorded.getCategory()));
+        setContentView(R.layout.activity_detail);
+        setSupportActionBar(mToolBar);
+        Shirayuki.initActivity(this);
 
         setTitle(mRecorded.getTitle());
 

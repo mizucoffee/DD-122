@@ -1,21 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">#3949AB</color>
-    <color name="colorPrimaryDark">#283593</color>
-    <color name="colorAccent">#7986CB</color>
+    <color name="colorPrimaryDark">#283593</color>// - 17 20 24
+    <color name="colorAccent">#7986CB</color>// + 40 3d 20
 
-    <color name="anime">#ffe0ff</color>
-    <color name="information">#ffe0f0</color>
-    <color name="news">#ffe0f0</color>
-    <color name="sports">#e0e0ff</color>
-    <color name="variety">#e0ffff</color>
-    <color name="drama">#ffe0e0</color>
-    <color name="music">#e0ffe0</color>
-    <color name="cinema">#fff0e0</color>
-    <color name="theater">#f7efe7</color>
-    <color name="documentary">#fff7c4</color>
-    <color name="hobby">#cfe5ea</color>
-    <color name="welfare">#cde5f3</color>
-    <color name="etc">#f0f0f0</color>
+    <color name="bg_anime">#ffe0ff</color>
+    <color name="bg_information">#ffe0f0</color>
+    <color name="bg_news">#ffffe0</color>
+    <color name="bg_sports">#e0e0ff</color>
+    <color name="bg_variety">#e0ffff</color>
+    <color name="bg_drama">#ffe0e0</color>
+    <color name="bg_music">#e0ffe0</color>
+    <color name="bg_cinema">#fff0e0</color>
+    <color name="bg_theater">#f7efe7</color>
+    <color name="bg_documentary">#fff7c4</color>
+    <color name="bg_hobby">#cfe5ea</color>
+    <color name="bg_welfare">#cde5f3</color>
+    <color name="bg_etc">#f0f0f0</color>
+
+    <color name="animePrimary">#d652d6</color>
+    <color name="animePrimaryDark">#c53ebe</color>
+
+    <color name="informationPrimary">#e2519c</color>
+    <color name="informationPrimaryDark">#cb3178</color>
+
+    <color name="newsPrimary">#d4d436</color>
+    <color name="newsPrimaryDark">#c0b412</color>
+
+    <color name="sportsPrimary">#6f6fff</color>
+    <color name="sportsPrimaryDark">#5b50ff</color>
+
+    <color name="varietyPrimary">#2dcbcb</color>
+    <color name="varietyPrimaryDark">#209797</color>
+
+    <color name="dramaPrimary">#dd5a5a</color>
+    <color name="dramaPrimaryDark">#8f3b3b</color>
+
+    <color name="musicPrimary">#50d950</color>
+    <color name="musicPrimaryDark">#338733</color>
+
+    <color name="cinemaPrimary">#e2994b</color>
+    <color name="cinemaPrimaryDark">#8b5e2e</color>
+
+    <color name="theaterPrimary">#eaab68</color>
+    <color name="theaterPrimaryDark">#805d39</color>
+
+    <color name="documentaryPrimary">#d4c250</color>
+    <color name="documentaryPrimaryDark">#817631</color>
+
+    <color name="hobbyPrimary">#51bcd6</color>
+    <color name="hobbyPrimaryDark">#2f6c7b</color>
+
+    <color name="welfarePrimary">#51a6d6</color>
+    <color name="welfarePrimaryDark">#366d8c</color>
+
+    <color name="etcPrimary">#888888</color>
+    <color name="etcPrimaryDark">#494949</color>
 
 </resources>
