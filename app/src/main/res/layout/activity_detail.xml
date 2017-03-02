@@ -109,12 +109,26 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp" />
 
-            <TextView
-                android:text="TextView"
+            <LinearLayout
+                android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/detail_channel_tv"
-                android:textAppearance="@android:style/TextAppearance.Material.Medium" />
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:id="@+id/channel_iv"
+                    android:layout_marginTop="4dp" />
+
+                <TextView
+                    android:text="TextView"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:id="@+id/detail_channel_tv"
+                    android:textAppearance="@android:style/TextAppearance.Material.Large"
+                    android:layout_weight="1" />
+
+            </LinearLayout>
 
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>

@@ -10,6 +10,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -37,6 +39,7 @@ public class DetailActivity extends AppCompatActivity {
     @BindView(R.id.detail_subtitle)     TextView mSubtitleHeadTv;
     @BindView(R.id.detail_des_tv)       TextView mDescriptionTv;
     @BindView(R.id.detail_channel_tv)   TextView mChannelTv;
+    @BindView(R.id.channel_iv)          ImageView mChannelIv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +67,16 @@ public class DetailActivity extends AppCompatActivity {
         mChannelTv.setText(mRecorded.getChannel().getName()+" "+mRecorded.getChannel().getId());
 
         Picasso.with(this).load("http://" + mDataManager.getServerConnection().getAddress() + "/api/recorded/" + mRecorded.getId() + "/preview.png?pos=30").into(mCoverIv);
+        Picasso.with(this).load("http://" + mDataManager.getServerConnection().getAddress() + "/api/channel/" + mRecorded.getChannel().getId() + "/logo.png").into(mChannelIv);
+
+        ViewTreeObserver observer = mChannelIv.getViewTreeObserver();
+        observer.addOnGlobalLayoutListener(() -> {
+            if(mChannelIv.getDrawable() != null) {
+                ViewGroup.LayoutParams params = mChannelIv.getLayoutParams();
+                params.width = mChannelIv.getHeight() / 9 * 16;
+                mChannelIv.setLayoutParams(params);
+            }
+        });
 
         mFab.setOnClickListener(v -> {
             Uri uri = Uri.parse("http://" + mDataManager.getServerConnection().getAddress() + "/api/recorded/" + mRecorded.getId() + "/watch.mp4");
