@@ -3,6 +3,8 @@
     package="net.mizucoffee.hatsuyuki_chinachu">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-sdk xmlns:tools="http://schemas.android.com/tools"
+        tools:overrideLibrary="android.support.v14.preference" />
 
     <application
         android:allowBackup="true"
@@ -29,9 +31,12 @@
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".dashboard.recorded.detail.DetailActivity"
+            android:name=".single.DetailActivity"
             android:label="@string/title_activity_detail"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".settings.SettingsActivity"
+            android:label="@string/title_activity_settings"></activity>
     </application>
 
 </manifest>

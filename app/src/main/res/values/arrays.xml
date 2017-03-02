@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="video_size">
+        <item>576p (WSVGA)</item>
+        <item>720p (HD) (Recommended)</item>
+        <item>1080p (FHD)</item>
+    </array>
+
+    <array name="video_bitrate">
+        <item>256kbps</item>
+        <item>512kbps</item>
+        <item>1Mbps (Recommended)</item>
+        <item>2Mbps</item>
+        <item>3Mbps</item>
+    </array>
+
+    <array name="audio_bitrate">
+        <item>64kbps</item>
+        <item>128kbps (Recommended)</item>
+        <item>192bps</item>
+    </array>
+
+
+</resources>

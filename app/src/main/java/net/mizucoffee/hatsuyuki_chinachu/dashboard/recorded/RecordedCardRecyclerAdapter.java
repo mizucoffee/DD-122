@@ -18,7 +18,7 @@ import com.squareup.picasso.Picasso;
 import net.mizucoffee.hatsuyuki_chinachu.R;
 import net.mizucoffee.hatsuyuki_chinachu.chinachu.model.recorded.Recorded;
 import net.mizucoffee.hatsuyuki_chinachu.dashboard.DashboardActivity;
-import net.mizucoffee.hatsuyuki_chinachu.dashboard.recorded.detail.DetailActivity;
+import net.mizucoffee.hatsuyuki_chinachu.single.DetailActivity;
 import net.mizucoffee.hatsuyuki_chinachu.dashboard.recorded.enumerate.ListType;
 import net.mizucoffee.hatsuyuki_chinachu.tools.DataManager;
 import net.mizucoffee.hatsuyuki_chinachu.tools.Shirayuki;

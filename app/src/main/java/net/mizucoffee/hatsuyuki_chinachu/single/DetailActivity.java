@@ -1,4 +1,4 @@
-package net.mizucoffee.hatsuyuki_chinachu.dashboard.recorded.detail;
+package net.mizucoffee.hatsuyuki_chinachu.single;
 
 import android.content.Context;
 import android.content.Intent;

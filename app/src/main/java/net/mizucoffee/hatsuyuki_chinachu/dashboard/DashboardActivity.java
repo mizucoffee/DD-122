@@ -15,6 +15,7 @@ import android.widget.TextView;
 import net.mizucoffee.hatsuyuki_chinachu.R;
 import net.mizucoffee.hatsuyuki_chinachu.dashboard.recorded.RecordedFragment;
 import net.mizucoffee.hatsuyuki_chinachu.selectserver.SelectServerActivity;
+import net.mizucoffee.hatsuyuki_chinachu.settings.SettingsActivity;
 import net.mizucoffee.hatsuyuki_chinachu.tools.Shirayuki;
 
 import butterknife.BindView;
@@ -113,6 +114,9 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
                 break;
             case R.id.nav_timers:
                 transaction.replace(R.id.container, mTimerFragment);
+                break;
+            case R.id.nav_settings:
+                startActivity(new Intent(this, SettingsActivity.class));
                 break;
         }
 

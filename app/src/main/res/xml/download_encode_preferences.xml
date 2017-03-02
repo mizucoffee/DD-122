@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory android:title="Video Settings">
+        <ListPreference
+            android:defaultValue="1Mbps (Recommended)"
+            android:title="Video bitrate setting"
+            android:entries="@array/video_bitrate"
+            android:entryValues="@array/video_bitrate"
+            android:key="download_video_bitrate" />
+
+        <ListPreference
+            android:defaultValue="720p (HD) (Recommended)"
+            android:title="Video size setting"
+            android:entries="@array/video_size"
+            android:entryValues="@array/video_size"
+            android:key="download_video_size" />
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="Audio Settings">
+        <ListPreference
+            android:defaultValue="128kbps (Recommended)"
+            android:title="Audio bitrate setting"
+            android:entries="@array/audio_bitrate"
+            android:entryValues="@array/audio_bitrate"
+            android:key="download_audio_bitrate" />
+    </PreferenceCategory>
+</PreferenceScreen>
