@@ -52,7 +52,7 @@ public class RecordedPresenterImpl implements RecordedPresenter {
                     public void onResponse(Call<List<Recorded>> call, Response<List<Recorded>> response) {
                         mRecordedList = response.body();
                         sort();
-                        mAdapter.setRecorded(response.body());
+                        mAdapter.setRecorded(mRecordedList);
                         mAdapter.setListType(mListType);
                         mAdapter.notifyDataSetChanged();
                         mRecordedView.setRecyclerView(mAdapter, mListType);//TODO: カラム数

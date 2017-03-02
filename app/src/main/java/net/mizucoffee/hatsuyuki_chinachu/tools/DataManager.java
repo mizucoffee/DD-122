@@ -1,10 +1,15 @@
 package net.mizucoffee.hatsuyuki_chinachu.tools;
 
 import android.content.SharedPreferences;
+
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+
+import net.mizucoffee.hatsuyuki_chinachu.chinachu.model.recorded.Recorded;
 import net.mizucoffee.hatsuyuki_chinachu.model.ServerConnection;
+
 import java.util.ArrayList;
+import java.util.List;
 
 public class DataManager {
 
@@ -76,5 +81,16 @@ public class DataManager {
             }
         }
         return null;
+    }
+
+    public void setDownloadedList(List<Recorded> recordeds){
+        SharedPreferences.Editor editor = mSharedPreferences.edit();
+        editor.putString("DownloadedList", new Gson().toJson(recordeds));
+        editor.apply();
+    }
+
+    public List<Recorded> getDownloadedList(){
+        String s = mSharedPreferences.getString("DownloadedList","");
+        return new Gson().fromJson(s, new TypeToken<List<Recorded>>(){}.getType());
     }
 }

@@ -130,6 +130,13 @@
 
             </LinearLayout>
 
+            <Button
+                android:text="Download"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/download_btn"
+                android:layout_marginTop="16dp" />
+
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 

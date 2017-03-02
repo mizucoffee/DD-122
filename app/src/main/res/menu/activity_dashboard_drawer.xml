@@ -18,6 +18,10 @@
             android:id="@+id/nav_timers"
             android:icon="@drawable/ic_timer"
             android:title="Timer" />
+        <item
+            android:id="@+id/nav_downloads"
+            android:icon="@drawable/ic_timer"
+            android:title="Downloads" />
     </group>
 
     <group android:id="@+id/menu_bottom">

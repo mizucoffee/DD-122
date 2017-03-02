@@ -74,4 +74,32 @@ public class Shirayuki {
         return style;
     }
 
+    public static String getResolutionFromVideoSize(String text){
+        switch (text){
+            case "576p (WSVGA)": return "&s=1024×576";
+            case "720p (HD) (Recommended)": return "&s=1280x720";
+            case "1080p (FHD)": return "&s=1920x1080";
+        }
+        return "";
+    }
+
+    public static String getVideoBitrate(String text){
+        switch (text){
+            case "256kbps": return "&b%3Av=256k";
+            case "512kbps": return "&b%3Av=512k";
+            case "1Mbps (Recommended)": return "&b%3Av=1M";
+            case "2Mbps": return "&b%3Av=2M";
+            case "3Mbps": return "&b%3Av=3M";
+        }
+        return "";
+    }
+
+    public static String getAudioBitrate(String text){
+        switch (text){
+            case "64kbps": return "&b%3Aa=64k";
+            case "128kbps (Recommended)": return "&b%3Aa=128k";
+            case "192bps": return "&b%3Aa=192k";
+        }
+        return "";
+    }
 }
