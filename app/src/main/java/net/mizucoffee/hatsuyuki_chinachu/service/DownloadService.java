@@ -24,6 +24,8 @@ import static android.content.ContentValues.TAG;
 
 public class DownloadService extends IntentService {
 
+    public static int ONGOING_NOTIFICATION_ID = 1;
+
     public DownloadService() {
         super("DownloadService");
     }
@@ -79,8 +81,11 @@ public class DownloadService extends IntentService {
         builder.setContentText(name);
         builder.setOngoing(true);
 
-        NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-        notificationManager.notify(1, builder.build());
+//        NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+//        notificationManager.notify(1, builder.build());
+
+
+        startForeground(ONGOING_NOTIFICATION_ID, builder.build());
 
         try{
             URL url = new URL(urlStr);
@@ -97,7 +102,9 @@ public class DownloadService extends IntentService {
             out.close();
             in.close();
 
-            notificationManager.cancel(1);
+//            notificationManager.cancel(1);
+
+            stopForeground(true);
 
             NotificationCompat.Builder builder2 = new NotificationCompat.Builder(getApplicationContext());
             builder2.setSmallIcon(R.mipmap.ic_launcher);
@@ -105,6 +112,7 @@ public class DownloadService extends IntentService {
             builder2.setContentTitle("番組のダウンロードが完了しました");
             builder2.setContentText(name);
 
+            NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
             notificationManager.notify(2, builder2.build());
 
         }catch (FileNotFoundException e) {
@@ -169,5 +177,11 @@ public class DownloadService extends IntentService {
 //            }
 //        });
 
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Shirayuki.log("Destroy");
     }
 }

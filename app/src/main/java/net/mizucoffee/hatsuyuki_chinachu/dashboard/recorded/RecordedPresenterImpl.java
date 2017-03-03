@@ -68,7 +68,6 @@ public class RecordedPresenterImpl implements RecordedPresenter {
 
             @Override
             public void onNotFound() {
-                mAdapter = null;
                 mRecordedView.removeRecyclerView();
                 mRecordedView.showSnackBar("サーバーを登録しましょう");//おいおい変更。カードにする。
             }
