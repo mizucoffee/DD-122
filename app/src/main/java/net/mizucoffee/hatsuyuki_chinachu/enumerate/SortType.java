@@ -1,4 +1,4 @@
-package net.mizucoffee.hatsuyuki_chinachu.dashboard.recorded.enumerate;
+package net.mizucoffee.hatsuyuki_chinachu.enumerate;
 
 /**
  * Created by mizucoffee on 3/1/17.

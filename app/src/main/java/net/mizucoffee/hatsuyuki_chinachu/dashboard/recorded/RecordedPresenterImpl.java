@@ -4,8 +4,8 @@ import android.content.Context;
 
 import net.mizucoffee.hatsuyuki_chinachu.chinachu.model.recorded.Recorded;
 import net.mizucoffee.hatsuyuki_chinachu.dashboard.DashboardInteractor;
-import net.mizucoffee.hatsuyuki_chinachu.dashboard.recorded.enumerate.ListType;
-import net.mizucoffee.hatsuyuki_chinachu.dashboard.recorded.enumerate.SortType;
+import net.mizucoffee.hatsuyuki_chinachu.enumerate.ListType;
+import net.mizucoffee.hatsuyuki_chinachu.enumerate.SortType;
 import net.mizucoffee.hatsuyuki_chinachu.model.ServerConnection;
 
 import java.util.ArrayList;

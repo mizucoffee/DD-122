@@ -20,7 +20,7 @@
             android:title="Timer" />
         <item
             android:id="@+id/nav_downloads"
-            android:icon="@drawable/ic_timer"
+            android:icon="@drawable/ic_download"
             android:title="Downloads" />
     </group>
 

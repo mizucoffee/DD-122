@@ -1,12 +1,15 @@
-package net.mizucoffee.hatsuyuki_chinachu.single;
+package net.mizucoffee.hatsuyuki_chinachu.dashboard.recorded;
 
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
@@ -27,15 +30,17 @@ import com.squareup.picasso.Picasso;
 
 import net.mizucoffee.hatsuyuki_chinachu.R;
 import net.mizucoffee.hatsuyuki_chinachu.chinachu.model.recorded.Recorded;
+import net.mizucoffee.hatsuyuki_chinachu.service.DownloadBroadcastReceiver;
 import net.mizucoffee.hatsuyuki_chinachu.service.DownloadService;
 import net.mizucoffee.hatsuyuki_chinachu.tools.DataManager;
 import net.mizucoffee.hatsuyuki_chinachu.tools.Shirayuki;
 
-import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 
-public class DetailActivity extends AppCompatActivity {
+public class RecordedDetailActivity extends AppCompatActivity {
 
     private Recorded    mRecorded;
     private DataManager mDataManager;
@@ -51,6 +56,20 @@ public class DetailActivity extends AppCompatActivity {
     @BindView(R.id.detail_channel_tv)   TextView mChannelTv;
     @BindView(R.id.channel_iv)          ImageView mChannelIv;
     @BindView(R.id.download_btn)        Button mDownloadBtn;
+
+    private Recorded downloaded; // if NOT downloaded then NULL
+    private DownloadBroadcastReceiver receiver;
+
+    Handler mHandler = new Handler(){
+        @Override
+        public void handleMessage(Message msg){
+            if(!msg.getData().getString("id").equals(mRecorded.getId())) return;
+            if (msg.getData().getBoolean("isSuccess"))
+                mDownloadBtn.setText("Downloaded");
+            else
+                mDownloadBtn.setText("Download");
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,16 +119,23 @@ public class DetailActivity extends AppCompatActivity {
         SharedPreferences spf = PreferenceManager.getDefaultSharedPreferences(this);
 
         mDownloadBtn.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(this,Shirayuki.getBackgroundColorFromCategory(mRecorded.getCategory()))));
-        Shirayuki.log(getExternalFilesDir(null).getAbsolutePath());
-        if(new File(getExternalFilesDir(null).getAbsolutePath() + "/video/" + mRecorded.getId()+".mp4").exists()){
-            mDownloadBtn.setText("Play");
+
+        downloaded = null;
+        if(mDataManager.getDownloadedList() != null)
+            for(Recorded r : mDataManager.getDownloadedList())
+                if(r.getId().equals(mRecorded.getId()))
+                    downloaded = r;
+
+        if(downloaded != null) {
+            if (downloaded.getDownloading())
+                mDownloadBtn.setText("Downloaded");
+            else
+                mDownloadBtn.setText("Downloading...");
+            mDownloadBtn.setEnabled(false);
         }
 
         mDownloadBtn.setOnClickListener((v) -> {
-            if(new File(getExternalFilesDir(null).getAbsolutePath() + "/video/" + mRecorded.getId()+".mp4").exists()){
-                Uri uri = Uri.parse("file://" + getExternalFilesDir(null).getAbsolutePath() + "/video/" + mRecorded.getId()+".mp4");
-                startActivity(new Intent(Intent.ACTION_VIEW).setPackage("org.videolan.vlc").setDataAndTypeAndNormalize(uri, "video/*"));
-            }else {
+            if(downloaded == null)
                 new AlertDialog.Builder(this)
                         .setTitle("確認")
                         .setMessage("以下のエンコード設定でダウンロードします。\n" +
@@ -118,24 +144,40 @@ public class DetailActivity extends AppCompatActivity {
                                 "Video Bitrate:" + spf.getString("download_video_bitrate", "1Mbps (Recommended)") + "\n" +
                                 "Audio Bitrate:" + spf.getString("download_audio_bitrate", "128kbps (Recommended)") + "\n")
                         .setPositiveButton("OK", (DialogInterface dialogInterface, int i) -> {
+                            mRecorded.setDownloading(true);
+                            mDownloadBtn.setText("Downloading...");
+                            mDownloadBtn.setEnabled(false);
+
+                            List<Recorded> list = mDataManager.getDownloadedList();
+                            if(list == null){
+                                list = new ArrayList<>();
+                            }
+                            list.add(mRecorded);
+                            mDataManager.setDownloadedList(list);
+
+
                             Intent intent = new Intent(this, DownloadService.class);
-                            intent.putExtra("url", "http://" + mDataManager.getServerConnection().getAddress() + "/api/recorded/" + mRecorded.getId() + "/watch.mp4" +
-                                    "?ext=mp4" +
-                                    "&c%3Av=h264" +
-                                    Shirayuki.getResolutionFromVideoSize(spf.getString("download_video_size", "720p (HD) (Recommended)")) +
-                                    Shirayuki.getVideoBitrate(spf.getString("download_video_bitrate", "1Mbps (Recommended)")) +
-                                    Shirayuki.getAudioBitrate(spf.getString("download_audio_bitrate", "128kbps (Recommended)")) +
-                                    "&ss=0");
-                            intent.putExtra("path", getExternalFilesDir(null).getAbsolutePath());
-                            intent.putExtra("programid", mRecorded.getId());
-                            intent.putExtra("name", mRecorded.getTitle());
+                            intent.putExtra("recorded",new Gson().toJson(mRecorded));
+                            intent.putExtra("address",mDataManager.getServerConnection().getAddress());
                             this.startService(intent);
                         })
                         .setNegativeButton("Cancel", null)
                         .show();
-            }
         });
+
+        receiver = new DownloadBroadcastReceiver(mHandler);
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction("RETURN_STATUS");
+        registerReceiver(receiver,intentFilter);
+
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unregisterReceiver(receiver);
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
         int itemId = item.getItemId();

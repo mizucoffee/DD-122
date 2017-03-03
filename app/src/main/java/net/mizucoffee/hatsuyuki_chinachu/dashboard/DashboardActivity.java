@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.widget.TextView;
 
 import net.mizucoffee.hatsuyuki_chinachu.R;
+import net.mizucoffee.hatsuyuki_chinachu.dashboard.downloaded.DownloadedFragment;
 import net.mizucoffee.hatsuyuki_chinachu.dashboard.recorded.RecordedFragment;
 import net.mizucoffee.hatsuyuki_chinachu.selectserver.SelectServerActivity;
 import net.mizucoffee.hatsuyuki_chinachu.settings.SettingsActivity;
@@ -28,6 +29,7 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
     private LiveFragment mLiveFragment = new LiveFragment();
     private RecordedFragment mRecordedFragment = new RecordedFragment();
     private TimerFragment mTimerFragment = new TimerFragment();
+    private DownloadedFragment mDownloadedFragment = new DownloadedFragment();
 
     private DashboardPresenter mPresenter;
 
@@ -35,6 +37,8 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
     public DrawerLayout mDrawer;
     @BindView(R.id.nav_view)
     public NavigationView mNavigationView;
+
+    int currentMenuId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,6 +103,7 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
 
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
+        currentMenuId = item.getItemId();
 
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 
@@ -114,6 +119,9 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
                 break;
             case R.id.nav_timers:
                 transaction.replace(R.id.container, mTimerFragment);
+                break;
+            case R.id.nav_downloads:
+                transaction.replace(R.id.container, mDownloadedFragment);
                 break;
             case R.id.nav_settings:
                 startActivity(new Intent(this, SettingsActivity.class));
@@ -134,7 +142,10 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == 1 && resultCode == RESULT_OK){
-            mRecordedFragment.reload();
+            if(currentMenuId == R.id.nav_recorded)
+                mRecordedFragment.reload();
+            if(currentMenuId == R.id.nav_downloads)
+                mDownloadedFragment.reload();
         }
     }
 

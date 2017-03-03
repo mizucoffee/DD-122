@@ -21,8 +21,18 @@ public class Recorded {
     private Boolean isManualReserved;
     private Boolean isConflict;
     private Boolean isSigTerm;
+    private Boolean isDownloading = false;
     private Tuner tuner;
     private String recorded;
+
+    public Boolean getDownloading() {
+        return isDownloading;
+    }
+
+    public void setDownloading(Boolean downloading) {
+        isDownloading = downloading;
+    }
+
     private String command;
     private String recordedFormat;
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
@@ -186,5 +196,7 @@ public class Recorded {
     public void setAdditionalProperty(String name, Object value) {
         this.additionalProperties.put(name, value);
     }
+
+
 
 }

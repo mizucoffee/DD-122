@@ -1,7 +1,9 @@
-package net.mizucoffee.hatsuyuki_chinachu.dashboard.recorded;
+package net.mizucoffee.hatsuyuki_chinachu.dashboard.downloaded;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
@@ -13,7 +15,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
-import com.squareup.picasso.Picasso;
 
 import net.mizucoffee.hatsuyuki_chinachu.R;
 import net.mizucoffee.hatsuyuki_chinachu.chinachu.model.recorded.Recorded;
@@ -28,7 +29,7 @@ import java.util.Locale;
 
 import butterknife.ButterKnife;
 
-public class RecordedCardRecyclerAdapter extends RecyclerView.Adapter<RecordedCardRecyclerAdapter.ViewHolder>{
+public class DownloadedCardRecyclerAdapter extends RecyclerView.Adapter<DownloadedCardRecyclerAdapter.ViewHolder>{
 
     private List<Recorded>      mRecorded;
     private LayoutInflater      mLayoutInflater;
@@ -36,7 +37,7 @@ public class RecordedCardRecyclerAdapter extends RecyclerView.Adapter<RecordedCa
     private DataManager         mDataManager;
     private ListType            mListType = ListType.CARD_COLUMN1;//TODO :標準
 
-    public RecordedCardRecyclerAdapter(DashboardActivity context) {
+    public DownloadedCardRecyclerAdapter(DashboardActivity context) {
         super();
         this.mContext        = context;
         this.mLayoutInflater = LayoutInflater.from(context);
@@ -64,7 +65,8 @@ public class RecordedCardRecyclerAdapter extends RecyclerView.Adapter<RecordedCa
 
         vh.titleTv.setText(program.getTitle());
         vh.timeTv.setText(sdf1.format(program.getStart())+"-"+sdf2.format(program.getEnd()) + " " + (program.getSeconds() / 60) + "min");
-        Picasso.with(mContext).load("http://" + mDataManager.getServerConnection().getAddress() + "/api/recorded/" + program.getId() + "/preview.png?pos=30").into(vh.imageView);
+        Bitmap bmImg = BitmapFactory.decodeFile(mContext.getExternalFilesDir(null).getAbsolutePath() + "/image/" + program.getId() + ".png");
+        vh.imageView.setImageBitmap(bmImg);
         vh.linearLayout.setBackgroundColor(ContextCompat.getColor(mContext, Shirayuki.getBackgroundColorFromCategory(program.getCategory())));
 
         switch (mListType){
@@ -72,20 +74,20 @@ public class RecordedCardRecyclerAdapter extends RecyclerView.Adapter<RecordedCa
                 vh.desTv.setText(program.getDetail());
             case CARD_COLUMN2:
                 vh.playBtn.setOnClickListener((v) -> {
-                    Uri uri = Uri.parse("http://" + mDataManager.getServerConnection().getAddress() + "/api/recorded/" + program.getId() + "/watch.mp4");
+                    Uri uri = Uri.parse("file://" + mContext.getExternalFilesDir(null).getAbsolutePath() + "/video/" + program.getId()+".mp4");
                     mContext.startActivity(new Intent(Intent.ACTION_VIEW).setPackage("org.videolan.vlc").setDataAndTypeAndNormalize(uri, "video/*"));
                 });
-                vh.detailBtn.setOnClickListener((v) -> mContext.startActivity(new Intent().setClass(mContext, RecordedDetailActivity.class).putExtra("program",new Gson().toJson(program))));
+                vh.detailBtn.setOnClickListener((v) -> mContext.startActivity(new Intent().setClass(mContext, DownloadedDetailActivity.class).putExtra("program",new Gson().toJson(program))));
                 break;
             case LIST:
-                vh.linearLayout.setOnClickListener((v) -> mContext.startActivity(new Intent().setClass(mContext, RecordedDetailActivity.class).putExtra("program", new Gson().toJson(program))));
+                vh.linearLayout.setOnClickListener((v) -> mContext.startActivity(new Intent().setClass(mContext, DownloadedDetailActivity.class).putExtra("program", new Gson().toJson(program))));
                 vh.desTv.setText(program.getDetail());
                 break;
         }
     }
 
     @Override
-    public RecordedCardRecyclerAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public DownloadedCardRecyclerAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         int layout = mListType == ListType.CARD_COLUMN1 ? R.layout.card_recorded_layout_1column : mListType == ListType.CARD_COLUMN2 ? R.layout.card_recorded_layout_2column : R.layout.card_recorded_layout_list;
         return new ViewHolder(mLayoutInflater.inflate(layout, parent, false));
     }

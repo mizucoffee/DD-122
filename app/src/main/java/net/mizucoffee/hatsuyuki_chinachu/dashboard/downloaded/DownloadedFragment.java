@@ -1,4 +1,4 @@
-package net.mizucoffee.hatsuyuki_chinachu.dashboard.recorded;
+package net.mizucoffee.hatsuyuki_chinachu.dashboard.downloaded;
 
 
 import android.app.Activity;
@@ -27,10 +27,9 @@ import net.mizucoffee.hatsuyuki_chinachu.tools.Shirayuki;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class RecordedFragment extends Fragment implements RecordedView{
+public class DownloadedFragment extends Fragment implements DownloadedView {
 
-    private RecordedPresenter mPresenter;
-
+    private DownloadedPresenter mPresenter;
 
     @BindView(R.id.recycler)
     public RecyclerView mRecyclerView;
@@ -44,12 +43,12 @@ public class RecordedFragment extends Fragment implements RecordedView{
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        Shirayuki.initFragment(this,view);
+        Shirayuki.initFragment(this, view);
 
-        mPresenter = new RecordedPresenterImpl(this);
+        mPresenter = new DownloadedPresenterImpl(this);
         mRecyclerView.setHasFixedSize(true);
 
-        mPresenter.getRecorded();
+        mPresenter.getDownloaded();
         setHasOptionsMenu(true);
     }
 
@@ -63,7 +62,7 @@ public class RecordedFragment extends Fragment implements RecordedView{
 
         MenuItem menuItem = menu.findItem(R.id.search_menu_search_view);
 
-        SearchView searchView = (SearchView)menuItem.getActionView();
+        SearchView searchView = (SearchView) menuItem.getActionView();
         searchView.setIconifiedByDefault(true);
         searchView.setSubmitButtonEnabled(false);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -81,29 +80,41 @@ public class RecordedFragment extends Fragment implements RecordedView{
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item){
+    public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
 
             case R.id.menu_sort:
-                PopupMenu popup = new PopupMenu(getActivity(), ButterKnife.findById(getActivity(),R.id.menu_sort));
+                PopupMenu popup = new PopupMenu(getActivity(), ButterKnife.findById(getActivity(), R.id.menu_sort));
                 popup.getMenuInflater().inflate(R.menu.recorded_sorttype_popup_menu, popup.getMenu());
                 popup.show();
                 popup.setOnMenuItemClickListener((menu) -> {
                     SortType sortType = SortType.DATE_DES;
-                    switch (menu.getItemId()){
-                        case R.id.dateasc: sortType = SortType.DATE_ASC; break;
-                        case R.id.datedes: sortType = SortType.DATE_DES; break;
-                        case R.id.titleasc: sortType = SortType.TITLE_ASC; break;
-                        case R.id.titledes: sortType = SortType.TITLE_DES; break;
-                        case R.id.catasc: sortType = SortType.CATEGORY_ASC; break;
-                        case R.id.catdes: sortType = SortType.CATEGORY_DES; break;
+                    switch (menu.getItemId()) {
+                        case R.id.dateasc:
+                            sortType = SortType.DATE_ASC;
+                            break;
+                        case R.id.datedes:
+                            sortType = SortType.DATE_DES;
+                            break;
+                        case R.id.titleasc:
+                            sortType = SortType.TITLE_ASC;
+                            break;
+                        case R.id.titledes:
+                            sortType = SortType.TITLE_DES;
+                            break;
+                        case R.id.catasc:
+                            sortType = SortType.CATEGORY_ASC;
+                            break;
+                        case R.id.catdes:
+                            sortType = SortType.CATEGORY_DES;
+                            break;
                     }
                     mPresenter.changeSortType(sortType);
                     return super.onOptionsItemSelected(menu);
                 });
                 break;
             case R.id.menu_list:
-                PopupMenu popup2 = new PopupMenu(getActivity(), ButterKnife.findById(getActivity(),R.id.menu_list));
+                PopupMenu popup2 = new PopupMenu(getActivity(), ButterKnife.findById(getActivity(), R.id.menu_list));
                 popup2.getMenuInflater().inflate(R.menu.recorded_listtype_popup_menu, popup2.getMenu());
                 popup2.show();
                 popup2.setOnMenuItemClickListener((menu) -> {
@@ -117,7 +128,7 @@ public class RecordedFragment extends Fragment implements RecordedView{
     }
 
     @Override
-    public void showSnackBar(String text){
+    public void showSnackBar(String text) {
         Snackbar.make(mRecyclerView, text, Snackbar.LENGTH_LONG).show();
     }
 
@@ -126,16 +137,16 @@ public class RecordedFragment extends Fragment implements RecordedView{
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof Activity) activity = (DashboardActivity)context;
+        if (context instanceof Activity) activity = (DashboardActivity) context;
     }
 
     @Override
-    public DashboardActivity getDashboardActivity(){
+    public DashboardActivity getDashboardActivity() {
         return activity;
     }
 
     @Override
-    public void setRecyclerView(RecordedCardRecyclerAdapter adapter, ListType listType){
+    public void setRecyclerView(DownloadedCardRecyclerAdapter adapter, ListType listType) {
         switch (listType) {
             case CARD_COLUMN1:
             case LIST:
@@ -150,7 +161,7 @@ public class RecordedFragment extends Fragment implements RecordedView{
     }
 
     @Override
-    public void removeRecyclerView(){
+    public void removeRecyclerView() {
         mRecyclerView.setAdapter(null);
     }
 
@@ -160,12 +171,12 @@ public class RecordedFragment extends Fragment implements RecordedView{
         mPresenter.onDestroy();
     }
 
-    public void reload(){
-        mPresenter.getRecorded();
+    public void reload() {
+        mPresenter.getDownloaded();
     }
 
     @Override
-    public SharedPreferences getActivitySharedPreferences(String name, int mode){
-        return getActivity().getSharedPreferences(name,mode);
+    public SharedPreferences getActivitySharedPreferences(String name, int mode) {
+        return getActivity().getSharedPreferences(name, mode);
     }
 }

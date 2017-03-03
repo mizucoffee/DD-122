@@ -33,12 +33,16 @@
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".single.DetailActivity"
+            android:name=".dashboard.recorded.RecordedDetailActivity"
             android:label="@string/title_activity_detail"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".settings.SettingsActivity"
             android:label="@string/title_activity_settings"/>
+        <service android:name=".service.DownloadService"/>
+        <activity
+            android:name=".dashboard.downloaded.DownloadedDetailActivity"
+            android:label="@string/title_activity_detail"/>
         <service android:name=".service.DownloadService"/>
 
     </application>

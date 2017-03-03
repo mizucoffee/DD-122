@@ -2,12 +2,19 @@ package net.mizucoffee.hatsuyuki_chinachu.service;
 
 import android.app.IntentService;
 import android.app.NotificationManager;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.NotificationCompat;
 import android.util.Log;
 
+import com.google.gson.Gson;
+
 import net.mizucoffee.hatsuyuki_chinachu.R;
+import net.mizucoffee.hatsuyuki_chinachu.chinachu.model.recorded.Recorded;
+import net.mizucoffee.hatsuyuki_chinachu.tools.DataManager;
 import net.mizucoffee.hatsuyuki_chinachu.tools.Shirayuki;
 
 import java.io.File;
@@ -19,12 +26,17 @@ import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.List;
 
 import static android.content.ContentValues.TAG;
 
 public class DownloadService extends IntentService {
 
     public static int ONGOING_NOTIFICATION_ID = 1;
+    private Recorded mRecorded;
+    private String mAddress;
+    private List<Recorded> mRecordedList;
+    private DataManager mDataManager;
 
     public DownloadService() {
         super("DownloadService");
@@ -38,31 +50,94 @@ public class DownloadService extends IntentService {
             Log.d(TAG, "bundle == null");
             return;
         }
-        String urlStr = bundle.getString("url");
-        if(urlStr == null){
-            Log.d(TAG, "url == null");
+        mRecorded = new Gson().fromJson(bundle.getString("recorded"),Recorded.class);
+        if(mRecorded == null){
+            Log.d(TAG, "recorded == null");
             return;
         }
-        String pathStr = bundle.getString("path");
-        if(pathStr == null){
-            Log.d(TAG, "path == null");
+        mAddress = bundle.getString("address");
+        if(mAddress == null){
+            Log.d(TAG, "address == null");
             return;
         }
-        String programId = bundle.getString("programid");
-        if(programId == null){
-            Log.d(TAG, "programid == null");
-            return;
-        }
-        String name = bundle.getString("name");
-        if(name == null){
-            Log.d(TAG, "name == null");
-            return;
-        }
-        Shirayuki.log(urlStr);
-        Shirayuki.log(pathStr);
-        Shirayuki.log(programId);
 
-        File downloadDir = new File(pathStr + "/video/");
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext());
+        builder.setSmallIcon(R.mipmap.ic_launcher);
+
+        builder.setContentTitle("番組のダウンロード中");
+        builder.setContentText(mRecorded.getTitle());
+        builder.setOngoing(true);
+        startForeground(ONGOING_NOTIFICATION_ID, builder.build());
+
+        mDataManager = new DataManager(getSharedPreferences("HatsuyukiChinachu", Context.MODE_PRIVATE));
+        Recorded downloaded = null;
+        mRecordedList = mDataManager.getDownloadedList();
+        int i= 0;
+        if(mDataManager.getDownloadedList() != null)
+            for(Recorded r : mDataManager.getDownloadedList()) {
+                if (r.getId().equals(mRecorded.getId())) {
+                    downloaded = r;
+                    mRecordedList.remove(i);
+                    break;
+                }
+                i++;
+            }
+
+        if(!imageDL()) {
+            failed();
+            return;
+        }
+        if(!videoDL()) {
+            failed();
+            return;
+        }
+        stopForeground(true);
+
+        downloaded.setDownloading(false);
+        mRecordedList.add(downloaded);
+        mDataManager.setDownloadedList(mRecordedList);
+
+        mRecorded.setDownloading(false);
+
+        Intent bcIntent = new Intent();
+        bcIntent.putExtra("isSuccess", true);
+        bcIntent.putExtra("id",mRecorded.getId());
+        bcIntent.setAction("RETURN_STATUS");
+        getBaseContext().sendBroadcast(bcIntent);
+
+        NotificationCompat.Builder builder2 = new NotificationCompat.Builder(getApplicationContext());
+        builder2.setSmallIcon(R.mipmap.ic_launcher);
+
+        builder2.setContentTitle("番組のダウンロードが完了しました");
+        builder2.setContentText(mRecorded.getTitle());
+
+        NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        notificationManager.notify(2, builder2.build());
+
+    }
+
+
+    private void failed(){
+        stopForeground(true);
+        Intent bcIntent = new Intent();
+        bcIntent.putExtra("isSuccess", false);
+        bcIntent.putExtra("id",mRecorded.getId());
+        bcIntent.setAction("RETURN_STATUS");
+        getBaseContext().sendBroadcast(bcIntent);
+        mDataManager.setDownloadedList(mRecordedList);
+        NotificationCompat.Builder builder2 = new NotificationCompat.Builder(getApplicationContext());
+        builder2.setSmallIcon(R.mipmap.ic_launcher);
+
+        builder2.setContentTitle("番組のダウンロードに失敗しました");
+        builder2.setContentText(mRecorded.getTitle());
+
+        NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        notificationManager.notify(2, builder2.build());
+    }
+
+
+    private boolean imageDL(){
+        File downloadDir = new File(getBaseContext().getExternalFilesDir(null).getAbsolutePath() + "/image/");
 
         try {
             if (!downloadDir.exists()) {
@@ -74,25 +149,12 @@ public class DownloadService extends IntentService {
             e.printStackTrace();
         }
 
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext());
-        builder.setSmallIcon(R.mipmap.ic_launcher);
-
-        builder.setContentTitle("番組のダウンロード中");
-        builder.setContentText(name);
-        builder.setOngoing(true);
-
-//        NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-//        notificationManager.notify(1, builder.build());
-
-
-        startForeground(ONGOING_NOTIFICATION_ID, builder.build());
-
         try{
-            URL url = new URL(urlStr);
+            URL url = new URL("http://" + mAddress + "/api/recorded/" + mRecorded.getId() + "/preview.png?pos=30");
             URLConnection conn = url.openConnection();
             InputStream in = conn.getInputStream();
 
-            File file = new File(downloadDir.getAbsolutePath() + "/" + programId+".mp4");
+            File file = new File(downloadDir.getAbsolutePath() + "/" + mRecorded.getId() +".png");
             FileOutputStream out = new FileOutputStream(file, false);
             int b;
             while((b = in.read()) != -1){
@@ -102,81 +164,77 @@ public class DownloadService extends IntentService {
             out.close();
             in.close();
 
-//            notificationManager.cancel(1);
+        }catch (FileNotFoundException e) {
+            e.printStackTrace();
+            return false;
+        }catch (ProtocolException e) {
+            e.printStackTrace();
+            return false;
+        }catch (MalformedURLException e) {
+            e.printStackTrace();
+            return false;
+        }catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+        return true;
+    }
 
-            stopForeground(true);
+    private boolean videoDL(){
+        File downloadDir = new File(getBaseContext().getExternalFilesDir(null).getAbsolutePath() + "/video/");
 
-            NotificationCompat.Builder builder2 = new NotificationCompat.Builder(getApplicationContext());
-            builder2.setSmallIcon(R.mipmap.ic_launcher);
+        try {
+            if (!downloadDir.exists()) {
+                downloadDir.mkdir();
+            }
+        } catch (SecurityException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
-            builder2.setContentTitle("番組のダウンロードが完了しました");
-            builder2.setContentText(name);
+        try{
+            SharedPreferences spf = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+            URL url = new URL("http://" + mAddress + "/api/recorded/" + mRecorded.getId() + "/watch.mp4" +
+                    "?ext=mp4" +
+                    "&c%3Av=h264" +
+                    Shirayuki.getResolutionFromVideoSize(spf.getString("download_video_size", "720p (HD) (Recommended)")) +
+                    Shirayuki.getVideoBitrate(spf.getString("download_video_bitrate", "1Mbps (Recommended)")) +
+                    Shirayuki.getAudioBitrate(spf.getString("download_audio_bitrate", "128kbps (Recommended)")) +
+                    "&ss=0");
+            URLConnection conn = url.openConnection();
+            InputStream in = conn.getInputStream();
 
-            NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-            notificationManager.notify(2, builder2.build());
+            File file = new File(downloadDir.getAbsolutePath() + "/" + mRecorded.getId() + ".mp4");
+            FileOutputStream out = new FileOutputStream(file, false);
+            int b;
+            while((b = in.read()) != -1){
+                out.write(b);
+            }
+
+            out.close();
+            in.close();
 
         }catch (FileNotFoundException e) {
             e.printStackTrace();
+            return false;
         }catch (ProtocolException e) {
             e.printStackTrace();
+            return false;
         }catch (MalformedURLException e) {
             e.printStackTrace();
+            return false;
         }catch (IOException e) {
             e.printStackTrace();
+            return false;
         }catch (Exception e) {
             e.printStackTrace();
+            return false;
         }
-        Shirayuki.log("Download Finished");
-
-//        OkHttpClient client = new OkHttpClient();
-//        Request request = new Request.Builder().url(urlStr).build();
-//        client.newCall(request).enqueue(new Callback() {
-//            @Override
-//            public void onFailure(Call call, IOException e) {
-//                notificationManager.cancel(1);
-//                e.printStackTrace();
-//            }
-//
-//            @Override
-//            public void onResponse(Call call, Response response) throws IOException {
-//                InputStream inputStream = null;
-//                FileOutputStream outputStream = null;
-//
-//                try {
-//                    if (response.code() == 200) {
-//                        inputStream = response.body().byteStream();
-//                        byte[] buff = new byte[4096];
-//                        long readSize = 0L;
-//                        long writtenSize = 0L;
-//
-//                        outputStream = new FileOutputStream(downloadDir.getAbsolutePath() + "/" + programId+".mp4");
-//
-//                        while((readSize = inputStream.read(buff)) != -1) {
-//                            writtenSize += readSize;
-//                            outputStream.write(buff);
-//                        }
-//                        outputStream.flush();
-//                    } else {
-//                        Log.e(TAG, response.toString());
-//                    }
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                } finally {
-//                    inputStream.close();
-//                    outputStream.close();
-//                }
-//                notificationManager.cancel(1);
-//
-//                NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext());
-//                builder.setSmallIcon(R.mipmap.ic_launcher);
-//
-//                builder.setContentTitle("番組のダウンロードが完了しました");
-//                builder.setContentText(name);
-//
-//                notificationManager.notify(2, builder.build());
-//            }
-//        });
-
+        return true;
     }
 
     @Override
