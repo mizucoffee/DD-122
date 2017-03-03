@@ -100,30 +100,31 @@ public class DetailActivity extends AppCompatActivity {
         SharedPreferences spf = PreferenceManager.getDefaultSharedPreferences(this);
 
         mDownloadBtn.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(this,Shirayuki.getBackgroundColorFromCategory(mRecorded.getCategory()))));
-        if(new File(getFilesDir().getAbsolutePath() + "/video/" + mRecorded.getId()+".mp4").exists()){
+        Shirayuki.log(getExternalFilesDir(null).getAbsolutePath());
+        if(new File(getExternalFilesDir(null).getAbsolutePath() + "/video/" + mRecorded.getId()+".mp4").exists()){
             mDownloadBtn.setText("Play");
         }
 
         mDownloadBtn.setOnClickListener((v) -> {
             if(new File(getExternalFilesDir(null).getAbsolutePath() + "/video/" + mRecorded.getId()+".mp4").exists()){
-                Uri uri = Uri.parse(getExternalFilesDir(null).getAbsolutePath() + "/video/" + mRecorded.getId()+".mp4");
+                Uri uri = Uri.parse("file://" + getExternalFilesDir(null).getAbsolutePath() + "/video/" + mRecorded.getId()+".mp4");
                 startActivity(new Intent(Intent.ACTION_VIEW).setPackage("org.videolan.vlc").setDataAndTypeAndNormalize(uri, "video/*"));
             }else {
                 new AlertDialog.Builder(this)
                         .setTitle("確認")
                         .setMessage("以下のエンコード設定でダウンロードします。\n" +
                                 "\n" +
-                                "Video Size:" + spf.getString("download_video_size", "") + "\n" +
-                                "Video Bitrate:" + spf.getString("download_video_bitrate", "") + "\n" +
-                                "Audio Bitrate:" + spf.getString("download_audio_bitrate", "") + "\n")
+                                "Video Size:" + spf.getString("download_video_size", "720p (HD) (Recommended)") + "\n" +
+                                "Video Bitrate:" + spf.getString("download_video_bitrate", "1Mbps (Recommended)") + "\n" +
+                                "Audio Bitrate:" + spf.getString("download_audio_bitrate", "128kbps (Recommended)") + "\n")
                         .setPositiveButton("OK", (DialogInterface dialogInterface, int i) -> {
                             Intent intent = new Intent(this, DownloadService.class);
                             intent.putExtra("url", "http://" + mDataManager.getServerConnection().getAddress() + "/api/recorded/" + mRecorded.getId() + "/watch.mp4" +
                                     "?ext=mp4" +
                                     "&c%3Av=h264" +
-                                    Shirayuki.getResolutionFromVideoSize(spf.getString("download_video_size", "")) +
-                                    Shirayuki.getVideoBitrate(spf.getString("download_video_bitrate", "")) +
-                                    Shirayuki.getAudioBitrate(spf.getString("download_audio_bitrate", "")) +
+                                    Shirayuki.getResolutionFromVideoSize(spf.getString("download_video_size", "720p (HD) (Recommended)")) +
+                                    Shirayuki.getVideoBitrate(spf.getString("download_video_bitrate", "1Mbps (Recommended)")) +
+                                    Shirayuki.getAudioBitrate(spf.getString("download_audio_bitrate", "128kbps (Recommended)")) +
                                     "&ss=0");
                             intent.putExtra("path", getExternalFilesDir(null).getAbsolutePath());
                             intent.putExtra("programid", mRecorded.getId());

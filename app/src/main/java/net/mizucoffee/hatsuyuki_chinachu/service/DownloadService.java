@@ -11,15 +11,14 @@ import net.mizucoffee.hatsuyuki_chinachu.R;
 import net.mizucoffee.hatsuyuki_chinachu.tools.Shirayuki;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
+import java.net.MalformedURLException;
+import java.net.ProtocolException;
+import java.net.URL;
+import java.net.URLConnection;
 
 import static android.content.ContentValues.TAG;
 
@@ -76,62 +75,99 @@ public class DownloadService extends IntentService {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext());
         builder.setSmallIcon(R.mipmap.ic_launcher);
 
-        builder.setContentTitle("番組のダウンロード中"); // 1行目
+        builder.setContentTitle("番組のダウンロード中");
         builder.setContentText(name);
         builder.setOngoing(true);
 
         NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         notificationManager.notify(1, builder.build());
 
+        try{
+            URL url = new URL(urlStr);
+            URLConnection conn = url.openConnection();
+            InputStream in = conn.getInputStream();
 
-        OkHttpClient client = new OkHttpClient();
-        Request request = new Request.Builder().url(urlStr).build();
-        client.newCall(request).enqueue(new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-                notificationManager.cancel(1);
-                e.printStackTrace();
+            File file = new File(downloadDir.getAbsolutePath() + "/" + programId+".mp4");
+            FileOutputStream out = new FileOutputStream(file, false);
+            int b;
+            while((b = in.read()) != -1){
+                out.write(b);
             }
 
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                InputStream inputStream = null;
-                FileOutputStream outputStream = null;
+            out.close();
+            in.close();
 
-                try {
-                    if (response.code() == 200) {
-                        inputStream = response.body().byteStream();
-                        byte[] buff = new byte[4096];
-                        long readSize = 0L;
-                        long writtenSize = 0L;
+            notificationManager.cancel(1);
 
-                        outputStream = new FileOutputStream(downloadDir.getAbsolutePath() + "/" + programId+".mp4");
+            NotificationCompat.Builder builder2 = new NotificationCompat.Builder(getApplicationContext());
+            builder2.setSmallIcon(R.mipmap.ic_launcher);
 
-                        while((readSize = inputStream.read(buff)) != -1) {
-                            writtenSize += readSize;
-                            outputStream.write(buff);
-                        }
-                        outputStream.flush();
-                    } else {
-                        Log.e(TAG, response.toString());
-                    }
-                } catch (IOException e) {
-                    e.printStackTrace();
-                } finally {
-                    inputStream.close();
-                    outputStream.close();
-                }
-                notificationManager.cancel(1);
+            builder2.setContentTitle("番組のダウンロードが完了しました");
+            builder2.setContentText(name);
 
-                NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext());
-                builder.setSmallIcon(R.mipmap.ic_launcher);
+            notificationManager.notify(2, builder2.build());
 
-                builder.setContentTitle("番組のダウンロードが完了しました");
-                builder.setContentText(name);
+        }catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }catch (ProtocolException e) {
+            e.printStackTrace();
+        }catch (MalformedURLException e) {
+            e.printStackTrace();
+        }catch (IOException e) {
+            e.printStackTrace();
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+        Shirayuki.log("Download Finished");
 
-                notificationManager.notify(2, builder.build());
-            }
-        });
+//        OkHttpClient client = new OkHttpClient();
+//        Request request = new Request.Builder().url(urlStr).build();
+//        client.newCall(request).enqueue(new Callback() {
+//            @Override
+//            public void onFailure(Call call, IOException e) {
+//                notificationManager.cancel(1);
+//                e.printStackTrace();
+//            }
+//
+//            @Override
+//            public void onResponse(Call call, Response response) throws IOException {
+//                InputStream inputStream = null;
+//                FileOutputStream outputStream = null;
+//
+//                try {
+//                    if (response.code() == 200) {
+//                        inputStream = response.body().byteStream();
+//                        byte[] buff = new byte[4096];
+//                        long readSize = 0L;
+//                        long writtenSize = 0L;
+//
+//                        outputStream = new FileOutputStream(downloadDir.getAbsolutePath() + "/" + programId+".mp4");
+//
+//                        while((readSize = inputStream.read(buff)) != -1) {
+//                            writtenSize += readSize;
+//                            outputStream.write(buff);
+//                        }
+//                        outputStream.flush();
+//                    } else {
+//                        Log.e(TAG, response.toString());
+//                    }
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                } finally {
+//                    inputStream.close();
+//                    outputStream.close();
+//                }
+//                notificationManager.cancel(1);
+//
+//                NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext());
+//                builder.setSmallIcon(R.mipmap.ic_launcher);
+//
+//                builder.setContentTitle("番組のダウンロードが完了しました");
+//                builder.setContentText(name);
+//
+//                notificationManager.notify(2, builder.build());
+//            }
+//        });
 
     }
 }
