@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context="net.mizucoffee.hatsuyuki_chinachu.dashboard.recorded.RecordedFragment">
+    tools:context="net.mizucoffee.hatsuyuki_chinachu.dashboard.program.RecordedFragment">
 
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"

@@ -2,15 +2,17 @@ package net.mizucoffee.hatsuyuki_chinachu.dashboard.recorded;
 
 import android.content.Context;
 
-import net.mizucoffee.hatsuyuki_chinachu.chinachu.model.recorded.Recorded;
+import net.mizucoffee.hatsuyuki_chinachu.chinachu.model.program.Program;
 import net.mizucoffee.hatsuyuki_chinachu.dashboard.DashboardInteractor;
 import net.mizucoffee.hatsuyuki_chinachu.enumerate.ListType;
 import net.mizucoffee.hatsuyuki_chinachu.enumerate.SortType;
 import net.mizucoffee.hatsuyuki_chinachu.model.ServerConnection;
+import net.mizucoffee.hatsuyuki_chinachu.tools.CategoryComparator;
+import net.mizucoffee.hatsuyuki_chinachu.tools.DateComparator;
+import net.mizucoffee.hatsuyuki_chinachu.tools.TitleComparator;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 import retrofit2.Call;
@@ -28,7 +30,7 @@ public class RecordedPresenterImpl implements RecordedPresenter {
     private ListType mListType = ListType.CARD_COLUMN1;
     private SortType mSortType = SortType.DATE_DES;
     private RecordedCardRecyclerAdapter mAdapter;
-    private List<Recorded> mRecordedList;
+    private List<Program> mProgramList;
 
     RecordedPresenterImpl(RecordedView recordedView){
         this.mRecordedView = recordedView;
@@ -47,19 +49,19 @@ public class RecordedPresenterImpl implements RecordedPresenter {
         mRecordedInteractor.getServerConnection(new DashboardInteractor.OnLoadFinishedListener() {
             @Override
             public void onSuccess(ServerConnection sc) {
-                mRecordedInteractor.getRecordedList(new Callback<List<Recorded>>() {
+                mRecordedInteractor.getRecordedList(new Callback<List<Program>>() {
                     @Override
-                    public void onResponse(Call<List<Recorded>> call, Response<List<Recorded>> response) {
-                        mRecordedList = response.body();
+                    public void onResponse(Call<List<Program>> call, Response<List<Program>> response) {
+                        mProgramList = response.body();
                         sort();
-                        mAdapter.setRecorded(mRecordedList);
+                        mAdapter.setRecorded(mProgramList);
                         mAdapter.setListType(mListType);
                         mAdapter.notifyDataSetChanged();
                         mRecordedView.setRecyclerView(mAdapter, mListType);//TODO: カラム数
                     }
 
                     @Override
-                    public void onFailure(Call<List<Recorded>> call, Throwable t) {
+                    public void onFailure(Call<List<Program>> call, Throwable t) {
                         mRecordedView.removeRecyclerView();
                         mRecordedView.showSnackBar("サーバーへの接続に失敗しました");
                     }
@@ -78,7 +80,7 @@ public class RecordedPresenterImpl implements RecordedPresenter {
     public void changeListType(ListType type){
         mListType = type;
         getRecorded();
-        mAdapter.setRecorded(mRecordedList);
+        mAdapter.setRecorded(mProgramList);
         mAdapter.notifyDataSetChanged();
         mRecordedView.setRecyclerView(mAdapter, mListType);
     }
@@ -87,7 +89,7 @@ public class RecordedPresenterImpl implements RecordedPresenter {
     public void changeSortType(SortType type){
         mSortType = type;
         sort();
-        mAdapter.setRecorded(mRecordedList);
+        mAdapter.setRecorded(mProgramList);
         mAdapter.notifyDataSetChanged();
         mRecordedView.setRecyclerView(mAdapter, mListType);
     }
@@ -97,7 +99,7 @@ public class RecordedPresenterImpl implements RecordedPresenter {
         sort();
         ArrayList list = new ArrayList();
 
-        for(Recorded r:mRecordedList) if(r.getTitle().contains(word)) list.add(r);
+        for(Program r: mProgramList) if(r.getTitle().contains(word)) list.add(r);
 
         mAdapter.setRecorded(list);
         mAdapter.notifyDataSetChanged();
@@ -107,67 +109,27 @@ public class RecordedPresenterImpl implements RecordedPresenter {
     void sort(){
         switch (mSortType){
             case DATE_ASC:
-                Collections.sort(mRecordedList, new DateComparator());
+                Collections.sort(mProgramList, new DateComparator());
                 break;
             case DATE_DES:
-                Collections.sort(mRecordedList, new DateComparator());
-                Collections.reverse(mRecordedList);
+                Collections.sort(mProgramList, new DateComparator());
+                Collections.reverse(mProgramList);
                 break;
             case TITLE_ASC:
-                Collections.sort(mRecordedList, new TitleComparator());
+                Collections.sort(mProgramList, new TitleComparator());
                 break;
             case TITLE_DES:
-                Collections.sort(mRecordedList, new TitleComparator());
-                Collections.reverse(mRecordedList);
+                Collections.sort(mProgramList, new TitleComparator());
+                Collections.reverse(mProgramList);
                 break;
             case CATEGORY_ASC:
-                Collections.sort(mRecordedList, new CategoryComparator());
+                Collections.sort(mProgramList, new CategoryComparator());
                 break;
             case CATEGORY_DES:
-                Collections.sort(mRecordedList, new CategoryComparator());
-                Collections.reverse(mRecordedList);
+                Collections.sort(mProgramList, new CategoryComparator());
+                Collections.reverse(mProgramList);
                 break;
         }
 
-    }
-}
-
-class DateComparator implements Comparator<Recorded> {
-    @Override
-    public int compare(Recorded r1, Recorded r2) {
-        return r1.getStart() < r2.getStart() ? -1 : 1;
-    }
-}
-
-class TitleComparator implements Comparator<Recorded> {
-    @Override
-    public int compare(Recorded r1, Recorded r2) {
-        return r1.getTitle().compareTo(r2.getTitle());
-    }
-}
-
-class CategoryComparator implements Comparator<Recorded> {
-    @Override
-    public int compare(Recorded r1, Recorded r2) {
-        return getId(r1.getCategory()) < getId(r2.getCategory()) ? -1 : 1;
-    }
-
-    int getId(String category){
-        switch (category){
-            case "anime": return 0;
-            case "information": return 1;
-            case "news": return 2;
-            case "sports": return 3;
-            case "variety": return 4;
-            case "drama": return 5;
-            case "music": return 6;
-            case "cinema": return 7;
-            case "theater": return 8;
-            case "documentary": return 9;
-            case "hobby": return 10;
-            case "welfare": return 11;
-            case "etc": return 12;
-            default: return 15;
-        }
     }
 }

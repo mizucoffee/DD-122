@@ -29,7 +29,7 @@ import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 
 import net.mizucoffee.hatsuyuki_chinachu.R;
-import net.mizucoffee.hatsuyuki_chinachu.chinachu.model.recorded.Recorded;
+import net.mizucoffee.hatsuyuki_chinachu.chinachu.model.program.Program;
 import net.mizucoffee.hatsuyuki_chinachu.service.DownloadBroadcastReceiver;
 import net.mizucoffee.hatsuyuki_chinachu.service.DownloadService;
 import net.mizucoffee.hatsuyuki_chinachu.tools.DataManager;
@@ -42,7 +42,7 @@ import butterknife.BindView;
 
 public class RecordedDetailActivity extends AppCompatActivity {
 
-    private Recorded    mRecorded;
+    private Program mProgram;
     private DataManager mDataManager;
 
     @BindView(R.id.toolbar) Toolbar mToolBar;
@@ -57,13 +57,13 @@ public class RecordedDetailActivity extends AppCompatActivity {
     @BindView(R.id.channel_iv)          ImageView mChannelIv;
     @BindView(R.id.download_btn)        Button mDownloadBtn;
 
-    private Recorded downloaded; // if NOT downloaded then NULL
+    private Program downloaded; // if NOT downloaded then NULL
     private DownloadBroadcastReceiver receiver;
 
     Handler mHandler = new Handler(){
         @Override
         public void handleMessage(Message msg){
-            if(!msg.getData().getString("id").equals(mRecorded.getId())) return;
+            if(!msg.getData().getString("id").equals(mProgram.getId())) return;
             if (msg.getData().getBoolean("isSuccess"))
                 mDownloadBtn.setText("Downloaded");
             else
@@ -75,29 +75,29 @@ public class RecordedDetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mRecorded    = new Gson().fromJson(getIntent().getStringExtra("program"), Recorded.class);
+        mProgram = new Gson().fromJson(getIntent().getStringExtra("program"), Program.class);
         mDataManager = new DataManager(getSharedPreferences("HatsuyukiChinachu", Context.MODE_PRIVATE));
 
-        setTheme(Shirayuki.getThemeFromCategory(mRecorded.getCategory()));
+        setTheme(Shirayuki.getThemeFromCategory(mProgram.getCategory()));
         setContentView(R.layout.activity_detail);
         setSupportActionBar(mToolBar);
         Shirayuki.initActivity(this);
 
-        setTitle(mRecorded.getTitle());
+        setTitle(mProgram.getTitle());
 
-        mTitleTv.setText(mRecorded.getTitle());
-        mSubtitleTv.setText(mRecorded.getSubTitle());
+        mTitleTv.setText(mProgram.getTitle());
+        mSubtitleTv.setText(mProgram.getSubTitle());
 
-        if(mRecorded.getSubTitle().equals("")){
+        if(mProgram.getSubTitle().equals("")){
             mSubtitleTv.setVisibility(View.GONE);
             mSubtitleHeadTv.setVisibility(View.GONE);
         }
 
-        mDescriptionTv.setText(mRecorded.getDetail());
-        mChannelTv.setText(mRecorded.getChannel().getName()+" "+mRecorded.getChannel().getId());
+        mDescriptionTv.setText(mProgram.getDetail());
+        mChannelTv.setText(mProgram.getChannel().getName()+" "+ mProgram.getChannel().getId());
 
-        Picasso.with(this).load("http://" + mDataManager.getServerConnection().getAddress() + "/api/recorded/" + mRecorded.getId() + "/preview.png?pos=30").into(mCoverIv);
-        Picasso.with(this).load("http://" + mDataManager.getServerConnection().getAddress() + "/api/channel/" + mRecorded.getChannel().getId() + "/logo.png").into(mChannelIv);
+        Picasso.with(this).load("http://" + mDataManager.getServerConnection().getAddress() + "/api/recorded/" + mProgram.getId() + "/preview.png?pos=30").into(mCoverIv);
+        Picasso.with(this).load("http://" + mDataManager.getServerConnection().getAddress() + "/api/channel/" + mProgram.getChannel().getId() + "/logo.png").into(mChannelIv);
 
         ViewTreeObserver observer = mChannelIv.getViewTreeObserver();
         observer.addOnGlobalLayoutListener(() -> {
@@ -109,7 +109,7 @@ public class RecordedDetailActivity extends AppCompatActivity {
         });
 
         mFab.setOnClickListener(v -> {
-            Uri uri = Uri.parse("http://" + mDataManager.getServerConnection().getAddress() + "/api/recorded/" + mRecorded.getId() + "/watch.mp4");
+            Uri uri = Uri.parse("http://" + mDataManager.getServerConnection().getAddress() + "/api/recorded/" + mProgram.getId() + "/watch.mp4");
             startActivity(new Intent(Intent.ACTION_VIEW).setPackage("org.videolan.vlc").setDataAndTypeAndNormalize(uri, "video/*"));
         });
 
@@ -118,12 +118,12 @@ public class RecordedDetailActivity extends AppCompatActivity {
 
         SharedPreferences spf = PreferenceManager.getDefaultSharedPreferences(this);
 
-        mDownloadBtn.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(this,Shirayuki.getBackgroundColorFromCategory(mRecorded.getCategory()))));
+        mDownloadBtn.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(this,Shirayuki.getBackgroundColorFromCategory(mProgram.getCategory()))));
 
         downloaded = null;
         if(mDataManager.getDownloadedList() != null)
-            for(Recorded r : mDataManager.getDownloadedList())
-                if(r.getId().equals(mRecorded.getId()))
+            for(Program r : mDataManager.getDownloadedList())
+                if(r.getId().equals(mProgram.getId()))
                     downloaded = r;
 
         if(downloaded != null) {
@@ -144,20 +144,20 @@ public class RecordedDetailActivity extends AppCompatActivity {
                                 "Video Bitrate:" + spf.getString("download_video_bitrate", "1Mbps (Recommended)") + "\n" +
                                 "Audio Bitrate:" + spf.getString("download_audio_bitrate", "128kbps (Recommended)") + "\n")
                         .setPositiveButton("OK", (DialogInterface dialogInterface, int i) -> {
-                            mRecorded.setDownloading(true);
+                            mProgram.setDownloading(true);
                             mDownloadBtn.setText("Downloading...");
                             mDownloadBtn.setEnabled(false);
 
-                            List<Recorded> list = mDataManager.getDownloadedList();
+                            List<Program> list = mDataManager.getDownloadedList();
                             if(list == null){
                                 list = new ArrayList<>();
                             }
-                            list.add(mRecorded);
+                            list.add(mProgram);
                             mDataManager.setDownloadedList(list);
 
 
                             Intent intent = new Intent(this, DownloadService.class);
-                            intent.putExtra("recorded",new Gson().toJson(mRecorded));
+                            intent.putExtra("recorded",new Gson().toJson(mProgram));
                             intent.putExtra("address",mDataManager.getServerConnection().getAddress());
                             this.startService(intent);
                         })

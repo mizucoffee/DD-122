@@ -1,6 +1,6 @@
 package net.mizucoffee.hatsuyuki_chinachu.chinachu;
 
-import net.mizucoffee.hatsuyuki_chinachu.chinachu.model.recorded.Recorded;
+import net.mizucoffee.hatsuyuki_chinachu.chinachu.model.program.Program;
 
 import java.util.List;
 
@@ -9,7 +9,7 @@ import retrofit2.http.GET;
 
 public interface ChinachuApi {
     @GET("/api/recorded.json")
-    Call<List<Recorded>> getRecorded();
+    Call<List<Program>> getRecorded();
 
 //    @GET("/api/recorded/{programId}/preview.png")
 //    void getRecordedPreview(@Path("programId") String programId, Callback<Response> callback);

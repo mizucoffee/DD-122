@@ -1,6 +1,6 @@
 package net.mizucoffee.hatsuyuki_chinachu.dashboard.downloaded;
 
-import net.mizucoffee.hatsuyuki_chinachu.chinachu.model.recorded.Recorded;
+import net.mizucoffee.hatsuyuki_chinachu.chinachu.model.program.Program;
 
 import java.util.List;
 
@@ -9,6 +9,5 @@ import java.util.List;
  */
 
 public interface DownloadedInteractor {
-    List<Recorded> getDownloadedList();
-    void setDownloadedList(List<Recorded> recorded);
+    List<Program> getDownloadedList();
 }

@@ -12,7 +12,6 @@ import net.mizucoffee.hatsuyuki_chinachu.enumerate.ListType;
 public interface DownloadedView {
     void setRecyclerView(DownloadedCardRecyclerAdapter adapter, ListType listType);
     DashboardActivity getDashboardActivity();
-    void removeRecyclerView();
     SharedPreferences getActivitySharedPreferences(String name, int mode);
     void showSnackBar(String text);
 }

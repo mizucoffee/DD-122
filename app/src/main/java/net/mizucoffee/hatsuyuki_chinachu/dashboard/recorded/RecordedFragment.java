@@ -38,7 +38,7 @@ public class RecordedFragment extends Fragment implements RecordedView{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
-        return inflater.inflate(R.layout.fragment_recorded, container, false);
+        return inflater.inflate(R.layout.layout_program_list, container, false);
     }
 
     @Override
@@ -57,7 +57,7 @@ public class RecordedFragment extends Fragment implements RecordedView{
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         menu.clear();
-        inflater.inflate(R.menu.recorded, menu);
+        inflater.inflate(R.menu.program_list, menu);
         menu.findItem(R.id.menu_sort).setVisible(true);
         menu.findItem(R.id.menu_list).setVisible(true);
 
@@ -86,7 +86,7 @@ public class RecordedFragment extends Fragment implements RecordedView{
 
             case R.id.menu_sort:
                 PopupMenu popup = new PopupMenu(getActivity(), ButterKnife.findById(getActivity(),R.id.menu_sort));
-                popup.getMenuInflater().inflate(R.menu.recorded_sorttype_popup_menu, popup.getMenu());
+                popup.getMenuInflater().inflate(R.menu.program_sorttype_popup_menu, popup.getMenu());
                 popup.show();
                 popup.setOnMenuItemClickListener((menu) -> {
                     SortType sortType = SortType.DATE_DES;
@@ -104,7 +104,7 @@ public class RecordedFragment extends Fragment implements RecordedView{
                 break;
             case R.id.menu_list:
                 PopupMenu popup2 = new PopupMenu(getActivity(), ButterKnife.findById(getActivity(),R.id.menu_list));
-                popup2.getMenuInflater().inflate(R.menu.recorded_listtype_popup_menu, popup2.getMenu());
+                popup2.getMenuInflater().inflate(R.menu.program_listtype_popup_menu, popup2.getMenu());
                 popup2.show();
                 popup2.setOnMenuItemClickListener((menu) -> {
                     ListType listType = menu.getItemId() == R.id.column1 ? ListType.CARD_COLUMN1 : menu.getItemId() == R.id.column2 ? ListType.CARD_COLUMN2 : ListType.LIST;

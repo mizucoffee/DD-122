@@ -16,7 +16,7 @@ import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 
 import net.mizucoffee.hatsuyuki_chinachu.R;
-import net.mizucoffee.hatsuyuki_chinachu.chinachu.model.recorded.Recorded;
+import net.mizucoffee.hatsuyuki_chinachu.chinachu.model.program.Program;
 import net.mizucoffee.hatsuyuki_chinachu.dashboard.DashboardActivity;
 import net.mizucoffee.hatsuyuki_chinachu.enumerate.ListType;
 import net.mizucoffee.hatsuyuki_chinachu.tools.DataManager;
@@ -30,7 +30,7 @@ import butterknife.ButterKnife;
 
 public class RecordedCardRecyclerAdapter extends RecyclerView.Adapter<RecordedCardRecyclerAdapter.ViewHolder>{
 
-    private List<Recorded>      mRecorded;
+    private List<Program> mProgram;
     private LayoutInflater      mLayoutInflater;
     private DashboardActivity   mContext;
     private DataManager         mDataManager;
@@ -45,11 +45,11 @@ public class RecordedCardRecyclerAdapter extends RecyclerView.Adapter<RecordedCa
 
     @Override
     public int getItemCount() {
-        return mRecorded.size();
+        return mProgram.size();
     }
 
-    public void setRecorded(List<Recorded> recorded){
-        this.mRecorded = recorded;
+    public void setRecorded(List<Program> program){
+        this.mProgram = program;
     }
 
     public void setListType(ListType listType){
@@ -58,7 +58,7 @@ public class RecordedCardRecyclerAdapter extends RecyclerView.Adapter<RecordedCa
 
     @Override
     public void onBindViewHolder(final ViewHolder vh, int position) {
-        Recorded program = mRecorded.get(vh.getAdapterPosition());
+        Program program = mProgram.get(vh.getAdapterPosition());
         SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy/MM/dd E HH:mm", Locale.getDefault());
         SimpleDateFormat sdf2 = new SimpleDateFormat("HH:mm", Locale.getDefault());
 
@@ -86,7 +86,7 @@ public class RecordedCardRecyclerAdapter extends RecyclerView.Adapter<RecordedCa
 
     @Override
     public RecordedCardRecyclerAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        int layout = mListType == ListType.CARD_COLUMN1 ? R.layout.card_recorded_layout_1column : mListType == ListType.CARD_COLUMN2 ? R.layout.card_recorded_layout_2column : R.layout.card_recorded_layout_list;
+        int layout = mListType == ListType.CARD_COLUMN1 ? R.layout.card_program_layout_1column : mListType == ListType.CARD_COLUMN2 ? R.layout.card_program_layout_2column : R.layout.card_program_layout_list;
         return new ViewHolder(mLayoutInflater.inflate(layout, parent, false));
     }
 

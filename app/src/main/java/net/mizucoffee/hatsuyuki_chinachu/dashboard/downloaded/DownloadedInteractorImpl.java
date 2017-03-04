@@ -2,7 +2,7 @@ package net.mizucoffee.hatsuyuki_chinachu.dashboard.downloaded;
 
 import android.content.SharedPreferences;
 
-import net.mizucoffee.hatsuyuki_chinachu.chinachu.model.recorded.Recorded;
+import net.mizucoffee.hatsuyuki_chinachu.chinachu.model.program.Program;
 import net.mizucoffee.hatsuyuki_chinachu.tools.DataManager;
 
 import java.util.List;
@@ -20,12 +20,7 @@ public class DownloadedInteractorImpl implements DownloadedInteractor {
     }
 
     @Override
-    public List<Recorded> getDownloadedList(){
+    public List<Program> getDownloadedList(){
         return mDataManager.getDownloadedList();
-    }
-
-    @Override
-    public void setDownloadedList(List<Recorded> recorded){
-        mDataManager.setDownloadedList(recorded);
     }
 }

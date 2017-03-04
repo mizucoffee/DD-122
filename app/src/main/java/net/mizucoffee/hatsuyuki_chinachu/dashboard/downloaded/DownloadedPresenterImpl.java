@@ -2,13 +2,15 @@ package net.mizucoffee.hatsuyuki_chinachu.dashboard.downloaded;
 
 import android.content.Context;
 
-import net.mizucoffee.hatsuyuki_chinachu.chinachu.model.recorded.Recorded;
+import net.mizucoffee.hatsuyuki_chinachu.chinachu.model.program.Program;
 import net.mizucoffee.hatsuyuki_chinachu.enumerate.ListType;
 import net.mizucoffee.hatsuyuki_chinachu.enumerate.SortType;
+import net.mizucoffee.hatsuyuki_chinachu.tools.CategoryComparator;
+import net.mizucoffee.hatsuyuki_chinachu.tools.DateComparator;
+import net.mizucoffee.hatsuyuki_chinachu.tools.TitleComparator;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 public class DownloadedPresenterImpl implements DownloadedPresenter {
@@ -18,7 +20,7 @@ public class DownloadedPresenterImpl implements DownloadedPresenter {
     private DownloadedCardRecyclerAdapter mAdapter;
     private ListType mListType = ListType.CARD_COLUMN1;
     private SortType mSortType = SortType.DATE_DES;
-    private List<Recorded> mDownloadedList;
+    private List<Program> mDownloadedList;
 
     DownloadedPresenterImpl(DownloadedView downloadedView){
         this.mDownloadedView = downloadedView;
@@ -33,10 +35,13 @@ public class DownloadedPresenterImpl implements DownloadedPresenter {
 
     @Override
     public void getDownloaded(){
-        List<Recorded> recorded = mDownloadedInteractor.getDownloadedList();
-        if(recorded == null) return;// DLしてみましょうを入れるか
+        List<Program> programList = mDownloadedInteractor.getDownloadedList();
+        if(programList == null) {
+            mDownloadedView.showSnackBar("ダウンロードしてみましょう！");
+            // DLしてみましょうを入れるか
+        }
 
-        mDownloadedList = recorded;
+        mDownloadedList = programList;
         sort();
         mAdapter.setRecorded(mDownloadedList);
         mAdapter.setListType(mListType);
@@ -65,16 +70,16 @@ public class DownloadedPresenterImpl implements DownloadedPresenter {
     @Override
     public void searchWord(String word){
         sort();
-        ArrayList list = new ArrayList();
+        ArrayList list = new ArrayList<Program>();
 
-        for(Recorded r:mDownloadedList) if(r.getTitle().contains(word)) list.add(r);
+        for(Program r:mDownloadedList) if(r.getTitle().contains(word)) list.add(r);
 
         mAdapter.setRecorded(list);
         mAdapter.notifyDataSetChanged();
         mDownloadedView.setRecyclerView(mAdapter, mListType);
     }
 
-    void sort(){
+    private void sort(){
         switch (mSortType){
             case DATE_ASC:
                 Collections.sort(mDownloadedList, new DateComparator());
@@ -102,42 +107,8 @@ public class DownloadedPresenterImpl implements DownloadedPresenter {
     }
 }
 
-class DateComparator implements Comparator<Recorded> {
-    @Override
-    public int compare(Recorded r1, Recorded r2) {
-        return r1.getStart() < r2.getStart() ? -1 : 1;
-    }
-}
 
-class TitleComparator implements Comparator<Recorded> {
-    @Override
-    public int compare(Recorded r1, Recorded r2) {
-        return r1.getTitle().compareTo(r2.getTitle());
-    }
-}
 
-class CategoryComparator implements Comparator<Recorded> {
-    @Override
-    public int compare(Recorded r1, Recorded r2) {
-        return getId(r1.getCategory()) < getId(r2.getCategory()) ? -1 : 1;
-    }
 
-    int getId(String category){
-        switch (category){
-            case "anime": return 0;
-            case "information": return 1;
-            case "news": return 2;
-            case "sports": return 3;
-            case "variety": return 4;
-            case "drama": return 5;
-            case "music": return 6;
-            case "cinema": return 7;
-            case "theater": return 8;
-            case "documentary": return 9;
-            case "hobby": return 10;
-            case "welfare": return 11;
-            case "etc": return 12;
-            default: return 15;
-        }
-    }
-}
+
+

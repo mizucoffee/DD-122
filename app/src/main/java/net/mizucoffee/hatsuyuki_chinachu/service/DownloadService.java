@@ -13,7 +13,7 @@ import android.util.Log;
 import com.google.gson.Gson;
 
 import net.mizucoffee.hatsuyuki_chinachu.R;
-import net.mizucoffee.hatsuyuki_chinachu.chinachu.model.recorded.Recorded;
+import net.mizucoffee.hatsuyuki_chinachu.chinachu.model.program.Program;
 import net.mizucoffee.hatsuyuki_chinachu.tools.DataManager;
 import net.mizucoffee.hatsuyuki_chinachu.tools.Shirayuki;
 
@@ -33,11 +33,11 @@ import static android.content.ContentValues.TAG;
 
 public class DownloadService extends IntentService {
 
-    public static int ONGOING_NOTIFICATION_ID = 1;
-    private Recorded mRecorded;
     private String mAddress;
-    private List<Recorded> mRecordedList;
+    private Program mProgram;
     private DataManager mDataManager;
+    private List<Program> mProgramList;
+    public static int ONGOING_NOTIFICATION_ID = 1;
 
     public DownloadService() {
         super("DownloadService");
@@ -56,8 +56,8 @@ public class DownloadService extends IntentService {
             Log.d(TAG, "bundle == null");
             return;
         }
-        mRecorded = new Gson().fromJson(bundle.getString("recorded"),Recorded.class);
-        if(mRecorded == null){
+        mProgram = new Gson().fromJson(bundle.getString("recorded"),Program.class);
+        if(mProgram == null){
             Log.d(TAG, "recorded == null");
             return;
         }
@@ -71,19 +71,19 @@ public class DownloadService extends IntentService {
         builder.setSmallIcon(R.mipmap.ic_launcher);
 
         builder.setContentTitle("番組のダウンロード中");
-        builder.setContentText(mRecorded.getTitle());
+        builder.setContentText(mProgram.getTitle());
         builder.setOngoing(true);
         startForeground(ONGOING_NOTIFICATION_ID, builder.build());
 
         mDataManager = new DataManager(getSharedPreferences("HatsuyukiChinachu", Context.MODE_PRIVATE));
-        Recorded downloaded = null;
-        mRecordedList = mDataManager.getDownloadedList();
+        Program downloaded = null;
+        mProgramList = mDataManager.getDownloadedList();
         int i= 0;
         if(mDataManager.getDownloadedList() != null)
-            for(Recorded r : mDataManager.getDownloadedList()) {
-                if (r.getId().equals(mRecorded.getId())) {
+            for(Program r : mDataManager.getDownloadedList()) {
+                if (r.getId().equals(mProgram.getId())) {
                     downloaded = r;
-                    mRecordedList.remove(i);
+                    mProgramList.remove(i);
                     break;
                 }
                 i++;
@@ -100,14 +100,14 @@ public class DownloadService extends IntentService {
         stopForeground(true);
 
         downloaded.setDownloading(false);
-        mRecordedList.add(downloaded);
-        mDataManager.setDownloadedList(mRecordedList);
+        mProgramList.add(downloaded);
+        mDataManager.setDownloadedList(mProgramList);
 
-        mRecorded.setDownloading(false);
+        mProgram.setDownloading(false);
 
         Intent bcIntent = new Intent();
         bcIntent.putExtra("isSuccess", true);
-        bcIntent.putExtra("id",mRecorded.getId());
+        bcIntent.putExtra("id", mProgram.getId());
         bcIntent.setAction("RETURN_STATUS");
         getBaseContext().sendBroadcast(bcIntent);
 
@@ -115,7 +115,7 @@ public class DownloadService extends IntentService {
         builder2.setSmallIcon(R.mipmap.ic_launcher);
 
         builder2.setContentTitle("番組のダウンロードが完了しました");
-        builder2.setContentText(mRecorded.getTitle());
+        builder2.setContentText(mProgram.getTitle());
 
         NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         notificationManager.notify(getID(), builder2.build());
@@ -126,15 +126,15 @@ public class DownloadService extends IntentService {
         stopForeground(true);
         Intent bcIntent = new Intent();
         bcIntent.putExtra("isSuccess", false);
-        bcIntent.putExtra("id",mRecorded.getId());
+        bcIntent.putExtra("id", mProgram.getId());
         bcIntent.setAction("RETURN_STATUS");
         getBaseContext().sendBroadcast(bcIntent);
-        mDataManager.setDownloadedList(mRecordedList);
+        mDataManager.setDownloadedList(mProgramList);
         NotificationCompat.Builder builder2 = new NotificationCompat.Builder(getApplicationContext());
         builder2.setSmallIcon(R.mipmap.ic_launcher);
 
         builder2.setContentTitle("番組のダウンロードに失敗しました");
-        builder2.setContentText(mRecorded.getTitle());
+        builder2.setContentText(mProgram.getTitle());
 
         NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         notificationManager.notify(getID(), builder2.build());
@@ -155,11 +155,11 @@ public class DownloadService extends IntentService {
         }
 
         try{
-            URL url = new URL("http://" + mAddress + "/api/recorded/" + mRecorded.getId() + "/preview.png?pos=30");
+            URL url = new URL("http://" + mAddress + "/api/recorded/" + mProgram.getId() + "/preview.png?pos=30");
             URLConnection conn = url.openConnection();
             InputStream in = conn.getInputStream();
 
-            File file = new File(downloadDir.getAbsolutePath() + "/" + mRecorded.getId() +".png");
+            File file = new File(downloadDir.getAbsolutePath() + "/" + mProgram.getId() +".png");
             FileOutputStream out = new FileOutputStream(file, false);
             int b;
             while((b = in.read()) != -1){
@@ -203,7 +203,7 @@ public class DownloadService extends IntentService {
 
         try{
             SharedPreferences spf = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
-            URL url = new URL("http://" + mAddress + "/api/recorded/" + mRecorded.getId() + "/watch.mp4" +
+            URL url = new URL("http://" + mAddress + "/api/recorded/" + mProgram.getId() + "/watch.mp4" +
                     "?ext=mp4" +
                     "&c%3Av=h264" +
                     Shirayuki.getResolutionFromVideoSize(spf.getString("download_video_size", "720p (HD) (Recommended)")) +
@@ -213,7 +213,7 @@ public class DownloadService extends IntentService {
             URLConnection conn = url.openConnection();
             InputStream in = conn.getInputStream();
 
-            File file = new File(downloadDir.getAbsolutePath() + "/" + mRecorded.getId() + ".mp4");
+            File file = new File(downloadDir.getAbsolutePath() + "/" + mProgram.getId() + ".mp4");
             FileOutputStream out = new FileOutputStream(file, false);
             int b;
             while((b = in.read()) != -1){

@@ -1,8 +1,6 @@
 package net.mizucoffee.hatsuyuki_chinachu.dashboard.downloaded;
 
-import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.support.v4.content.ContextCompat;
@@ -17,10 +15,9 @@ import android.widget.TextView;
 import com.google.gson.Gson;
 
 import net.mizucoffee.hatsuyuki_chinachu.R;
-import net.mizucoffee.hatsuyuki_chinachu.chinachu.model.recorded.Recorded;
+import net.mizucoffee.hatsuyuki_chinachu.chinachu.model.program.Program;
 import net.mizucoffee.hatsuyuki_chinachu.dashboard.DashboardActivity;
 import net.mizucoffee.hatsuyuki_chinachu.enumerate.ListType;
-import net.mizucoffee.hatsuyuki_chinachu.tools.DataManager;
 import net.mizucoffee.hatsuyuki_chinachu.tools.Shirayuki;
 
 import java.text.SimpleDateFormat;
@@ -31,26 +28,24 @@ import butterknife.ButterKnife;
 
 public class DownloadedCardRecyclerAdapter extends RecyclerView.Adapter<DownloadedCardRecyclerAdapter.ViewHolder>{
 
-    private List<Recorded>      mRecorded;
+    private List<Program>       mProgramList;
     private LayoutInflater      mLayoutInflater;
     private DashboardActivity   mContext;
-    private DataManager         mDataManager;
     private ListType            mListType = ListType.CARD_COLUMN1;//TODO :標準
 
     public DownloadedCardRecyclerAdapter(DashboardActivity context) {
         super();
         this.mContext        = context;
         this.mLayoutInflater = LayoutInflater.from(context);
-        this.mDataManager    = new DataManager(context.getActivitySharedPreferences("HatsuyukiChinachu", Context.MODE_PRIVATE));
     }
 
     @Override
     public int getItemCount() {
-        return mRecorded.size();
+        return mProgramList.size();
     }
 
-    public void setRecorded(List<Recorded> recorded){
-        this.mRecorded = recorded;
+    public void setRecorded(List<Program> program){
+        this.mProgramList = program;
     }
 
     public void setListType(ListType listType){
@@ -59,14 +54,13 @@ public class DownloadedCardRecyclerAdapter extends RecyclerView.Adapter<Download
 
     @Override
     public void onBindViewHolder(final ViewHolder vh, int position) {
-        Recorded program = mRecorded.get(vh.getAdapterPosition());
+        Program program = mProgramList.get(vh.getAdapterPosition());
         SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy/MM/dd E HH:mm", Locale.getDefault());
         SimpleDateFormat sdf2 = new SimpleDateFormat("HH:mm", Locale.getDefault());
 
         vh.titleTv.setText(program.getTitle());
         vh.timeTv.setText(sdf1.format(program.getStart())+"-"+sdf2.format(program.getEnd()) + " " + (program.getSeconds() / 60) + "min");
-        Bitmap bmImg = BitmapFactory.decodeFile(mContext.getExternalFilesDir(null).getAbsolutePath() + "/image/" + program.getId() + ".png");
-        vh.imageView.setImageBitmap(bmImg);
+        vh.imageView.setImageBitmap(BitmapFactory.decodeFile(mContext.getExternalFilesDir(null).getAbsolutePath() + "/image/" + program.getId() + ".png"));
         vh.linearLayout.setBackgroundColor(ContextCompat.getColor(mContext, Shirayuki.getBackgroundColorFromCategory(program.getCategory())));
 
         switch (mListType){
@@ -88,7 +82,7 @@ public class DownloadedCardRecyclerAdapter extends RecyclerView.Adapter<Download
 
     @Override
     public DownloadedCardRecyclerAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        int layout = mListType == ListType.CARD_COLUMN1 ? R.layout.card_recorded_layout_1column : mListType == ListType.CARD_COLUMN2 ? R.layout.card_recorded_layout_2column : R.layout.card_recorded_layout_list;
+        int layout = mListType == ListType.CARD_COLUMN1 ? R.layout.card_program_layout_1column : mListType == ListType.CARD_COLUMN2 ? R.layout.card_program_layout_2column : R.layout.card_program_layout_list;
         return new ViewHolder(mLayoutInflater.inflate(layout, parent, false));
     }
 
