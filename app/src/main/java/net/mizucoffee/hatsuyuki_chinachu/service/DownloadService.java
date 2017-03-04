@@ -27,6 +27,7 @@ import java.net.ProtocolException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import static android.content.ContentValues.TAG;
 
@@ -40,6 +41,11 @@ public class DownloadService extends IntentService {
 
     public DownloadService() {
         super("DownloadService");
+    }
+
+    private final static AtomicInteger c = new AtomicInteger(0);
+    public static int getID() {
+        return c.incrementAndGet();
     }
 
     @Override
@@ -112,10 +118,9 @@ public class DownloadService extends IntentService {
         builder2.setContentText(mRecorded.getTitle());
 
         NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-        notificationManager.notify(2, builder2.build());
+        notificationManager.notify(getID(), builder2.build());
 
     }
-
 
     private void failed(){
         stopForeground(true);
@@ -132,7 +137,7 @@ public class DownloadService extends IntentService {
         builder2.setContentText(mRecorded.getTitle());
 
         NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-        notificationManager.notify(2, builder2.build());
+        notificationManager.notify(getID(), builder2.build());
     }
 
 
