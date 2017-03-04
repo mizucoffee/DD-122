@@ -42,12 +42,7 @@ class SelectServerCardRecyclerAdapter extends RecyclerView.Adapter<SelectServerC
         vh.serverName.setText(connections.get(vh.getAdapterPosition()).getName());
         vh.serverHost.setText(connections.get(vh.getAdapterPosition()).getHost());
 
-        vh.card.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mOnClick.onCardClick(view,position);
-            }
-        });
+        vh.card.setOnClickListener((view) -> mOnClick.onCardClick(view,position));
 
         vh.imageButton.setOnClickListener(view -> {
             PopupMenu popup = new PopupMenu(view.getContext(), view);

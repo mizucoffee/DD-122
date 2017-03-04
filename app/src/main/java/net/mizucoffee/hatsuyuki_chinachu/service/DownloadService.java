@@ -12,6 +12,7 @@ import android.util.Log;
 
 import com.google.gson.Gson;
 
+import net.mizucoffee.hatsuyuki_chinachu.App;
 import net.mizucoffee.hatsuyuki_chinachu.R;
 import net.mizucoffee.hatsuyuki_chinachu.chinachu.model.program.Program;
 import net.mizucoffee.hatsuyuki_chinachu.tools.DataManager;
@@ -70,7 +71,7 @@ public class DownloadService extends IntentService {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext());
         builder.setSmallIcon(R.mipmap.ic_launcher);
 
-        builder.setContentTitle("番組のダウンロード中");
+        builder.setContentTitle(App.getContext().getString(R.string.downloading_program));
         builder.setContentText(mProgram.getTitle());
         builder.setOngoing(true);
         startForeground(ONGOING_NOTIFICATION_ID, builder.build());
@@ -114,7 +115,7 @@ public class DownloadService extends IntentService {
         NotificationCompat.Builder builder2 = new NotificationCompat.Builder(getApplicationContext());
         builder2.setSmallIcon(R.mipmap.ic_launcher);
 
-        builder2.setContentTitle("番組のダウンロードが完了しました");
+        builder2.setContentTitle(App.getContext().getString(R.string.finished_download_program));
         builder2.setContentText(mProgram.getTitle());
 
         NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
@@ -133,7 +134,7 @@ public class DownloadService extends IntentService {
         NotificationCompat.Builder builder2 = new NotificationCompat.Builder(getApplicationContext());
         builder2.setSmallIcon(R.mipmap.ic_launcher);
 
-        builder2.setContentTitle("番組のダウンロードに失敗しました");
+        builder2.setContentTitle(getString(R.string.failed_download));
         builder2.setContentText(mProgram.getTitle());
 
         NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
@@ -240,11 +241,5 @@ public class DownloadService extends IntentService {
             return false;
         }
         return true;
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        Shirayuki.log("Destroy");
     }
 }

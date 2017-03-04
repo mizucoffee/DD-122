@@ -18,7 +18,7 @@
 - マテリアルデザインに沿った設計により快適な操作感
 - スマートフォンにエンコードしてダウンロード出来るので電車やバスの中でも快適に視聴可能(標準設定で30分200MB~300MB程度)
 - Chinachu γ対応
-- ChromeCastに対応したい（願望）
+- ChromeCastに対応したい(願望)
 
 ## License
 [The MIT License](http://kawakawaritsuki.mit-license.org) (c) [@kawakawaritsuki](https://github.com/kawakawaritsuki)

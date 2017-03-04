@@ -5,10 +5,6 @@ import android.content.SharedPreferences;
 import net.mizucoffee.hatsuyuki_chinachu.model.ServerConnection;
 import net.mizucoffee.hatsuyuki_chinachu.tools.DataManager;
 
-/**
- * Created by mizucoffee on 12/19/16.
- */
-
 public class DashboardInteractorImpl implements DashboardInteractor {
 
     private DataManager mDataManager;

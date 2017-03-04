@@ -37,26 +37,23 @@
                 android:paddingRight="16sp"
                 android:paddingLeft="16sp"
                 android:paddingBottom="8sp"
-                android:text="Example title"
                 android:textColor="#000"
                 android:id="@+id/title_tv"
                 android:lines="2" />
 
             <TextView
-                android:text="TextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="14sp"
-                android:paddingRight="16sp"
-                android:paddingLeft="16dp"
+                android:paddingEnd="16sp"
+                android:paddingStart="16dp"
                 android:paddingBottom="2sp"
                 android:id="@+id/time_tv" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="horizontal"
-                android:layout_weight="1">
+                android:orientation="horizontal">
 
                 <ImageButton
                     android:layout_width="0dp"

@@ -2,6 +2,8 @@ package net.mizucoffee.hatsuyuki_chinachu.dashboard.recorded;
 
 import android.content.Context;
 
+import net.mizucoffee.hatsuyuki_chinachu.App;
+import net.mizucoffee.hatsuyuki_chinachu.R;
 import net.mizucoffee.hatsuyuki_chinachu.chinachu.model.program.Program;
 import net.mizucoffee.hatsuyuki_chinachu.dashboard.DashboardInteractor;
 import net.mizucoffee.hatsuyuki_chinachu.enumerate.ListType;
@@ -18,10 +20,6 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
-/**
- * Created by mizucoffee on 2/27/17.
- */
 
 public class RecordedPresenterImpl implements RecordedPresenter {
 
@@ -63,7 +61,7 @@ public class RecordedPresenterImpl implements RecordedPresenter {
                     @Override
                     public void onFailure(Call<List<Program>> call, Throwable t) {
                         mRecordedView.removeRecyclerView();
-                        mRecordedView.showSnackBar("サーバーへの接続に失敗しました");
+                        mRecordedView.showSnackBar(App.getContext().getString(R.string.failed_connect));
                     }
                 });
             }
@@ -71,7 +69,7 @@ public class RecordedPresenterImpl implements RecordedPresenter {
             @Override
             public void onNotFound() {
                 mRecordedView.removeRecyclerView();
-                mRecordedView.showSnackBar("サーバーを登録しましょう");//おいおい変更。カードにする。
+                mRecordedView.showSnackBar(App.getContext().getString(R.string.lets_register));//おいおい変更。カードにする。
             }
         });
     }

@@ -36,7 +36,6 @@
                 android:paddingRight="16sp"
                 android:paddingLeft="16sp"
                 android:paddingBottom="8sp"
-                android:text="Example title"
                 android:textColor="#000"
                 android:id="@+id/title_tv"
                 android:maxLines="2" />
@@ -48,17 +47,15 @@
                 android:paddingRight="16sp"
                 android:paddingLeft="16sp"
                 android:paddingBottom="16sp"
-                android:text="Example description"
                 android:id="@+id/des_tv"
                 android:maxLines="3" />
 
             <TextView
-                android:text="TextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="14sp"
-                android:paddingRight="16sp"
-                android:paddingLeft="24dp"
+                android:paddingEnd="16sp"
+                android:paddingStart="24dp"
                 android:paddingBottom="2sp"
                 android:id="@+id/time_tv" />
 

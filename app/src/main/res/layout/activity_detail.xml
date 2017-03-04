@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-    tools:context="net.mizucoffee.hatsuyuki_chinachu.dashboard.program.RecordedDetailActivity">
+    android:fitsSystemWindows="true">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/app_bar"
@@ -64,47 +62,44 @@
             android:paddingRight="16dp">
 
             <TextView
-                android:text="Title"
+                android:text="@string/title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp" />
 
             <TextView
-                android:text="TextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/detail_title_tv"
                 android:textAppearance="@android:style/TextAppearance.Material.Large" />
 
             <TextView
-                android:text="Subtitle"
+                android:text="@string/subtitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/detail_subtitle"
                 android:layout_marginTop="8dp" />
 
             <TextView
-                android:text="TextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/detail_subtitle_tv"
                 android:textAppearance="@android:style/TextAppearance.Material.Large" />
 
             <TextView
-                android:text="Description"
+                android:text="@string/description"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp" />
 
             <TextView
-                android:text="TextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/detail_des_tv"
                 android:textAppearance="@android:style/TextAppearance.Material.Medium" />
 
             <TextView
-                android:text="Channel"
+                android:text="@string/channel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp" />
@@ -121,7 +116,6 @@
                     android:layout_marginTop="4dp" />
 
                 <TextView
-                    android:text="TextView"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:id="@+id/detail_channel_tv"
@@ -131,7 +125,7 @@
             </LinearLayout>
 
             <Button
-                android:text="Download"
+                android:text="@string/download"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/download_btn"

@@ -65,9 +65,9 @@ public class RecordedDetailActivity extends AppCompatActivity {
         public void handleMessage(Message msg){
             if(!msg.getData().getString("id").equals(mProgram.getId())) return;
             if (msg.getData().getBoolean("isSuccess"))
-                mDownloadBtn.setText("Downloaded");
+                mDownloadBtn.setText(getString(R.string.downloaded));
             else
-                mDownloadBtn.setText("Download");
+                mDownloadBtn.setText(getString(R.string.download));
         }
     };
 
@@ -128,24 +128,24 @@ public class RecordedDetailActivity extends AppCompatActivity {
 
         if(downloaded != null) {
             if (downloaded.getDownloading())
-                mDownloadBtn.setText("Downloaded");
+                mDownloadBtn.setText(getString(R.string.downloaded));
             else
-                mDownloadBtn.setText("Downloading...");
+                mDownloadBtn.setText(getString(R.string.downloading));
             mDownloadBtn.setEnabled(false);
         }
 
         mDownloadBtn.setOnClickListener((v) -> {
             if(downloaded == null)
                 new AlertDialog.Builder(this)
-                        .setTitle("確認")
-                        .setMessage("以下のエンコード設定でダウンロードします。\n" +
+                        .setTitle(getString(R.string.confirm))
+                        .setMessage(getString(R.string.confirm_encode) + "\n" +
                                 "\n" +
                                 "Video Size:" + spf.getString("download_video_size", "720p (HD) (Recommended)") + "\n" +
                                 "Video Bitrate:" + spf.getString("download_video_bitrate", "1Mbps (Recommended)") + "\n" +
                                 "Audio Bitrate:" + spf.getString("download_audio_bitrate", "128kbps (Recommended)") + "\n")
                         .setPositiveButton("OK", (DialogInterface dialogInterface, int i) -> {
                             mProgram.setDownloading(true);
-                            mDownloadBtn.setText("Downloading...");
+                            mDownloadBtn.setText(getString(R.string.downloading));
                             mDownloadBtn.setEnabled(false);
 
                             List<Program> list = mDataManager.getDownloadedList();
@@ -161,7 +161,7 @@ public class RecordedDetailActivity extends AppCompatActivity {
                             intent.putExtra("address",mDataManager.getServerConnection().getAddress());
                             this.startService(intent);
                         })
-                        .setNegativeButton("Cancel", null)
+                        .setNegativeButton(getString(R.string.cancel), null)
                         .show();
         });
 

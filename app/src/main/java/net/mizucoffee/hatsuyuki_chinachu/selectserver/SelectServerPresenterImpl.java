@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.MenuItem;
 import android.view.View;
 
+import net.mizucoffee.hatsuyuki_chinachu.App;
 import net.mizucoffee.hatsuyuki_chinachu.R;
 import net.mizucoffee.hatsuyuki_chinachu.model.ServerConnection;
 
@@ -48,7 +49,7 @@ class SelectServerPresenterImpl implements SelectServerPresenter {
     public boolean onMenuItemClick(MenuItem item,final int position) {
         switch (item.getItemId()){
             case R.id.menu_delete:
-                mSelectServerView.showAlertDialog("Confirm", "Do you really want to delete ServerConnection this?", (dialogInterface, i) -> {
+                mSelectServerView.showAlertDialog(App.getContext().getString(R.string.confirm), App.getContext().getString(R.string.confirm_delete), (dialogInterface, i) -> {
                     mSelectServerInteractor.deleteServerConnection(position);
                     mSelectServerInteractor.loadServerConnections(new SelectServerInteractor.OnLoadFinishedListener() {
                         @Override
@@ -97,15 +98,15 @@ class SelectServerPresenterImpl implements SelectServerPresenter {
             @Override
             public void onSuccess(ArrayList<ServerConnection> sc) {
                 if(sc.size() == 0){
-                    mSelectServerView.showSnackbar("まずはサーバー登録をしましょう");
+                    mSelectServerView.showSnackbar(App.getContext().getString(R.string.lets_register));
                 }else if(mSelectServerInteractor.getServerConnection() == null) {
-                    mSelectServerView.showSnackbar("サーバーを選択しましょう");
+                    mSelectServerView.showSnackbar(App.getContext().getString(R.string.lets_select_server));
                 }
             }
 
             @Override
             public void onNotFound() {
-                mSelectServerView.showSnackbar("まずはサーバー登録をしましょう");
+                mSelectServerView.showSnackbar(App.getContext().getString(R.string.lets_register));
             }
         });
 

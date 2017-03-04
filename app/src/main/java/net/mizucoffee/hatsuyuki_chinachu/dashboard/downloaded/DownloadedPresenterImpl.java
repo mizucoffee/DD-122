@@ -2,6 +2,8 @@ package net.mizucoffee.hatsuyuki_chinachu.dashboard.downloaded;
 
 import android.content.Context;
 
+import net.mizucoffee.hatsuyuki_chinachu.App;
+import net.mizucoffee.hatsuyuki_chinachu.R;
 import net.mizucoffee.hatsuyuki_chinachu.chinachu.model.program.Program;
 import net.mizucoffee.hatsuyuki_chinachu.enumerate.ListType;
 import net.mizucoffee.hatsuyuki_chinachu.enumerate.SortType;
@@ -37,7 +39,7 @@ public class DownloadedPresenterImpl implements DownloadedPresenter {
     public void getDownloaded(){
         List<Program> programList = mDownloadedInteractor.getDownloadedList();
         if(programList == null) {
-            mDownloadedView.showSnackBar("ダウンロードしてみましょう！");
+            mDownloadedView.showSnackBar(App.getContext().getString(R.string.lets_download));
             // DLしてみましょうを入れるか
         }
 

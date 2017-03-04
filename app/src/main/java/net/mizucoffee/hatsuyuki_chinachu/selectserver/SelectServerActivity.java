@@ -99,8 +99,8 @@ public class SelectServerActivity extends AppCompatActivity implements SelectSer
         new AlertDialog.Builder(SelectServerActivity.this)
                 .setTitle(title)
                 .setMessage(message)
-                .setPositiveButton("OK",onClickListener)
-                .setNegativeButton("Cancel", null)
+                .setPositiveButton(getString(R.string.ok),onClickListener)
+                .setNegativeButton(getString(R.string.cancel), null)
                 .show();
     }
 

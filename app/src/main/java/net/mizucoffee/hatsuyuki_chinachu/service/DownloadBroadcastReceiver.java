@@ -7,10 +7,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 
-/**
- * Created by mizucoffee on 3/4/17.
- */
-
 public class DownloadBroadcastReceiver extends BroadcastReceiver {
 
     private Handler receiverHandler = new Handler();

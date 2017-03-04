@@ -7,10 +7,6 @@ import net.mizucoffee.hatsuyuki_chinachu.tools.DataManager;
 
 import java.util.List;
 
-/**
- * Created by mizucoffee on 2/27/17.
- */
-
 public class DownloadedInteractorImpl implements DownloadedInteractor {
 
     private DataManager mDataManager;

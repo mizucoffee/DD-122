@@ -5,9 +5,6 @@ import android.content.Context;
 import net.mizucoffee.hatsuyuki_chinachu.R;
 import net.mizucoffee.hatsuyuki_chinachu.model.ServerConnection;
 
-/**
- * Created by mizucoffee on 12/19/16.
- */
 
 public class DashboardPresenterImpl implements DashboardPresenter {
 
