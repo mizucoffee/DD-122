@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.widget.TextView;
 
 import net.mizucoffee.hatsuyuki_chinachu.R;
+import net.mizucoffee.hatsuyuki_chinachu.VideoPlayActivity;
 import net.mizucoffee.hatsuyuki_chinachu.dashboard.downloaded.DownloadedFragment;
 import net.mizucoffee.hatsuyuki_chinachu.dashboard.recorded.RecordedFragment;
 import net.mizucoffee.hatsuyuki_chinachu.selectserver.SelectServerActivity;
@@ -64,6 +65,8 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.add(R.id.container, mRecordedFragment);
         transaction.commit();
+
+        startActivity(new Intent(this, VideoPlayActivity.class));
     }
 
     @Override
