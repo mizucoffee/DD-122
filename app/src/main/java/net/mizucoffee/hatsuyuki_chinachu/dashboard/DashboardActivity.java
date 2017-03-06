@@ -63,11 +63,11 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
                 mDrawer.closeDrawer(GravityCompat.START);
         });
 
+        currentMenuId = R.id.nav_recorded;
+
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.add(R.id.container, mRecordedFragment);
         transaction.commit();
-
-
 
         ShowcaseConfig config = new ShowcaseConfig();
         config.setDelay(500); // half second between each showcase view

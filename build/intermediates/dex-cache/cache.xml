@@ -52,7 +52,7 @@
         jumboMode="true"
         optimize="true"
         revision="25.0.0"
-        sha1="f372d5da20f86200cddf0fd191439b78fcfb45dc">
+        sha1="b49cb8ee65c5a10a4a072a948c9f984c4781cf85">
         <dex dex="/Users/mizucoffee/AndroidStudioProjects/Hatsuyuki_Chinachu/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run-bootstrap_88e4a5b3b3d700878fac52ba2b912293df45c156/classes.dex" />
     </item>
     <item
@@ -156,21 +156,21 @@
     </item>
     <item
         is-multidex="true"
-        jar="/Users/mizucoffee/AndroidStudioProjects/Hatsuyuki_Chinachu/app/build/intermediates/exploded-aar/com.jakewharton/butterknife/8.4.0/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.0"
-        sha1="a07818a1ecabdb149998823429cce555af4b9cba">
-        <dex dex="/Users/mizucoffee/AndroidStudioProjects/Hatsuyuki_Chinachu/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.jakewharton-butterknife-8.4.0_58dbcddf5efa6ada2a0ab1a072911ad945d8875a/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
         jar="/Users/mizucoffee/AndroidStudioProjects/Hatsuyuki_Chinachu/app/build/intermediates/exploded-aar/com.android.support/support-fragment/25.0.1/jars/libs/internal_impl-25.0.1.jar"
         jumboMode="true"
         optimize="true"
         revision="25.0.0"
         sha1="c0bd6ffb002a85b5e7cad29f8558d1cc59539679">
         <dex dex="/Users/mizucoffee/AndroidStudioProjects/Hatsuyuki_Chinachu/app/build/intermediates/transforms/dex/debug/folders/1000/10/internal_impl-25.0.1_b35ab1cd6c51d3ebf7b44ab8b1d1f304ba62c475/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/mizucoffee/AndroidStudioProjects/Hatsuyuki_Chinachu/app/build/intermediates/exploded-aar/com.jakewharton/butterknife/8.4.0/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="a07818a1ecabdb149998823429cce555af4b9cba">
+        <dex dex="/Users/mizucoffee/AndroidStudioProjects/Hatsuyuki_Chinachu/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.jakewharton-butterknife-8.4.0_58dbcddf5efa6ada2a0ab1a072911ad945d8875a/classes.dex" />
     </item>
     <item
         is-multidex="true"
@@ -250,7 +250,7 @@
         jumboMode="true"
         optimize="true"
         revision="25.0.0"
-        sha1="2631b9253eb78b9a5476f3c387c37c8ca8267420">
+        sha1="e02c2373bdeec22d242f1f64cb713d34cb031fba">
         <dex dex="/Users/mizucoffee/AndroidStudioProjects/Hatsuyuki_Chinachu/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run_12aaa04af8c347c3b3ba309b5054cf87396c64ec/classes.dex" />
     </item>
     <item
