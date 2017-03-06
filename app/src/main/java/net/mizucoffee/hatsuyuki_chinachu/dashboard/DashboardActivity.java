@@ -20,6 +20,8 @@ import net.mizucoffee.hatsuyuki_chinachu.settings.SettingsActivity;
 import net.mizucoffee.hatsuyuki_chinachu.tools.Shirayuki;
 
 import butterknife.BindView;
+import uk.co.deanwild.materialshowcaseview.MaterialShowcaseSequence;
+import uk.co.deanwild.materialshowcaseview.ShowcaseConfig;
 
 import static butterknife.ButterKnife.findById;
 
@@ -64,6 +66,20 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.add(R.id.container, mRecordedFragment);
         transaction.commit();
+
+
+
+        ShowcaseConfig config = new ShowcaseConfig();
+        config.setDelay(500); // half second between each showcase view
+
+        MaterialShowcaseSequence sequence = new MaterialShowcaseSequence(this, "first");
+        if(!sequence.hasFired())mDrawer.openDrawer(GravityCompat.START);
+        sequence.setConfig(config);
+
+        sequence.addSequenceItem(mNavigationView.getHeaderView(0),
+                getString(R.string.lets_register), getString(R.string.ok));
+
+        sequence.start();
     }
 
     @Override
