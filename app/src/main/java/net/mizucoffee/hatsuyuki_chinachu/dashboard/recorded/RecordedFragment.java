@@ -35,6 +35,8 @@ public class RecordedFragment extends Fragment implements RecordedView{
     @BindView(R.id.recycler)
     public RecyclerView mRecyclerView;
 
+    private SearchView mSearchView;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
@@ -63,10 +65,10 @@ public class RecordedFragment extends Fragment implements RecordedView{
 
         MenuItem menuItem = menu.findItem(R.id.search_menu_search_view);
 
-        SearchView searchView = (SearchView)menuItem.getActionView();
-        searchView.setIconifiedByDefault(true);
-        searchView.setSubmitButtonEnabled(false);
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+        mSearchView = (SearchView)menuItem.getActionView();
+        mSearchView.setIconifiedByDefault(true);
+        mSearchView.setSubmitButtonEnabled(false);
+        mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
                 return false;
@@ -162,6 +164,15 @@ public class RecordedFragment extends Fragment implements RecordedView{
 
     public void reload(){
         mPresenter.getRecorded();
+    }
+
+    public boolean isSearchBarVisible(){
+        Shirayuki.log("is"+mSearchView.isIconified());
+        return !mSearchView.isIconified();
+    }
+
+    public void setSearchBarInVisible(){
+        mSearchView.setIconified(true);
     }
 
     @Override
