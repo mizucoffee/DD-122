@@ -96,15 +96,23 @@ public class RecordedDetailActivity extends AppCompatActivity {
         mDescriptionTv.setText(mProgram.getDetail());
         mChannelTv.setText(mProgram.getChannel().getName()+" "+ mProgram.getChannel().getId());
 
-        Picasso.with(this).load("http://" + mDataManager.getServerConnection().getAddress() + "/api/recorded/" + mProgram.getId() + "/preview.png?pos=30").into(mCoverIv);
+        Picasso.Builder builder = new Picasso.Builder(this);
+        builder.listener((Picasso picasso, Uri uri, Exception exception) ->
+            Picasso.with(this).load("http://" + mDataManager.getServerConnection().getAddress() + "/api/recorded/" + mProgram.getId() + "/preview.png?pos=0").into(mCoverIv)
+        );
+        builder.build().load("http://" + mDataManager.getServerConnection().getAddress() + "/api/recorded/" + mProgram.getId() + "/preview.png?pos=30").into(mCoverIv);
+
         Picasso.with(this).load("http://" + mDataManager.getServerConnection().getAddress() + "/api/channel/" + mProgram.getChannel().getId() + "/logo.png").into(mChannelIv);
 
-        ViewTreeObserver observer = mChannelIv.getViewTreeObserver();
-        observer.addOnGlobalLayoutListener(() -> {
-            if(mChannelIv.getDrawable() != null) {
-                ViewGroup.LayoutParams params = mChannelIv.getLayoutParams();
-                params.width = mChannelIv.getHeight() / 9 * 16;
-                mChannelIv.setLayoutParams(params);
+        mChannelIv.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                if(mChannelIv.getDrawable() != null) {
+                    ViewGroup.LayoutParams params = mChannelIv.getLayoutParams();
+                    params.width = mChannelIv.getHeight() / 9 * 16;
+                    mChannelIv.setLayoutParams(params);
+                    mChannelIv.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                }
             }
         });
 

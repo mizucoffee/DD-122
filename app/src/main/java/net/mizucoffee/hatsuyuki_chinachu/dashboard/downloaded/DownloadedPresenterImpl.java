@@ -41,6 +41,7 @@ public class DownloadedPresenterImpl implements DownloadedPresenter {
         if(programList == null) {
             mDownloadedView.showSnackBar(App.getContext().getString(R.string.lets_download));
             // DLしてみましょうを入れるか
+            return;
         }
 
         mDownloadedList = programList;

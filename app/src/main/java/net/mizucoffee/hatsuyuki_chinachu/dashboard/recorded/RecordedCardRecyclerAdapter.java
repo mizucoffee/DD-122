@@ -28,13 +28,17 @@ import java.util.Locale;
 
 import butterknife.ButterKnife;
 
+import static net.mizucoffee.hatsuyuki_chinachu.enumerate.ListType.CARD_COLUMN1;
+import static net.mizucoffee.hatsuyuki_chinachu.enumerate.ListType.CARD_COLUMN2;
+import static net.mizucoffee.hatsuyuki_chinachu.enumerate.ListType.LIST;
+
 public class RecordedCardRecyclerAdapter extends RecyclerView.Adapter<RecordedCardRecyclerAdapter.ViewHolder>{
 
     private List<Program> mProgram;
     private LayoutInflater      mLayoutInflater;
     private DashboardActivity   mContext;
     private DataManager         mDataManager;
-    private ListType            mListType = ListType.CARD_COLUMN1;//TODO :標準
+    private ListType            mListType = CARD_COLUMN1;//TODO :標準
 
     public RecordedCardRecyclerAdapter(DashboardActivity context) {
         super();
@@ -64,7 +68,13 @@ public class RecordedCardRecyclerAdapter extends RecyclerView.Adapter<RecordedCa
 
         vh.titleTv.setText(program.getTitle());
         vh.timeTv.setText(sdf1.format(program.getStart())+"-"+sdf2.format(program.getEnd()) + " " + (program.getSeconds() / 60) + "min");
-        Picasso.with(mContext).load("http://" + mDataManager.getServerConnection().getAddress() + "/api/recorded/" + program.getId() + "/preview.png?pos=30").into(vh.imageView);
+
+        Picasso.Builder builder = new Picasso.Builder(mContext);
+        builder.listener((Picasso picasso, Uri uri, Exception exception) ->
+            Picasso.with(mContext).load("http://" + mDataManager.getServerConnection().getAddress() + "/api/recorded/" + program.getId() + "/preview.png?pos=0").into(vh.imageView)
+        );
+        builder.build().load("http://" + mDataManager.getServerConnection().getAddress() + "/api/recorded/" + program.getId() + "/preview.png?pos=30").into(vh.imageView);
+
         vh.linearLayout.setBackgroundColor(ContextCompat.getColor(mContext, Shirayuki.getBackgroundColorFromCategory(program.getCategory())));
 
         switch (mListType){
@@ -86,7 +96,7 @@ public class RecordedCardRecyclerAdapter extends RecyclerView.Adapter<RecordedCa
 
     @Override
     public RecordedCardRecyclerAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        int layout = mListType == ListType.CARD_COLUMN1 ? R.layout.card_program_layout_1column : mListType == ListType.CARD_COLUMN2 ? R.layout.card_program_layout_2column : R.layout.card_program_layout_list;
+        int layout = mListType == CARD_COLUMN1 ? R.layout.card_program_layout_1column : mListType == CARD_COLUMN2 ? R.layout.card_program_layout_2column : R.layout.card_program_layout_list;
         return new ViewHolder(mLayoutInflater.inflate(layout, parent, false));
     }
 
@@ -105,9 +115,9 @@ public class RecordedCardRecyclerAdapter extends RecyclerView.Adapter<RecordedCa
             imageView = ButterKnife.findById(v,R.id.image_view);
             titleTv   = ButterKnife.findById(v,R.id.title_tv);
             timeTv    = ButterKnife.findById(v,R.id.time_tv);
-            if (mListType == ListType.CARD_COLUMN1 || mListType == ListType.LIST)
+            if (mListType == CARD_COLUMN1 || mListType == LIST)
                 desTv = ButterKnife.findById(v,R.id.des_tv);
-            if (mListType == ListType.CARD_COLUMN1 || mListType == ListType.CARD_COLUMN2) {
+            if (mListType == CARD_COLUMN1 || mListType == CARD_COLUMN2) {
                 playBtn = ButterKnife.findById(v, R.id.play_btn);
                 detailBtn = ButterKnife.findById(v, R.id.detail_btn);
                 deleteBtn = ButterKnife.findById(v, R.id.delete_btn);
