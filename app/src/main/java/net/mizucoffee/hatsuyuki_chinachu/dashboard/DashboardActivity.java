@@ -106,12 +106,15 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
 
     @Override
     public void onBackPressed() {
-        if (mDrawer.isDrawerOpen(GravityCompat.START))
+        if (mDrawer.isDrawerOpen(GravityCompat.START)){
             mDrawer.closeDrawer(GravityCompat.START);
-        else if(currentMenuId == R.id.nav_recorded)
-            if(mRecordedFragment.isSearchBarVisible())
+       }else if(currentMenuId == R.id.nav_recorded) {
+            if (mRecordedFragment.isSearchBarVisible())
                 mRecordedFragment.setSearchBarInVisible();
-        else
+        }else if(currentMenuId == R.id.nav_downloads) {
+            if (mRecordedFragment.isSearchBarVisible())
+                mRecordedFragment.setSearchBarInVisible();
+        }else
             super.onBackPressed();
     }
 
