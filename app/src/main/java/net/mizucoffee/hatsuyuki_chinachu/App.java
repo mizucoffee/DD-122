@@ -16,4 +16,9 @@ public class App extends Application {
     public static Context getContext(){
         return mContext;
     }
+
+    public boolean useExtensionRenderers() {
+        return BuildConfig.FLAVOR.equals("withExtensions");
+    }
+
 }
