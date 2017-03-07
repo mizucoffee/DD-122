@@ -6,10 +6,10 @@ import net.mizucoffee.hatsuyuki_chinachu.App;
 import net.mizucoffee.hatsuyuki_chinachu.R;
 import net.mizucoffee.hatsuyuki_chinachu.chinachu.model.broadcasting.Program;
 import net.mizucoffee.hatsuyuki_chinachu.dashboard.DashboardInteractor;
-import net.mizucoffee.hatsuyuki_chinachu.enumerate.ListType;
 import net.mizucoffee.hatsuyuki_chinachu.enumerate.SortType;
 import net.mizucoffee.hatsuyuki_chinachu.model.ServerConnection;
 
+import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,7 +21,6 @@ public class LivePresenterImpl implements LivePresenter {
 
     private LiveView mLiveView;
     private LiveInteractor mLiveInteractor;
-    private ListType mListType = ListType.CARD_COLUMN1;
     private SortType mSortType = SortType.DATE_DES;
     private LiveCardRecyclerAdapter mAdapter;
     private List<Program> mProgramList;
@@ -49,7 +48,7 @@ public class LivePresenterImpl implements LivePresenter {
                         mProgramList = response.body();
                         mAdapter.setLiveList(mProgramList);
                         mAdapter.notifyDataSetChanged();
-                        mLiveView.setRecyclerView(mAdapter, mListType);//TODO: カラム数
+                        mLiveView.setRecyclerView(mAdapter);//TODO: カラム数
                     }
 
                     @Override
@@ -73,17 +72,24 @@ public class LivePresenterImpl implements LivePresenter {
         mSortType = type;
         mAdapter.setLiveList(mProgramList);
         mAdapter.notifyDataSetChanged();
-        mLiveView.setRecyclerView(mAdapter, mListType);
+        mLiveView.setRecyclerView(mAdapter);
     }
 
     @Override
     public void searchWord(String word){
-        ArrayList list = new ArrayList();
+        ArrayList<Program> list = new ArrayList();
 
-        for(Program r: mProgramList) if(r.getTitle().contains(word)) list.add(r);
+        for(Program r: mProgramList) {
+            String t = Normalizer.normalize(r.getTitle(), Normalizer.Form.NFKC);
+            String c = Normalizer.normalize(r.getChannel().getName(), Normalizer.Form.NFKC);
+            if(r.getTitle().contains(word)
+                    || r.getChannel().getName().contains(word)
+                    || c.contains(word)
+                    || t.contains(word)) list.add(r);
+        }
 
         mAdapter.setLiveList(list);
         mAdapter.notifyDataSetChanged();
-        mLiveView.setRecyclerView(mAdapter, mListType);
+        mLiveView.setRecyclerView(mAdapter);
     }
 }

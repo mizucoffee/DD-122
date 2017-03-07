@@ -8,7 +8,11 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -25,6 +29,8 @@ public class LiveFragment extends Fragment implements LiveView {
     @BindView(R.id.recycler)
     public RecyclerView mRecyclerView;
 
+    private SearchView mSearchView;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
@@ -38,9 +44,37 @@ public class LiveFragment extends Fragment implements LiveView {
 
         mPresenter = new LivePresenterImpl(this);
         mRecyclerView.setHasFixedSize(true);
+        mRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 1));
 
         mPresenter.getBroadcasting();
         setHasOptionsMenu(true);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        menu.clear();
+        inflater.inflate(R.menu.program_list, menu);
+        menu.findItem(R.id.menu_sort).setVisible(true);
+        menu.findItem(R.id.menu_list).setVisible(true);
+
+        MenuItem menuItem = menu.findItem(R.id.search_menu_search_view);
+
+        mSearchView = (SearchView) menuItem.getActionView();
+        mSearchView.setIconifiedByDefault(true);
+        mSearchView.setSubmitButtonEnabled(false);
+        mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                mPresenter.searchWord(newText);
+                return false;
+            }
+        });
     }
 
     private DashboardActivity activity = null;
@@ -62,17 +96,7 @@ public class LiveFragment extends Fragment implements LiveView {
     }
 
     @Override
-    public void setRecyclerView(LiveCardRecyclerAdapter adapter, ListType listType){
-        switch (listType) {
-            case CARD_COLUMN1:
-            case LIST:
-                mRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 1));
-                break;
-            case CARD_COLUMN2:
-                mRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
-                break;
-        }
-
+    public void setRecyclerView(LiveCardRecyclerAdapter adapter){
         mRecyclerView.setAdapter(adapter);
     }
 
