@@ -13,9 +13,10 @@ import android.view.MenuItem;
 import android.widget.TextView;
 
 import net.mizucoffee.hatsuyuki_chinachu.R;
-import net.mizucoffee.hatsuyuki_chinachu.dashboard.downloaded.DownloadedFragment;
-import net.mizucoffee.hatsuyuki_chinachu.dashboard.recorded.RecordedFragment;
-import net.mizucoffee.hatsuyuki_chinachu.selectserver.SelectServerActivity;
+import net.mizucoffee.hatsuyuki_chinachu.dashboard.f_downloaded.DownloadedFragment;
+import net.mizucoffee.hatsuyuki_chinachu.dashboard.f_live.LiveFragment;
+import net.mizucoffee.hatsuyuki_chinachu.dashboard.f_recorded.RecordedFragment;
+import net.mizucoffee.hatsuyuki_chinachu.dashboard.a_selectserver.SelectServerActivity;
 import net.mizucoffee.hatsuyuki_chinachu.settings.SettingsActivity;
 import net.mizucoffee.hatsuyuki_chinachu.tools.Shirayuki;
 

@@ -1,17 +1,15 @@
-package net.mizucoffee.hatsuyuki_chinachu.chinachu.model.program;
-
-import java.util.HashMap;
-import java.util.Map;
+package net.mizucoffee.hatsuyuki_chinachu.chinachu.model.broadcasting;
 
 public class Channel {
 
-    private Integer n;
     private String type;
     private String channel;
     private String name;
     private String id;
-    private String sid;
-    private Map<String, Object> additionalProperties = new HashMap<>();
+    private int sid;
+    private int nid;
+    private boolean hasLogoData;
+    private Integer n;
 
     public Integer getN() {
         return n;
@@ -45,28 +43,36 @@ public class Channel {
         this.name = name;
     }
 
+    public int getSid() {
+        return sid;
+    }
+
+    public void setSid(int sid) {
+        this.sid = sid;
+    }
+
+    public int getNid() {
+        return nid;
+    }
+
+    public void setNid(int nid) {
+        this.nid = nid;
+    }
+
+    public boolean isHasLogoData() {
+        return hasLogoData;
+    }
+
+    public void setHasLogoData(boolean hasLogoData) {
+        this.hasLogoData = hasLogoData;
+    }
+
     public String getId() {
         return id;
     }
 
     public void setId(String id) {
         this.id = id;
-    }
-
-    public String getSid() {
-        return sid;
-    }
-
-    public void setSid(String sid) {
-        this.sid = sid;
-    }
-
-    public Map<String, Object> getAdditionalProperties() {
-        return this.additionalProperties;
-    }
-
-    public void setAdditionalProperty(String name, Object value) {
-        this.additionalProperties.put(name, value);
     }
 
 }
