@@ -2,8 +2,12 @@ package net.mizucoffee.hatsuyuki_chinachu;
 
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.MenuItem;
+import android.view.View;
 
 import com.google.android.exoplayer2.DefaultLoadControl;
 import com.google.android.exoplayer2.ExoPlaybackException;
@@ -31,21 +35,34 @@ import com.google.android.exoplayer2.util.Util;
 
 import net.mizucoffee.hatsuyuki_chinachu.tools.Shirayuki;
 
+import butterknife.BindView;
+
+import static android.view.View.GONE;
+import static android.view.View.VISIBLE;
+
 
 public class VideoPlayActivity extends AppCompatActivity{
 
     private static final String TAG = "MainActivity";
-    private SimpleExoPlayerView simpleExoPlayerView;
-    private SimpleExoPlayer player;
-    private ExoPlayer.EventListener exoPlayerEventListener;
+    private SimpleExoPlayerView mSimpleExoPlayerView;
+    private SimpleExoPlayer mPlayer;
 
+    @BindView(R.id.toolbar)
+    Toolbar mToolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        Log.v(TAG,"portrait detected...");
         setContentView(R.layout.activity_video_play);
+        Shirayuki.initActivity(this);
+        View decor = this.getWindow().getDecorView();
+        decor.setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                | View.SYSTEM_UI_FLAG_FULLSCREEN | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
+
+        setSupportActionBar(mToolbar);
+
+        ActionBar bar = getSupportActionBar();
+        if (bar != null) bar.setDisplayHomeAsUpEnabled(true);
 
         BandwidthMeter bandwidthMeter = new DefaultBandwidthMeter();
         TrackSelection.Factory videoTrackSelectionFactory = new AdaptiveVideoTrackSelection.Factory(bandwidthMeter);
@@ -53,49 +70,38 @@ public class VideoPlayActivity extends AppCompatActivity{
 
         LoadControl loadControl = new DefaultLoadControl();
 
-        player = ExoPlayerFactory.newSimpleInstance(this, trackSelector, loadControl);
-        simpleExoPlayerView = new SimpleExoPlayerView(this);
-        simpleExoPlayerView = (SimpleExoPlayerView) findViewById(R.id.simpleExoPlayerView);
+        mPlayer = ExoPlayerFactory.newSimpleInstance(this, trackSelector, loadControl);
+        mSimpleExoPlayerView = new SimpleExoPlayerView(this);
+        mSimpleExoPlayerView = (SimpleExoPlayerView) findViewById(R.id.simpleExoPlayerView);
 
-        simpleExoPlayerView.setUseController(true);
-
-        simpleExoPlayerView.requestFocus();
-
-        simpleExoPlayerView.setPlayer(player);
-
-        //"http://192.168.50.50:10472/api/recorded/359y6vg0fz/watch.mp4?ext=mp4&c%3Av=h264&s=1280x720&b%3Av=1M&b%3Aa=128k&ss=0"
-//        Uri mp4VideoUri =Uri.parse("file://" + getExternalFilesDir(null).getAbsolutePath() + "/video/12345.mp4");
-          Uri mp4VideoUri =Uri.parse("http://192.168.50.50:10472/api/recorded/359y6vg0fz/watch.mp4?ext=mp4&c%3Av=h264&s=1280x720&b%3Av=1M&b%3Aa=128k&ss=0");
-//        Uri mp4VideoUri =Uri.parse("file://" + getExternalFilesDir(null).getAbsolutePath() + "/video/359p0305d8.mp4");
-        //http://devimages.apple.com/iphone/samples/bipbop/bipbopall.m3u8
-
+        mSimpleExoPlayerView.setUseController(true);
+        mSimpleExoPlayerView.requestFocus();
+        mSimpleExoPlayerView.setControllerVisibilityListener((int v) -> {
+            if(v == VISIBLE){
+                mToolbar.setVisibility(VISIBLE);
+            } else if (v == GONE){
+                mToolbar.setVisibility(GONE);
+            }
+        });
+        mSimpleExoPlayerView.setPlayer(mPlayer);
 
         DefaultBandwidthMeter bandwidthMeterA = new DefaultBandwidthMeter();
         DefaultDataSourceFactory dataSourceFactory = new DefaultDataSourceFactory(this, Util.getUserAgent(this, "Hatsuyuki"), bandwidthMeterA);
         ExtractorsFactory extractorsFactory = new DefaultExtractorsFactory();
-        MediaSource videoSource = new ExtractorMediaSource(mp4VideoUri, dataSourceFactory, extractorsFactory, null, null);
-//        Handler mainHandler = new Handler();
-//        HlsMediaSource videoSource = new HlsMediaSource(Uri.parse("http://192.168.50.50:10472/api/recorded/359y6vg0fz/watch.webm"), dataSourceFactory, mainHandler, null);
+        MediaSource videoSource = new ExtractorMediaSource(Uri.parse(getIntent().getStringExtra("url")), dataSourceFactory, extractorsFactory, null, null);
         final LoopingMediaSource loopingSource = new LoopingMediaSource(videoSource);
 
+        mPlayer.prepare(loopingSource);
 
-        player.prepare(loopingSource);
-
-
-
-        player.addListener(new ExoPlayer.EventListener() {
+        mPlayer.addListener(new ExoPlayer.EventListener() {
             @Override
             public void onLoadingChanged(boolean isLoading) {
                 Log.v(TAG,"Listener-onLoadingChanged...");
-
             }
 
             @Override
             public void onPlayerStateChanged(boolean playWhenReady, int playbackState) {
                 Log.v(TAG,"Listener-onPlayerStateChanged...");
-                if (playbackState == ExoPlayer.STATE_READY) {
-                    Shirayuki.log(player.getDuration()+"ms");
-                }
             }
 
             @Override
@@ -112,9 +118,9 @@ public class VideoPlayActivity extends AppCompatActivity{
             @Override
             public void onPlayerError(ExoPlaybackException error) {
                 Log.v(TAG,"Listener-onPlayerError...");
-                player.stop();
-                player.prepare(loopingSource);
-                player.setPlayWhenReady(true);
+                mPlayer.stop();
+                mPlayer.prepare(loopingSource);
+                mPlayer.setPlayWhenReady(true);
             }
 
             @Override
@@ -123,53 +129,21 @@ public class VideoPlayActivity extends AppCompatActivity{
 
             }
         });
-        player.setPlayWhenReady(true);
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        Log.v(TAG,"onStop()...");
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        Log.v(TAG,"onStart()...");
-
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        Log.v(TAG,"onResume()...");
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        Log.v(TAG,"onPause()...");
+        mPlayer.setPlayWhenReady(true);
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        Log.v(TAG,"onDestroy()...");
-        player.release();
+        mPlayer.release();
     }
 
     @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-
-        outState.putLong("CurrentPosition", player.getCurrentPosition());
-    }
-
-    @Override
-    protected void onRestoreInstanceState(Bundle savedInstanceState) {
-        super.onRestoreInstanceState(savedInstanceState);
-
-        Shirayuki.log(savedInstanceState.getLong("CurrentPosition")+ "");
-        player.seekTo(savedInstanceState.getLong("CurrentPosition"));
+    public boolean onOptionsItemSelected(MenuItem item){
+        int itemId = item.getItemId();
+        if(itemId == android.R.id.home){
+            finish();
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

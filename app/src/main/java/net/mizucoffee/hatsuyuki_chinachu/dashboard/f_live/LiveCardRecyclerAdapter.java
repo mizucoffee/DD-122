@@ -3,9 +3,9 @@ package net.mizucoffee.hatsuyuki_chinachu.dashboard.f_live;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.net.Uri;
 import android.preference.PreferenceManager;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +17,7 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 
 import net.mizucoffee.hatsuyuki_chinachu.R;
+import net.mizucoffee.hatsuyuki_chinachu.VideoPlayActivity;
 import net.mizucoffee.hatsuyuki_chinachu.chinachu.model.broadcasting.Program;
 import net.mizucoffee.hatsuyuki_chinachu.dashboard.DashboardActivity;
 import net.mizucoffee.hatsuyuki_chinachu.tools.DataManager;
@@ -61,19 +62,18 @@ public class LiveCardRecyclerAdapter extends RecyclerView.Adapter<LiveCardRecycl
         vh.titleTv.setText(program.getTitle());
 //        vh.detailTv.setText(program.getDetail());
         Picasso.with(mContext).load("http://" + mDataManager.getServerConnection().getAddress() + "/api/channel/" + program.getChannel().getId() + "/logo.png").into(vh.imageView);
-        vh.linearLayout.setBackgroundColor(ContextCompat.getColor(mContext, Shirayuki.getBackgroundColorFromCategory(program.getCategory())));
+        vh.colorll.setBackgroundColor(ContextCompat.getColor(mContext, Shirayuki.getBackgroundColorFromCategory(program.getCategory())));
 
-        vh.linearLayout.setOnClickListener(v -> {//http://192.168.50.50:10472/api/channel/1gudbls/watch.webm
+        vh.cardLayout.setOnClickListener(v -> {//http://192.168.50.50:10472/api/channel/1gudbls/watch.webm
             SharedPreferences spf = PreferenceManager.getDefaultSharedPreferences(mContext);
-            Uri uri = Uri.parse("http://" + mDataManager.getServerConnection().getAddress() + "/api/channel/" + program.getChannel().getId() + "/watch.webm" +
+            String url = "http://" + mDataManager.getServerConnection().getAddress() + "/api/channel/" + program.getChannel().getId() + "/watch.webm" +
                     "?ext=webm" +
-                    "&c%3Av=h264" +
+                    "&c%3Av=vp9" +
                     Shirayuki.getResolutionFromVideoSize(spf.getString("download_video_size", "720p (HD) (Recommended)")) +
                     Shirayuki.getVideoBitrate(spf.getString("download_video_bitrate", "1Mbps (Recommended)")) +
                     Shirayuki.getAudioBitrate(spf.getString("download_audio_bitrate", "128kbps (Recommended)")) +
-                    "&ss=0");
-            Shirayuki.log("a");
-            mContext.startActivity(new Intent(Intent.ACTION_VIEW).setPackage("org.videolan.vlc").setDataAndTypeAndNormalize(uri, "video/*"));
+                    "&ss=0";
+            mContext.startActivity(new Intent(Intent.ACTION_VIEW).setClass(mContext, VideoPlayActivity.class).putExtra("url",url));
         });
     }
 
@@ -87,7 +87,8 @@ public class LiveCardRecyclerAdapter extends RecyclerView.Adapter<LiveCardRecycl
         private TextView  channelTv;
         private TextView  titleTv;
 //        private TextView detailTv;
-        private LinearLayout linearLayout;
+        private CardView cardLayout;
+        private LinearLayout colorll;
 
         private ViewHolder(View v) {
             super(v);
@@ -95,7 +96,8 @@ public class LiveCardRecyclerAdapter extends RecyclerView.Adapter<LiveCardRecycl
             channelTv   = ButterKnife.findById(v,R.id.channel_tv);
             titleTv   = ButterKnife.findById(v,R.id.title_tv);
 //            detailTv = ButterKnife.findById(v,R.id.detail_tv);
-            linearLayout = ButterKnife.findById(v,R.id.linearLayout);
+            cardLayout = ButterKnife.findById(v,R.id.card_view);
+            colorll = ButterKnife.findById(v,R.id.color_ll);
         }
     }
 }
