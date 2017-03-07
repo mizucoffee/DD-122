@@ -1,6 +1,10 @@
 package net.mizucoffee.hatsuyuki_chinachu.dashboard.f_live;
 
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.net.Uri;
+import android.preference.PreferenceManager;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -59,7 +63,18 @@ public class LiveCardRecyclerAdapter extends RecyclerView.Adapter<LiveCardRecycl
         Picasso.with(mContext).load("http://" + mDataManager.getServerConnection().getAddress() + "/api/channel/" + program.getChannel().getId() + "/logo.png").into(vh.imageView);
         vh.linearLayout.setBackgroundColor(ContextCompat.getColor(mContext, Shirayuki.getBackgroundColorFromCategory(program.getCategory())));
 
-
+        vh.linearLayout.setOnClickListener(v -> {//http://192.168.50.50:10472/api/channel/1gudbls/watch.webm
+            SharedPreferences spf = PreferenceManager.getDefaultSharedPreferences(mContext);
+            Uri uri = Uri.parse("http://" + mDataManager.getServerConnection().getAddress() + "/api/channel/" + program.getChannel().getId() + "/watch.webm" +
+                    "?ext=webm" +
+                    "&c%3Av=h264" +
+                    Shirayuki.getResolutionFromVideoSize(spf.getString("download_video_size", "720p (HD) (Recommended)")) +
+                    Shirayuki.getVideoBitrate(spf.getString("download_video_bitrate", "1Mbps (Recommended)")) +
+                    Shirayuki.getAudioBitrate(spf.getString("download_audio_bitrate", "128kbps (Recommended)")) +
+                    "&ss=0");
+            Shirayuki.log("a");
+            mContext.startActivity(new Intent(Intent.ACTION_VIEW).setPackage("org.videolan.vlc").setDataAndTypeAndNormalize(uri, "video/*"));
+        });
     }
 
     @Override

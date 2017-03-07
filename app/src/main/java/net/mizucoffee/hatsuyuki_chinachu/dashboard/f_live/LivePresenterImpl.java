@@ -77,7 +77,7 @@ public class LivePresenterImpl implements LivePresenter {
 
     @Override
     public void searchWord(String word){
-        ArrayList<Program> list = new ArrayList();
+        ArrayList<Program> list = new ArrayList<Program>();
 
         for(Program r: mProgramList) {
             String t = Normalizer.normalize(r.getTitle(), Normalizer.Form.NFKC);
