@@ -40,7 +40,7 @@ public class LiveCardRecyclerAdapter extends RecyclerView.Adapter<LiveCardRecycl
         super();
         this.mContext        = context;
         this.mLayoutInflater = LayoutInflater.from(context);
-        this.mDataManager    = new DataManager(context.getActivitySharedPreferences("HatsuyukiChinachu", Context.MODE_PRIVATE));
+        this.mDataManager    = new DataManager(context.getSharedPreferences("HatsuyukiChinachu", Context.MODE_PRIVATE));
     }
 
     @Override

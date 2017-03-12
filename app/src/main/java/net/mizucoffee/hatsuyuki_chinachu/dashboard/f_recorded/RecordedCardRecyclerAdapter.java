@@ -44,7 +44,7 @@ public class RecordedCardRecyclerAdapter extends RecyclerView.Adapter<RecordedCa
         super();
         this.mContext        = context;
         this.mLayoutInflater = LayoutInflater.from(context);
-        this.mDataManager    = new DataManager(context.getActivitySharedPreferences("HatsuyukiChinachu", Context.MODE_PRIVATE));
+        this.mDataManager    = new DataManager(context.getSharedPreferences("HatsuyukiChinachu", Context.MODE_PRIVATE));
     }
 
     @Override
