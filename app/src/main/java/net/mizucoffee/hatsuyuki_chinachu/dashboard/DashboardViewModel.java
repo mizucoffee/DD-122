@@ -4,12 +4,19 @@ import android.content.Context;
 import android.databinding.BindingAdapter;
 import android.databinding.ObservableField;
 import android.support.annotation.NonNull;
-import android.support.v4.view.GravityCompat;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
+import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.LinearLayout;
 
 import net.mizucoffee.hatsuyuki_chinachu.R;
+import net.mizucoffee.hatsuyuki_chinachu.dashboard.f_downloaded.DownloadedFragment;
+import net.mizucoffee.hatsuyuki_chinachu.dashboard.f_live.LiveFragment;
+import net.mizucoffee.hatsuyuki_chinachu.dashboard.f_recorded.RecordedFragment;
 import net.mizucoffee.hatsuyuki_chinachu.tools.Shirayuki;
 
 import io.reactivex.Observable;
@@ -17,6 +24,12 @@ import io.reactivex.subjects.PublishSubject;
 
 
 public class DashboardViewModel {
+
+    private static GuideFragment mGuideFragment = new GuideFragment();
+    private static LiveFragment mLiveFragment = new LiveFragment();
+    private static RecordedFragment mRecordedFragment = new RecordedFragment();
+    private static TimerFragment mTimerFragment = new TimerFragment();
+    private static DownloadedFragment mDownloadedFragment = new DownloadedFragment();
 
     public final ObservableField<String> name = new ObservableField<>();
     public final ObservableField<String>  mNavHost = new ObservableField<>();
@@ -34,6 +47,8 @@ public class DashboardViewModel {
 
     DashboardModel mDashboardModel;
 
+    int currentMenuId = R.id.nav_recorded;
+
     DashboardViewModel(DashboardActivity activity) {
         this.mDashboardModel = new DashboardModel(activity.getSharedPreferences("HatsuyukiChinachu", Context.MODE_PRIVATE));
         subscribe();
@@ -47,6 +62,7 @@ public class DashboardViewModel {
         isDrawerOpen.set(false);
         name.set(SERVER_NAME);
         mNavHost.set(SERVER_HOST);
+        mNavBtnId.set(R.id.nav_recorded);
     }
 
     public void onClickSelectServer(View v){
@@ -59,52 +75,65 @@ public class DashboardViewModel {
     }
 
     public boolean onNavSelected(@NonNull MenuItem item) {
-//        mNavBtnId.set(item.getItemId());
-        navigationSubject.onNext(item.getItemId());
         isDrawerOpen.set(false);
+
+        switch (item.getItemId()) {
+            case R.id.nav_live:
+            case R.id.nav_guide:
+            case R.id.nav_recorded:
+            case R.id.nav_timers:
+            case R.id.nav_downloads:
+                mNavBtnId.set(item.getItemId());
+                currentMenuId = item.getItemId();
+                break;
+            default:
+        }
+//        navigationSubject.onNext(item.getItemId());
+//        isDrawerOpen.set(false);
         return true;
     }
 
     @BindingAdapter("openDrawer")
     public static void setOpenDrawer(DrawerLayout drawerLayout, Boolean b){
         if(b) {
-            if (!drawerLayout.isDrawerOpen(GravityCompat.START))
-                drawerLayout.openDrawer(GravityCompat.START);
+            drawerLayout.openDrawer(Gravity.LEFT);
         } else {
-            if (drawerLayout.isDrawerOpen(GravityCompat.START))
-                drawerLayout.closeDrawer(GravityCompat.START);
+            drawerLayout.closeDrawers();
         }
     }
 
-//    @BindingAdapter("fragment")
-//    public static void setFragment(LinearLayout ll, int id){
-//        currentMenuId = id;
-//
-//        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-//
-//        switch (id) {
-//            case R.id.nav_live:
-//                transaction.replace(R.id.container, mLiveFragment);
-//                break;
-//            case R.id.nav_guide:
-//                transaction.replace(R.id.container, mGuideFragment);
-//                break;
-//            case R.id.nav_recorded:
-//                transaction.replace(R.id.container, mRecordedFragment);
-//                break;
-//            case R.id.nav_timers:
-//                transaction.replace(R.id.container, mTimerFragment);
-//                break;
-//            case R.id.nav_downloads:
-//                transaction.replace(R.id.container, mDownloadedFragment);
-//                break;
-//            case R.id.nav_settings:
-//                startActivity(new Intent(this, SettingsActivity.class));
-//                break;
-//        }
-//
-//        transaction.commit();
-//    }
+    private static FragmentManager mFragmentManager;
+    public static void setFragmentManager(FragmentManager f){
+        mFragmentManager = f;
+    }
+
+    @BindingAdapter("fragment")
+    public static void setFragment(LinearLayout ll, int id){
+        FragmentTransaction transaction = mFragmentManager.beginTransaction();
+
+        Fragment f = null;
+        switch (id) {
+            case R.id.nav_live:
+                f = mLiveFragment;
+                break;
+            case R.id.nav_guide:
+                f = mGuideFragment;
+                break;
+            case R.id.nav_recorded:
+                f = mRecordedFragment;
+                break;
+            case R.id.nav_timers:
+                f = mTimerFragment;
+                break;
+            case R.id.nav_downloads:
+                f = mDownloadedFragment;
+                break;
+        }
+
+        if (f == null) return;
+        transaction.replace(ll.getId(), f);
+        transaction.commit();
+    }
 
     public void refreshConnection(){
         mDashboardModel.getServerConnection();
