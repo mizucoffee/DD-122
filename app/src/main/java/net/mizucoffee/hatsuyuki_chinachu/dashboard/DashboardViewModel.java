@@ -1,6 +1,7 @@
 package net.mizucoffee.hatsuyuki_chinachu.dashboard;
 
 import android.content.Context;
+import android.content.Intent;
 import android.databinding.BindingAdapter;
 import android.databinding.ObservableField;
 import android.support.annotation.NonNull;
@@ -22,8 +23,14 @@ import net.mizucoffee.hatsuyuki_chinachu.tools.Shirayuki;
 import io.reactivex.Observable;
 import io.reactivex.subjects.PublishSubject;
 
+import static android.app.Activity.RESULT_OK;
+
 
 public class DashboardViewModel {
+
+    enum IntentType {
+        SELECT_SERVER,SETTINGS
+    }
 
     private static GuideFragment mGuideFragment = new GuideFragment();
     private static LiveFragment mLiveFragment = new LiveFragment();
@@ -36,18 +43,20 @@ public class DashboardViewModel {
     public final ObservableField<Integer> mNavBtnId = new ObservableField<>();
     public final ObservableField<Boolean> isDrawerOpen = new ObservableField<>();
 
-    private final PublishSubject<String> intentSubject = PublishSubject.create();
-    final Observable<String> intent = (Observable<String>) intentSubject;
+    private final PublishSubject<IntentType> intentSubject = PublishSubject.create();
+    final Observable<IntentType> intent = (Observable<IntentType>) intentSubject;
 
-    private final PublishSubject<Integer> navigationSubject = PublishSubject.create();
-    final Observable<Integer> navigation = (Observable<Integer>) navigationSubject;
+    private final String SERVER_NAME;
+    private final String SERVER_HOST;
 
-    final String SERVER_NAME;
-    final String SERVER_HOST;
+    private DashboardModel mDashboardModel;
+    private static FragmentManager mFragmentManager;
 
-    DashboardModel mDashboardModel;
+    private int currentMenuId = R.id.nav_recorded;
 
-    int currentMenuId = R.id.nav_recorded;
+    //=================================
+    // Constructor
+    //=================================
 
     DashboardViewModel(DashboardActivity activity) {
         this.mDashboardModel = new DashboardModel(activity.getSharedPreferences("HatsuyukiChinachu", Context.MODE_PRIVATE));
@@ -58,6 +67,18 @@ public class DashboardViewModel {
         refreshConnection();
     }
 
+    //=================================
+    // Static Method
+    //=================================
+
+    static void setFragmentManager(FragmentManager f){
+        mFragmentManager = f;
+    }
+
+    //=================================
+    // Private Method
+    //=================================
+
     private void init() {
         isDrawerOpen.set(false);
         name.set(SERVER_NAME);
@@ -65,17 +86,31 @@ public class DashboardViewModel {
         mNavBtnId.set(R.id.nav_recorded);
     }
 
-    public void onClickSelectServer(View v){
-        intentSubject.onNext("");
-        isDrawerOpen.set(false);
+    private void subscribe(){
+        mDashboardModel.serverConnection.subscribe(serverConnection -> {
+            Shirayuki.log("success");
+            name.set(serverConnection.getName());
+            mNavHost.set(serverConnection.getHost());
+        });
+        mDashboardModel.error.subscribe(s -> {
+            Shirayuki.log("error");
+            name.set(SERVER_NAME);
+            mNavHost.set(SERVER_HOST);
+        });
     }
+    //=================================
+    // Public Method
+    //=================================
 
-    public void onClickNavBtn(View v){
+    public void onClickSelectServer(View v){
+        intentSubject.onNext(IntentType.SELECT_SERVER);
         isDrawerOpen.set(false);
+        isDrawerOpen.notifyChange();
     }
 
     public boolean onNavSelected(@NonNull MenuItem item) {
         isDrawerOpen.set(false);
+        isDrawerOpen.notifyChange();
 
         switch (item.getItemId()) {
             case R.id.nav_live:
@@ -86,26 +121,47 @@ public class DashboardViewModel {
                 mNavBtnId.set(item.getItemId());
                 currentMenuId = item.getItemId();
                 break;
+            case R.id.nav_settings:
+                intentSubject.onNext(IntentType.SETTINGS);
+                return true;
             default:
+                return true;
         }
-//        navigationSubject.onNext(item.getItemId());
-//        isDrawerOpen.set(false);
         return true;
     }
 
-    @BindingAdapter("openDrawer")
-    public static void setOpenDrawer(DrawerLayout drawerLayout, Boolean b){
-        if(b) {
-            drawerLayout.openDrawer(Gravity.LEFT);
-        } else {
-            drawerLayout.closeDrawers();
+    //=================================
+    // Non-access Modifiers
+    //=================================
+
+    void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == 1 && resultCode == RESULT_OK) {
+            if (currentMenuId == R.id.nav_recorded)
+                mRecordedFragment.reload();
+            if (currentMenuId == R.id.nav_downloads)
+                mDownloadedFragment.reload();
         }
     }
 
-    private static FragmentManager mFragmentManager;
-    public static void setFragmentManager(FragmentManager f){
-        mFragmentManager = f;
+    boolean onBackPressed() {
+        if (currentMenuId == R.id.nav_recorded) {
+            if (mRecordedFragment.isSearchBarVisible())
+                mRecordedFragment.setSearchBarInVisible();
+        } else if (currentMenuId == R.id.nav_downloads) {
+            if (mDownloadedFragment.isSearchBarVisible())
+                mDownloadedFragment.setSearchBarInVisible();
+        } else
+            return false;
+        return true;
     }
+
+    void refreshConnection(){
+        mDashboardModel.getServerConnection();
+    }
+
+    //=================================
+    // DataBinding Custom Listener
+    //=================================
 
     @BindingAdapter("fragment")
     public static void setFragment(LinearLayout ll, int id){
@@ -135,21 +191,13 @@ public class DashboardViewModel {
         transaction.commit();
     }
 
-    public void refreshConnection(){
-        mDashboardModel.getServerConnection();
-    }
-
-    public void subscribe(){
-        mDashboardModel.serverConnection.subscribe(serverConnection -> {
-            Shirayuki.log("success");
-            name.set(serverConnection.getName());
-            mNavHost.set(serverConnection.getHost());
-        });
-        mDashboardModel.error.subscribe(s -> {
-            Shirayuki.log("error");
-            name.set(SERVER_NAME);
-            mNavHost.set(SERVER_HOST);
-        });
+    @BindingAdapter("openDrawer")
+    public static void setOpenDrawer(DrawerLayout drawerLayout, Boolean b){
+        if(b) {
+            drawerLayout.openDrawer(Gravity.START);
+        } else {
+            drawerLayout.closeDrawers();
+        }
     }
 
 }

@@ -42,7 +42,6 @@
                 app:layout_behavior="@string/appbar_scrolling_view_behavior"
                 app:fragment="@{dashboardVM.mNavBtnId}"
                 tools:context="net.mizucoffee.hatsuyuki_chinachu.dashboard.DashboardActivity"
-                tools:showIn="@layout/app_bar_dashboard"
                 android:orientation="horizontal" />
 
         </android.support.design.widget.CoordinatorLayout>

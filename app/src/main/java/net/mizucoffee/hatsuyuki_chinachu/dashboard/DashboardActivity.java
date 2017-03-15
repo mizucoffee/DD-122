@@ -3,7 +3,6 @@ package net.mizucoffee.hatsuyuki_chinachu.dashboard;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v4.view.GravityCompat;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -12,6 +11,7 @@ import net.mizucoffee.hatsuyuki_chinachu.R;
 import net.mizucoffee.hatsuyuki_chinachu.dashboard.a_selectserver.SelectServerActivity;
 import net.mizucoffee.hatsuyuki_chinachu.databinding.ActivityDashboardBinding;
 import net.mizucoffee.hatsuyuki_chinachu.databinding.NavHeaderDashboardBinding;
+import net.mizucoffee.hatsuyuki_chinachu.settings.SettingsActivity;
 
 import uk.co.deanwild.materialshowcaseview.MaterialShowcaseSequence;
 import uk.co.deanwild.materialshowcaseview.ShowcaseConfig;
@@ -20,12 +20,8 @@ import static butterknife.ButterKnife.findById;
 
 public class DashboardActivity extends AppCompatActivity {
 
-
-
     private ActivityDashboardBinding mBinding;
     private DashboardViewModel mDashboardVM;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,20 +31,16 @@ public class DashboardActivity extends AppCompatActivity {
 
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_dashboard);
         mBinding.setDashboardVM(mDashboardVM);
-        NavHeaderDashboardBinding n = DataBindingUtil.bind(mBinding.navView.getHeaderView(0));
+        setSupportActionBar(mBinding.toolbar);
+
+        NavHeaderDashboardBinding n = NavHeaderDashboardBinding.bind(mBinding.navView.getHeaderView(0));
         n.setModel(mDashboardVM);
 
         subscribe();
 
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, mBinding.drawerLayout, findById(this, R.id.toolbar), R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, mBinding.drawerLayout, mBinding.toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         mBinding.drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
-
-//        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-//        transaction.add(R.id.container, mRecordedFragment);
-//        transaction.commit();
-
-
 
         ShowcaseConfig config = new ShowcaseConfig();
         config.setDelay(500);
@@ -58,26 +50,6 @@ public class DashboardActivity extends AppCompatActivity {
         sequence.setConfig(config);
         sequence.addSequenceItem(mBinding.navView.getHeaderView(0), getString(R.string.lets_register), getString(R.string.ok));
         sequence.start();
-
-        Handler h = new Handler();
-
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                h.post(() -> mDashboardVM.isDrawerOpen.set(true));
-                Thread.sleep(1000);
-                h.post(() -> mDashboardVM.isDrawerOpen.set(false));
-                Thread.sleep(1000);
-                h.post(() -> mDashboardVM.isDrawerOpen.set(true));
-                Thread.sleep(1000);
-                h.post(() -> mDashboardVM.isDrawerOpen.set(false));
-                Thread.sleep(1000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-        }).start();
     }
 
     @Override
@@ -88,61 +60,24 @@ public class DashboardActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        if (mBinding.drawerLayout.isDrawerOpen(GravityCompat.START)) {
-            mBinding.drawerLayout.closeDrawer(GravityCompat.START);
-//        } else if (currentMenuId == R.id.nav_recorded) {
-//            if (mRecordedFragment.isSearchBarVisible())
-//                mRecordedFragment.setSearchBarInVisible();
-//        } else if (currentMenuId == R.id.nav_downloads) {
-//            if (mRecordedFragment.isSearchBarVisible())
-//                mRecordedFragment.setSearchBarInVisible();
-        } else
+        if (mBinding.drawerLayout.isDrawerOpen(GravityCompat.START))
+            mDashboardVM.isDrawerOpen.set(false);
+        else if (!mDashboardVM.onBackPressed())
             super.onBackPressed();
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 1 && resultCode == RESULT_OK) {
-//            if (currentMenuId == R.id.nav_recorded)
-//                mRecordedFragment.reload();
-//            if (currentMenuId == R.id.nav_downloads)
-//                mDownloadedFragment.reload();
-        }
+        mDashboardVM.onActivityResult(requestCode, resultCode, data);
     }
 
     public void subscribe() {
-        mDashboardVM.intent.subscribe(s -> {
-            startActivityForResult(new Intent(this, SelectServerActivity.class), 1);
+        mDashboardVM.intent.subscribe(intentType -> {
+            if(intentType == DashboardViewModel.IntentType.SELECT_SERVER)
+                startActivityForResult(new Intent(this, SelectServerActivity.class), 1);
+            else if(intentType == DashboardViewModel.IntentType.SETTINGS)
+                startActivity(new Intent(this, SettingsActivity.class));
         });
-//        mDashboardVM.navigation.subscribe(i -> {
-//            currentMenuId = i;
-//
-//            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-//
-//            switch (i) {
-//                case R.id.nav_live:
-//                    transaction.replace(R.id.container, mLiveFragment);
-//                    break;
-//                case R.id.nav_guide:
-//                    transaction.replace(R.id.container, mGuideFragment);
-//                    break;
-//                case R.id.nav_recorded:
-//                    transaction.replace(R.id.container, mRecordedFragment);
-//                    break;
-//                case R.id.nav_timers:
-//                    transaction.replace(R.id.container, mTimerFragment);
-//                    break;
-//                case R.id.nav_downloads:
-//                    transaction.replace(R.id.container, mDownloadedFragment);
-//                    break;
-//                case R.id.nav_settings:
-//                    startActivity(new Intent(this, SettingsActivity.class));
-//                    break;
-//            }
-//
-//            transaction.commit();
-////            mBinding.drawerLayout.closeDrawer(GravityCompat.START);
-//        });
     }
 }
