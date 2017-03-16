@@ -7,6 +7,10 @@
             name="program"
             type="net.mizucoffee.hatsuyuki_chinachu.model.ProgramItem"
             />
+        <variable
+            name="detail"
+            type="net.mizucoffee.hatsuyuki_chinachu.dashboard.f_recorded.RecordedDetailActivity"
+            />
         <import type="android.view.View"/>
     </data>
     <android.support.design.widget.CoordinatorLayout
@@ -30,7 +34,7 @@
                 app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
                 <ImageView
-                    android:id="@+id/img_cover"
+                    app:thumbUrl="@{program.thumbUrl}"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:fitsSystemWindows="true"
@@ -48,13 +52,13 @@
         </android.support.design.widget.AppBarLayout>
 
         <android.support.design.widget.FloatingActionButton
-            android:id="@+id/fab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/fab_margin"
             app:layout_anchor="@id/app_bar"
             app:layout_anchorGravity="bottom|end"
-            app:srcCompat="@drawable/ic_play_white" />
+            app:srcCompat="@drawable/ic_play_white"
+            android:onClick="@{detail::onClickFab}"/>
 
         <android.support.v4.widget.NestedScrollView
             android:layout_width="match_parent"
@@ -71,7 +75,6 @@
                 android:paddingRight="16dp">
 
                 <TextView
-                    android:text="@string/title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp" />
@@ -79,22 +82,21 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@{program.title}"
-                    android:textAppearance="@android:style/TextAppearance.Material.Large" />
+                    android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                    android:text="@{program.title}" />
 
                 <TextView
                     android:text="@string/subtitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/detail_subtitle"
                     android:layout_marginTop="8dp" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@{program.subtitle}"
-                    android:visibility="@{program.subtitle == null ? View.GONE : View.VISIBLE}"
-                    android:textAppearance="@android:style/TextAppearance.Material.Large" />
+                    android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                    android:visibility="@{program.subtitle == null ? View.GONE : View.VISIBLE}" />
 
                 <TextView
                     android:text="@string/description"
@@ -107,7 +109,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@{program.description}"
-                    android:textAppearance="@android:style/TextAppearance.Material.Medium" />
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
                 <TextView
                     android:text="@string/channel"
@@ -123,14 +125,15 @@
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:id="@+id/channel_iv"
-                        android:layout_marginTop="4dp" />
+                        android:scaleType="fitStart"
+                        android:layout_marginTop="4dp"
+                        app:channelUrl="@{program.channelUrl}" />
 
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:text="@{program.channelName + ' ' + program.channelId}"
-                        android:textAppearance="@android:style/TextAppearance.Material.Large"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Large"
                         android:layout_weight="1" />
 
                 </LinearLayout>
@@ -140,7 +143,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/download_btn"
-                    android:layout_marginTop="16dp" />
+                    android:layout_marginTop="16dp"
+                    android:onClick="@{detail::onClickDownload}"/>
 
             </LinearLayout>
         </android.support.v4.widget.NestedScrollView>

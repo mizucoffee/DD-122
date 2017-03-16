@@ -4,6 +4,8 @@ import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import android.databinding.BindingAdapter;
 import android.support.v4.content.ContextCompat;
+import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
@@ -18,6 +20,7 @@ public class ProgramItem extends BaseObservable {
     private String description;
     private String date;
     private String thumbUrl;
+    private String channelUrl;
     private String id;
     private String category;
     private String subtitle;
@@ -41,6 +44,11 @@ public class ProgramItem extends BaseObservable {
 
     public long getStart() {
         return start;
+    }
+
+    @Bindable
+    public String getChannelUrl() {
+        return channelUrl;
     }
 
     @Bindable
@@ -85,6 +93,11 @@ public class ProgramItem extends BaseObservable {
 
     public void setSubtitle(String subtitle) {
         this.subtitle = subtitle;
+        notifyChange();
+    }
+
+    public void setChannelUrl(String channelUrl) {
+        this.channelUrl = channelUrl;
         notifyChange();
     }
 
@@ -138,8 +151,8 @@ public class ProgramItem extends BaseObservable {
         linearLayout.setBackgroundColor(ContextCompat.getColor(linearLayout.getContext(), Shirayuki.getBackgroundColorFromCategory(category)));
     }
 
-    @BindingAdapter("imageUrl")
-    public static void setImageUrl(ImageView i, String url){
+    @BindingAdapter("thumbUrl")
+    public static void setThumbUrl(ImageView i, String url){
         Picasso.with(i.getContext()).load(url + "?pos=30").into(i, new Callback() {
             @Override
             public void onSuccess() {
@@ -149,6 +162,22 @@ public class ProgramItem extends BaseObservable {
             @Override
             public void onError() {
                 Picasso.with(i.getContext()).load(url + "?pos=0").into(i);
+            }
+        });
+    }
+
+    @BindingAdapter("channelUrl")
+    public static void setChannelUrl(ImageView i, String url){
+        Picasso.with(i.getContext()).load(url).into(i);
+        i.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                if(i.getDrawable() != null) {
+                    ViewGroup.LayoutParams params = i.getLayoutParams();
+                    params.width = i.getHeight() / 9 * 16;
+                    i.setLayoutParams(params);
+                    i.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                }
             }
         });
     }

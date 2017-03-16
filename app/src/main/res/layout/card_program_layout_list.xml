@@ -41,7 +41,7 @@
                 android:layout_height="match_parent"
                 android:adjustViewBounds="true"
                 android:id="@+id/image_view"
-                app:imageUrl="@{program.thumbUrl}"/>
+                app:thumbUrl="@{program.thumbUrl}"/>
 
             <LinearLayout
                 android:orientation="vertical"

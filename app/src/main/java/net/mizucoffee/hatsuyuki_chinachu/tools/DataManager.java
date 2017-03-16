@@ -91,6 +91,8 @@ public class DataManager {
 
     public List<ProgramItem> getDownloadedList(){
         String s = mSharedPreferences.getString("DownloadedList","");
-        return new Gson().fromJson(s, new TypeToken<List<ProgramItem>>(){}.getType());
+        List<ProgramItem> list = new Gson().fromJson(s, new TypeToken<List<ProgramItem>>(){}.getType());
+        if(list == null) list = new ArrayList<>();
+        return list;
     }
 }

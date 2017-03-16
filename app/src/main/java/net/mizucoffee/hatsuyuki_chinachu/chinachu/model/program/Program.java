@@ -205,6 +205,7 @@ public class Program {
         pi.setSubtitle(subTitle);
         pi.setChannelId(channel.getId());
         pi.setChannelName(channel.getName());
+        pi.setChannelUrl("http://" + server + "/api/channel/" + channel.getId() + "/logo.png");
 
         SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy/MM/dd E HH:mm", Locale.getDefault());
         SimpleDateFormat sdf2 = new SimpleDateFormat("HH:mm", Locale.getDefault());

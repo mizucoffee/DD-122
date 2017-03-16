@@ -36,7 +36,7 @@
                     android:layout_height="match_parent"
                     android:adjustViewBounds="true"
                     android:id="@+id/image_view"
-                    app:imageUrl="@{program.thumbUrl}"/>
+                    app:thumbUrl="@{program.thumbUrl}"/>
 
                 <TextView
                     android:layout_width="match_parent"
