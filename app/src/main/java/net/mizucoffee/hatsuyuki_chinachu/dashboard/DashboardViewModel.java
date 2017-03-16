@@ -59,7 +59,7 @@ public class DashboardViewModel {
     //=================================
 
     DashboardViewModel(DashboardActivity activity) {
-        this.mDashboardModel = new DashboardModel(activity.getSharedPreferences("HatsuyukiChinachu", Context.MODE_PRIVATE));
+        mDashboardModel = new DashboardModel(activity.getSharedPreferences("HatsuyukiChinachu", Context.MODE_PRIVATE));
         subscribe();
         SERVER_NAME = activity.getString(R.string.server_name);
         SERVER_HOST = activity.getString(R.string.host_address);

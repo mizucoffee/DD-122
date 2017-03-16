@@ -4,12 +4,10 @@ package net.mizucoffee.hatsuyuki_chinachu.dashboard.f_recorded;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.PopupMenu;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -20,37 +18,36 @@ import android.view.ViewGroup;
 
 import net.mizucoffee.hatsuyuki_chinachu.R;
 import net.mizucoffee.hatsuyuki_chinachu.dashboard.DashboardActivity;
+import net.mizucoffee.hatsuyuki_chinachu.databinding.FragmentRecordedBinding;
 import net.mizucoffee.hatsuyuki_chinachu.enumerate.ListType;
 import net.mizucoffee.hatsuyuki_chinachu.enumerate.SortType;
-import net.mizucoffee.hatsuyuki_chinachu.tools.Shirayuki;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
+import static butterknife.ButterKnife.findById;
 
-public class RecordedFragment extends Fragment implements RecordedView{
+public class RecordedFragment extends Fragment{
 
-    private RecordedPresenter mPresenter;
-
-    @BindView(R.id.recycler)
-    public RecyclerView mRecyclerView;
-
+    private RecordedViewModel mRecordedVM;
     private SearchView mSearchView;
+    private FragmentRecordedBinding binding;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
-        return inflater.inflate(R.layout.layout_program_list, container, false);
+        binding = DataBindingUtil.inflate(inflater,R.layout.fragment_recorded, container, false);
+        return binding.getRoot();
     }
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        Shirayuki.initFragment(this,view);
+        activity.setSupportActionBar(findById(activity,R.id.toolbar));
 
-        mPresenter = new RecordedPresenterImpl(this);
-        mRecyclerView.setHasFixedSize(true);
+        mRecordedVM = new RecordedViewModel(this);
+        binding.setRecordedVM(mRecordedVM);
 
-        mPresenter.getRecorded();
+        binding.recycler.setHasFixedSize(true);
+
+        mRecordedVM.getRecorded();
         setHasOptionsMenu(true);
     }
 
@@ -59,11 +56,8 @@ public class RecordedFragment extends Fragment implements RecordedView{
         super.onCreateOptionsMenu(menu, inflater);
         menu.clear();
         inflater.inflate(R.menu.program_list, menu);
-        menu.findItem(R.id.menu_sort).setVisible(true);
-        menu.findItem(R.id.menu_list).setVisible(true);
 
         MenuItem menuItem = menu.findItem(R.id.search_menu_search_view);
-
         mSearchView = (SearchView)menuItem.getActionView();
         mSearchView.setIconifiedByDefault(true);
         mSearchView.setSubmitButtonEnabled(false);
@@ -75,7 +69,7 @@ public class RecordedFragment extends Fragment implements RecordedView{
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                mPresenter.searchWord(newText);
+                mRecordedVM.searchWord(newText);
                 return false;
             }
         });
@@ -84,42 +78,36 @@ public class RecordedFragment extends Fragment implements RecordedView{
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
         switch (item.getItemId()) {
-
             case R.id.menu_sort:
-                PopupMenu popup = new PopupMenu(getActivity(), ButterKnife.findById(getActivity(),R.id.menu_sort));
+                PopupMenu popup = new PopupMenu(getActivity(), findById(getActivity(),R.id.menu_sort));
                 popup.getMenuInflater().inflate(R.menu.program_sorttype_popup_menu, popup.getMenu());
-                popup.show();
                 popup.setOnMenuItemClickListener((menu) -> {
                     SortType sortType = SortType.DATE_DES;
                     switch (menu.getItemId()){
-                        case R.id.dateasc: sortType = SortType.DATE_ASC; break;
-                        case R.id.datedes: sortType = SortType.DATE_DES; break;
+                        case R.id.dateasc:  sortType = SortType.DATE_ASC; break;
+                        case R.id.datedes:  sortType = SortType.DATE_DES; break;
                         case R.id.titleasc: sortType = SortType.TITLE_ASC; break;
                         case R.id.titledes: sortType = SortType.TITLE_DES; break;
-                        case R.id.catasc: sortType = SortType.CATEGORY_ASC; break;
-                        case R.id.catdes: sortType = SortType.CATEGORY_DES; break;
+                        case R.id.catasc:   sortType = SortType.CATEGORY_ASC; break;
+                        case R.id.catdes:   sortType = SortType.CATEGORY_DES; break;
                     }
-                    mPresenter.changeSortType(sortType);
+                    mRecordedVM.changeSortType(sortType);
                     return super.onOptionsItemSelected(menu);
                 });
+                popup.show();
                 break;
             case R.id.menu_list:
-                PopupMenu popup2 = new PopupMenu(getActivity(), ButterKnife.findById(getActivity(),R.id.menu_list));
+                PopupMenu popup2 = new PopupMenu(getActivity(), findById(getActivity(),R.id.menu_list));
                 popup2.getMenuInflater().inflate(R.menu.program_listtype_popup_menu, popup2.getMenu());
-                popup2.show();
                 popup2.setOnMenuItemClickListener((menu) -> {
                     ListType listType = menu.getItemId() == R.id.column1 ? ListType.CARD_COLUMN1 : menu.getItemId() == R.id.column2 ? ListType.CARD_COLUMN2 : ListType.LIST;
-                    mPresenter.changeListType(listType);
+                    mRecordedVM.changeListType(listType);
                     return super.onOptionsItemSelected(menu);
                 });
+                popup2.show();
                 break;
         }
         return true;
-    }
-
-    @Override
-    public void showSnackBar(String text){
-        Snackbar.make(mRecyclerView, text, Snackbar.LENGTH_LONG).show();
     }
 
     private DashboardActivity activity = null;
@@ -130,43 +118,15 @@ public class RecordedFragment extends Fragment implements RecordedView{
         if (context instanceof Activity) activity = (DashboardActivity)context;
     }
 
-    @Override
     public DashboardActivity getDashboardActivity(){
         return activity;
     }
 
-    @Override
-    public void setRecyclerView(RecordedCardRecyclerAdapter adapter, ListType listType){
-        switch (listType) {
-            case CARD_COLUMN1:
-            case LIST:
-                mRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 1));
-                break;
-            case CARD_COLUMN2:
-                mRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
-                break;
-        }
-
-        mRecyclerView.setAdapter(adapter);
-    }
-
-    @Override
-    public void removeRecyclerView(){
-        mRecyclerView.setAdapter(null);
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        mPresenter.onDestroy();
-    }
-
     public void reload(){
-        mPresenter.getRecorded();
+        mRecordedVM.getRecorded();
     }
 
     public boolean isSearchBarVisible(){
-        Shirayuki.log("is"+mSearchView.isIconified());
         return !mSearchView.isIconified();
     }
 
@@ -174,7 +134,6 @@ public class RecordedFragment extends Fragment implements RecordedView{
         mSearchView.setIconified(true);
     }
 
-    @Override
     public SharedPreferences getActivitySharedPreferences(String name, int mode){
         return getActivity().getSharedPreferences(name,mode);
     }

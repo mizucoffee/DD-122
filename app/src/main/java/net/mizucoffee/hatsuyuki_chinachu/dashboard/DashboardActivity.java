@@ -16,8 +16,6 @@ import net.mizucoffee.hatsuyuki_chinachu.settings.SettingsActivity;
 import uk.co.deanwild.materialshowcaseview.MaterialShowcaseSequence;
 import uk.co.deanwild.materialshowcaseview.ShowcaseConfig;
 
-import static butterknife.ButterKnife.findById;
-
 public class DashboardActivity extends AppCompatActivity {
 
     private ActivityDashboardBinding mBinding;

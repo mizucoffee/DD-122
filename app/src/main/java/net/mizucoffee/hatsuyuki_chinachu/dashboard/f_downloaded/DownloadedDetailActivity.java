@@ -33,11 +33,7 @@ public class DownloadedDetailActivity extends AppCompatActivity {
     @BindView(R.id.img_cover)           ImageView mCoverIv;
     @BindView(R.id.fab)                 FloatingActionButton mFab;
 
-    @BindView(R.id.detail_title_tv)     TextView mTitleTv;
-    @BindView(R.id.detail_subtitle_tv)  TextView mSubtitleTv;
     @BindView(R.id.detail_subtitle)     TextView mSubtitleHeadTv;
-    @BindView(R.id.detail_des_tv)       TextView mDescriptionTv;
-    @BindView(R.id.detail_channel_tv)   TextView mChannelTv;
     @BindView(R.id.channel_iv)          ImageView mChannelIv;
     @BindView(R.id.download_btn)        Button mDownloadBtn;
 
@@ -53,17 +49,6 @@ public class DownloadedDetailActivity extends AppCompatActivity {
         Shirayuki.initActivity(this);
 
         setTitle(mProgram.getTitle());
-
-        mTitleTv.setText(mProgram.getTitle());
-        mSubtitleTv.setText(mProgram.getSubTitle());
-
-        if(mProgram.getSubTitle().equals("")){
-            mSubtitleTv.setVisibility(View.GONE);
-            mSubtitleHeadTv.setVisibility(View.GONE);
-        }
-
-        mDescriptionTv.setText(mProgram.getDetail());
-        mChannelTv.setText(mProgram.getChannel().getName()+" "+ mProgram.getChannel().getId());
 
         Bitmap bmImg = BitmapFactory.decodeFile(getExternalFilesDir(null).getAbsolutePath() + "/image/" + mProgram.getId() + ".png");
         mCoverIv.setImageBitmap(bmImg);

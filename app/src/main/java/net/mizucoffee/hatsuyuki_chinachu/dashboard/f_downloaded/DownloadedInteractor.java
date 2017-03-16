@@ -1,6 +1,7 @@
 package net.mizucoffee.hatsuyuki_chinachu.dashboard.f_downloaded;
 
 import net.mizucoffee.hatsuyuki_chinachu.chinachu.model.program.Program;
+import net.mizucoffee.hatsuyuki_chinachu.model.ProgramItem;
 
 import java.util.List;
 
@@ -9,5 +10,5 @@ import java.util.List;
  */
 
 public interface DownloadedInteractor {
-    List<Program> getDownloadedList();
+    List<ProgramItem> getDownloadedList();
 }

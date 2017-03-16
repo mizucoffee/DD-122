@@ -6,7 +6,9 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
+import android.databinding.DataBindingUtil;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -18,18 +20,17 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 
 import net.mizucoffee.hatsuyuki_chinachu.R;
-import net.mizucoffee.hatsuyuki_chinachu.chinachu.model.program.Program;
+import net.mizucoffee.hatsuyuki_chinachu.databinding.ActivityDetailBinding;
+import net.mizucoffee.hatsuyuki_chinachu.model.ProgramItem;
 import net.mizucoffee.hatsuyuki_chinachu.service.DownloadBroadcastReceiver;
 import net.mizucoffee.hatsuyuki_chinachu.service.DownloadService;
 import net.mizucoffee.hatsuyuki_chinachu.tools.DataManager;
@@ -42,23 +43,20 @@ import butterknife.BindView;
 
 public class RecordedDetailActivity extends AppCompatActivity {
 
-    private Program mProgram;
+    private ProgramItem mProgram;
     private DataManager mDataManager;
 
     @BindView(R.id.toolbar) Toolbar mToolBar;
     @BindView(R.id.img_cover) ImageView mCoverIv;
     @BindView(R.id.fab) FloatingActionButton mFab;
 
-    @BindView(R.id.detail_title_tv)     TextView mTitleTv;
-    @BindView(R.id.detail_subtitle_tv)  TextView mSubtitleTv;
-    @BindView(R.id.detail_subtitle)     TextView mSubtitleHeadTv;
-    @BindView(R.id.detail_des_tv)       TextView mDescriptionTv;
-    @BindView(R.id.detail_channel_tv)   TextView mChannelTv;
     @BindView(R.id.channel_iv)          ImageView mChannelIv;
     @BindView(R.id.download_btn)        Button mDownloadBtn;
 
-    private Program downloaded; // if NOT downloaded then NULL
+    private ProgramItem downloaded; // if NOT downloaded then NULL
     private DownloadBroadcastReceiver receiver;
+
+    private ActivityDetailBinding binding;
 
     Handler mHandler = new Handler(){
         @Override
@@ -75,26 +73,16 @@ public class RecordedDetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mProgram = new Gson().fromJson(getIntent().getStringExtra("program"), Program.class);
+        mProgram = new Gson().fromJson(getIntent().getStringExtra("program"), ProgramItem.class);
         mDataManager = new DataManager(getSharedPreferences("HatsuyukiChinachu", Context.MODE_PRIVATE));
 
         setTheme(Shirayuki.getThemeFromCategory(mProgram.getCategory()));
-        setContentView(R.layout.activity_detail);
+        binding = DataBindingUtil.setContentView(this,R.layout.activity_detail);
+        binding.setProgram(mProgram);
         setSupportActionBar(mToolBar);
         Shirayuki.initActivity(this);
 
         setTitle(mProgram.getTitle());
-
-        mTitleTv.setText(mProgram.getTitle());
-        mSubtitleTv.setText(mProgram.getSubTitle());
-
-        if(mProgram.getSubTitle().equals("")){
-            mSubtitleTv.setVisibility(View.GONE);
-            mSubtitleHeadTv.setVisibility(View.GONE);
-        }
-
-        mDescriptionTv.setText(mProgram.getDetail());
-        mChannelTv.setText(mProgram.getChannel().getName()+" "+ mProgram.getChannel().getId());
 
         Picasso.Builder builder = new Picasso.Builder(this);
         builder.listener((Picasso picasso, Uri uri, Exception exception) ->
@@ -102,7 +90,7 @@ public class RecordedDetailActivity extends AppCompatActivity {
         );
         builder.build().load("http://" + mDataManager.getServerConnection().getAddress() + "/api/recorded/" + mProgram.getId() + "/preview.png?pos=30").into(mCoverIv);
 
-        Picasso.with(this).load("http://" + mDataManager.getServerConnection().getAddress() + "/api/channel/" + mProgram.getChannel().getId() + "/logo.png").into(mChannelIv);
+        Picasso.with(this).load("http://" + mDataManager.getServerConnection().getAddress() + "/api/channel/" + mProgram.getChannelId() + "/logo.png").into(mChannelIv);
 
         mChannelIv.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
@@ -126,11 +114,13 @@ public class RecordedDetailActivity extends AppCompatActivity {
 
         SharedPreferences spf = PreferenceManager.getDefaultSharedPreferences(this);
 
-        mDownloadBtn.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(this,Shirayuki.getBackgroundColorFromCategory(mProgram.getCategory()))));
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            mDownloadBtn.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(this,Shirayuki.getBackgroundColorFromCategory(mProgram.getCategory()))));
+        }
 
         downloaded = null;
         if(mDataManager.getDownloadedList() != null)
-            for(Program r : mDataManager.getDownloadedList())
+            for(ProgramItem r : mDataManager.getDownloadedList())
                 if(r.getId().equals(mProgram.getId()))
                     downloaded = r;
 
@@ -156,7 +146,7 @@ public class RecordedDetailActivity extends AppCompatActivity {
                             mDownloadBtn.setText(getString(R.string.downloading));
                             mDownloadBtn.setEnabled(false);
 
-                            List<Program> list = mDataManager.getDownloadedList();
+                            List<ProgramItem> list = mDataManager.getDownloadedList();
                             if(list == null){
                                 list = new ArrayList<>();
                             }

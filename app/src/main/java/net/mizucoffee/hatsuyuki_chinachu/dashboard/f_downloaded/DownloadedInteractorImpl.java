@@ -2,7 +2,7 @@ package net.mizucoffee.hatsuyuki_chinachu.dashboard.f_downloaded;
 
 import android.content.SharedPreferences;
 
-import net.mizucoffee.hatsuyuki_chinachu.chinachu.model.program.Program;
+import net.mizucoffee.hatsuyuki_chinachu.model.ProgramItem;
 import net.mizucoffee.hatsuyuki_chinachu.tools.DataManager;
 
 import java.util.List;
@@ -16,7 +16,7 @@ public class DownloadedInteractorImpl implements DownloadedInteractor {
     }
 
     @Override
-    public List<Program> getDownloadedList(){
+    public List<ProgramItem> getDownloadedList(){
         return mDataManager.getDownloadedList();
     }
 }

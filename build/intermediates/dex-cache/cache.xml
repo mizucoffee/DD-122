@@ -12,6 +12,33 @@
     </item>
     <item
         is-multidex="false"
+        jar="C:\Users\Mizucofee\.android\build-cache\04c02c6b3a8416e31eff59e18ea097a1bea1f881\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="e51c2f662bb72419632af5192553c37e33890a99">
+        <dex dex="C:\Users\Mizucofee\Documents\GitHub\Hatsuyuki-Android-Chinachu-Client\app\build\intermediates\pre-dexed\debug\classes_a05e7723ac422f23310896235702f32a98997246.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Mizucofee\.android\build-cache\cf4f16869e35c521d9bd20ee53612f67996e539d\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="e820b7be8c035dd522da4bc822e8a76c8e27921a">
+        <dex dex="C:\Users\Mizucofee\Documents\GitHub\Hatsuyuki-Android-Chinachu-Client\app\build\intermediates\pre-dexed\debug\classes_75cc91d8effe3e6a74d1e3f63328377725236a42.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Mizucofee\.android\build-cache\55c9ecc524faa7f63ffa7dc22e70e290faaa1607\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="a07818a1ecabdb149998823429cce555af4b9cba">
+        <dex dex="C:\Users\Mizucofee\Documents\GitHub\Hatsuyuki-Android-Chinachu-Client\app\build\intermediates\pre-dexed\debug\classes_c2fc655f1463f6e7216c23657c234de265cd7946.jar" />
+    </item>
+    <item
+        is-multidex="false"
         jar="C:\Users\Mizucofee\.android\build-cache\d88929c36364e9451acbab1965efdf4bcfe527ff\output\jars\classes.jar"
         jumboMode="false"
         optimize="true"
@@ -39,12 +66,30 @@
     </item>
     <item
         is-multidex="false"
+        jar="C:\Users\Mizucofee\.android\build-cache\08a835be839d182e3f38f578dba2461f40113fed\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="8fe8a8f77d651982ce5e18f6187dc4daf914ac57">
+        <dex dex="C:\Users\Mizucofee\Documents\GitHub\Hatsuyuki-Android-Chinachu-Client\app\build\intermediates\pre-dexed\debug\classes_8fc640b02fc9c3834f0826c60b53414a97fbc45a.jar" />
+    </item>
+    <item
+        is-multidex="false"
         jar="C:\Users\Mizucofee\.android\build-cache\dc888a14c4acb6f75d51e1622a6c11e0f4ce0c32\output\jars\classes.jar"
         jumboMode="false"
         optimize="true"
         revision="25.0.2"
         sha1="31ead391552fc8d93a7b87b0f15e83755b908904">
         <dex dex="C:\Users\Mizucofee\Documents\GitHub\Hatsuyuki-Android-Chinachu-Client\app\build\intermediates\pre-dexed\debug\classes_1044aad41c7c2f5e596dfe7a167036796b8622f8.jar" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Mizucofee\Documents\GitHub\Hatsuyuki-Android-Chinachu-Client\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="e1f5e331874357ef3e152ba2d2964a275510a0dd">
+        <dex dex="C:\Users\Mizucofee\Documents\GitHub\Hatsuyuki-Android-Chinachu-Client\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run-bootstrap_ab97a2fdda20ab5c1eb9698ea1cbaca04e62e396\classes.dex" />
     </item>
     <item
         is-multidex="false"
@@ -57,12 +102,39 @@
     </item>
     <item
         is-multidex="false"
+        jar="C:\Users\Mizucofee\.gradle\caches\modules-2\files-2.1\com.squareup.okhttp3\okhttp\3.6.0\69edde9fc4b01c9fd51d25b83428837478c27254\okhttp-3.6.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="69edde9fc4b01c9fd51d25b83428837478c27254">
+        <dex dex="C:\Users\Mizucofee\Documents\GitHub\Hatsuyuki-Android-Chinachu-Client\app\build\intermediates\pre-dexed\debug\okhttp-3.6.0_d65a0bcb554f3d9978b4da9eb7ddb0e9caa45747.jar" />
+    </item>
+    <item
+        is-multidex="false"
         jar="C:\Users\Mizucofee\.gradle\caches\modules-2\files-2.1\com.squareup.okio\okio\1.11.0\840897fcd7223a8143f1d9b6f69714e7be34fd50\okio-1.11.0.jar"
         jumboMode="false"
         optimize="true"
         revision="25.0.2"
         sha1="840897fcd7223a8143f1d9b6f69714e7be34fd50">
         <dex dex="C:\Users\Mizucofee\Documents\GitHub\Hatsuyuki-Android-Chinachu-Client\app\build\intermediates\pre-dexed\debug\okio-1.11.0_96395ceaede340e0eae39f1547c808ae55fac107.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Mizucofee\.gradle\caches\modules-2\files-2.1\com.squareup.picasso\picasso\2.5.2\7446d06ec8d4f7ffcc53f1da37c95f200dcb9387\picasso-2.5.2.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="7446d06ec8d4f7ffcc53f1da37c95f200dcb9387">
+        <dex dex="C:\Users\Mizucofee\Documents\GitHub\Hatsuyuki-Android-Chinachu-Client\app\build\intermediates\pre-dexed\debug\picasso-2.5.2_c74b316fb667ac497d2efa5207a17761f81426e6.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Mizucofee\.gradle\caches\modules-2\files-2.1\io.reactivex.rxjava2\rxjava\2.0.7\21734c0092a5d3c3ec99510e50c1ff76bdf0c65a\rxjava-2.0.7.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="21734c0092a5d3c3ec99510e50c1ff76bdf0c65a">
+        <dex dex="C:\Users\Mizucofee\Documents\GitHub\Hatsuyuki-Android-Chinachu-Client\app\build\intermediates\pre-dexed\debug\rxjava-2.0.7_05b1c5726ebe8ad9a6a2296f17b4205e86bc9a30.jar" />
     </item>
     <item
         is-multidex="false"
@@ -101,6 +173,15 @@
         <dex dex="C:\Users\Mizucofee\Documents\GitHub\Hatsuyuki-Android-Chinachu-Client\app\build\intermediates\pre-dexed\debug\classes_590557e43f5c3f57e60b909933727e86a673a184.jar" />
     </item>
     <item
+        is-multidex="true"
+        jar="C:\Users\Mizucofee\.gradle\caches\modules-2\files-2.1\com.jakewharton.picasso\picasso2-okhttp3-downloader\1.1.0\f4f77eb62269c977c154765cd01587eda6488273\picasso2-okhttp3-downloader-1.1.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="f4f77eb62269c977c154765cd01587eda6488273">
+        <dex dex="C:\Users\Mizucofee\Documents\GitHub\Hatsuyuki-Android-Chinachu-Client\app\build\intermediates\transforms\dex\debug\folders\1000\10\picasso2-okhttp3-downloader-1.1.0_c9bcb78e39d709c2b73502ead0eb4ac32c04c424\classes.dex" />
+    </item>
+    <item
         is-multidex="false"
         jar="C:\Users\Mizucofee\.gradle\caches\modules-2\files-2.1\com.squareup.retrofit2\retrofit\2.1.0\2de7cd8b95b7021b1d597f049bcb422055119f2c\retrofit-2.1.0.jar"
         jumboMode="false"
@@ -108,6 +189,15 @@
         revision="25.0.2"
         sha1="2de7cd8b95b7021b1d597f049bcb422055119f2c">
         <dex dex="C:\Users\Mizucofee\Documents\GitHub\Hatsuyuki-Android-Chinachu-Client\app\build\intermediates\pre-dexed\debug\retrofit-2.1.0_2f7a96e2f506eda0c88177db1c35d7374df78d97.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Mizucofee\.gradle\caches\modules-2\files-2.1\com.google.code.gson\gson\2.8.0\c4ba5371a29ac9b2ad6129b1d39ea38750043eff\gson-2.8.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="c4ba5371a29ac9b2ad6129b1d39ea38750043eff">
+        <dex dex="C:\Users\Mizucofee\Documents\GitHub\Hatsuyuki-Android-Chinachu-Client\app\build\intermediates\pre-dexed\debug\gson-2.8.0_999c907a322d6e0d376405db91b3070a1d682e9d.jar" />
     </item>
     <item
         is-multidex="false"
@@ -120,6 +210,15 @@
     </item>
     <item
         is-multidex="false"
+        jar="C:\Users\Mizucofee\.android\build-cache\e73175b237df9c4c5a693fcdc06f8255958a9ea8\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="67eb33110dbacb46a48175b08ae0c96761d2c17d">
+        <dex dex="C:\Users\Mizucofee\Documents\GitHub\Hatsuyuki-Android-Chinachu-Client\app\build\intermediates\pre-dexed\debug\classes_d03aaf975fa7e87e34fc86d78ef617d449677a3a.jar" />
+    </item>
+    <item
+        is-multidex="false"
         jar="C:\Users\Mizucofee\.android\build-cache\0277f66a1449660c8d1c96dfbdcde7e77e1f9426\output\jars\classes.jar"
         jumboMode="false"
         optimize="true"
@@ -129,12 +228,39 @@
     </item>
     <item
         is-multidex="false"
+        jar="C:\Users\Mizucofee\.gradle\caches\modules-2\files-2.1\org.reactivestreams\reactive-streams\1.0.0\14b8c877d98005ba3941c9257cfe09f6ed0e0d74\reactive-streams-1.0.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="14b8c877d98005ba3941c9257cfe09f6ed0e0d74">
+        <dex dex="C:\Users\Mizucofee\Documents\GitHub\Hatsuyuki-Android-Chinachu-Client\app\build\intermediates\pre-dexed\debug\reactive-streams-1.0.0_15ee6bdf4a140628e9dbab0fcb5c32b14c5ce657.jar" />
+    </item>
+    <item
+        is-multidex="false"
         jar="C:\Users\Mizucofee\AppData\Local\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\25.2.0\support-annotations-25.2.0.jar"
         jumboMode="false"
         optimize="true"
         revision="25.0.2"
         sha1="4a5a82a027706397fff621b22fd6fa796e91d7c5">
         <dex dex="C:\Users\Mizucofee\Documents\GitHub\Hatsuyuki-Android-Chinachu-Client\app\build\intermediates\pre-dexed\debug\support-annotations-25.2.0_0ca09d372141a87ff8e32c796e8c4d2854923514.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Mizucofee\.android\build-cache\90d85d58d0b6f762161a7f09de60b9d6dae85ef1\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="152de8da301561dcb0946471697a420d8f7a68c5">
+        <dex dex="C:\Users\Mizucofee\Documents\GitHub\Hatsuyuki-Android-Chinachu-Client\app\build\intermediates\pre-dexed\debug\classes_a0ac5f74b1a3925e7cc9eba7e007bb53ef9594a0.jar" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Mizucofee\Documents\GitHub\Hatsuyuki-Android-Chinachu-Client\app\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="c82741bc129dd5f99f11a4ab8666ae24262053b6">
+        <dex dex="C:\Users\Mizucofee\Documents\GitHub\Hatsuyuki-Android-Chinachu-Client\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run_c0ec3ba485bdc41a54e4bdd2d34eb27425fa6914\classes.dex" />
     </item>
     <item
         is-multidex="false"
@@ -162,105 +288,6 @@
         revision="25.0.2"
         sha1="fa0446a14ed5dd3725047d6399ffea771a564b30">
         <dex dex="C:\Users\Mizucofee\Documents\GitHub\Hatsuyuki-Android-Chinachu-Client\app\build\intermediates\pre-dexed\debug\classes_d686d0616ac4a1685c85f02637feea30c262fb96.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="C:\Users\Mizucofee\.android\build-cache\04c02c6b3a8416e31eff59e18ea097a1bea1f881\output\jars\classes.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="25.0.2"
-        sha1="e51c2f662bb72419632af5192553c37e33890a99">
-        <dex dex="C:\Users\Mizucofee\Documents\GitHub\Hatsuyuki-Android-Chinachu-Client\app\build\intermediates\pre-dexed\debug\classes_a05e7723ac422f23310896235702f32a98997246.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="C:\Users\Mizucofee\.android\build-cache\cf4f16869e35c521d9bd20ee53612f67996e539d\output\jars\classes.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="25.0.2"
-        sha1="e820b7be8c035dd522da4bc822e8a76c8e27921a">
-        <dex dex="C:\Users\Mizucofee\Documents\GitHub\Hatsuyuki-Android-Chinachu-Client\app\build\intermediates\pre-dexed\debug\classes_75cc91d8effe3e6a74d1e3f63328377725236a42.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="C:\Users\Mizucofee\.android\build-cache\55c9ecc524faa7f63ffa7dc22e70e290faaa1607\output\jars\classes.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="25.0.2"
-        sha1="a07818a1ecabdb149998823429cce555af4b9cba">
-        <dex dex="C:\Users\Mizucofee\Documents\GitHub\Hatsuyuki-Android-Chinachu-Client\app\build\intermediates\pre-dexed\debug\classes_c2fc655f1463f6e7216c23657c234de265cd7946.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="C:\Users\Mizucofee\.android\build-cache\08a835be839d182e3f38f578dba2461f40113fed\output\jars\classes.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="25.0.2"
-        sha1="8fe8a8f77d651982ce5e18f6187dc4daf914ac57">
-        <dex dex="C:\Users\Mizucofee\Documents\GitHub\Hatsuyuki-Android-Chinachu-Client\app\build\intermediates\pre-dexed\debug\classes_8fc640b02fc9c3834f0826c60b53414a97fbc45a.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="C:\Users\Mizucofee\.gradle\caches\modules-2\files-2.1\com.squareup.okhttp3\okhttp\3.6.0\69edde9fc4b01c9fd51d25b83428837478c27254\okhttp-3.6.0.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="25.0.2"
-        sha1="69edde9fc4b01c9fd51d25b83428837478c27254">
-        <dex dex="C:\Users\Mizucofee\Documents\GitHub\Hatsuyuki-Android-Chinachu-Client\app\build\intermediates\pre-dexed\debug\okhttp-3.6.0_d65a0bcb554f3d9978b4da9eb7ddb0e9caa45747.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="C:\Users\Mizucofee\.gradle\caches\modules-2\files-2.1\com.squareup.picasso\picasso\2.5.2\7446d06ec8d4f7ffcc53f1da37c95f200dcb9387\picasso-2.5.2.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="25.0.2"
-        sha1="7446d06ec8d4f7ffcc53f1da37c95f200dcb9387">
-        <dex dex="C:\Users\Mizucofee\Documents\GitHub\Hatsuyuki-Android-Chinachu-Client\app\build\intermediates\pre-dexed\debug\picasso-2.5.2_c74b316fb667ac497d2efa5207a17761f81426e6.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="C:\Users\Mizucofee\.gradle\caches\modules-2\files-2.1\io.reactivex.rxjava2\rxjava\2.0.7\21734c0092a5d3c3ec99510e50c1ff76bdf0c65a\rxjava-2.0.7.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="25.0.2"
-        sha1="21734c0092a5d3c3ec99510e50c1ff76bdf0c65a">
-        <dex dex="C:\Users\Mizucofee\Documents\GitHub\Hatsuyuki-Android-Chinachu-Client\app\build\intermediates\pre-dexed\debug\rxjava-2.0.7_05b1c5726ebe8ad9a6a2296f17b4205e86bc9a30.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="C:\Users\Mizucofee\.gradle\caches\modules-2\files-2.1\com.google.code.gson\gson\2.8.0\c4ba5371a29ac9b2ad6129b1d39ea38750043eff\gson-2.8.0.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="25.0.2"
-        sha1="c4ba5371a29ac9b2ad6129b1d39ea38750043eff">
-        <dex dex="C:\Users\Mizucofee\Documents\GitHub\Hatsuyuki-Android-Chinachu-Client\app\build\intermediates\pre-dexed\debug\gson-2.8.0_999c907a322d6e0d376405db91b3070a1d682e9d.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="C:\Users\Mizucofee\.android\build-cache\e73175b237df9c4c5a693fcdc06f8255958a9ea8\output\jars\classes.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="25.0.2"
-        sha1="67eb33110dbacb46a48175b08ae0c96761d2c17d">
-        <dex dex="C:\Users\Mizucofee\Documents\GitHub\Hatsuyuki-Android-Chinachu-Client\app\build\intermediates\pre-dexed\debug\classes_d03aaf975fa7e87e34fc86d78ef617d449677a3a.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="C:\Users\Mizucofee\.gradle\caches\modules-2\files-2.1\org.reactivestreams\reactive-streams\1.0.0\14b8c877d98005ba3941c9257cfe09f6ed0e0d74\reactive-streams-1.0.0.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="25.0.2"
-        sha1="14b8c877d98005ba3941c9257cfe09f6ed0e0d74">
-        <dex dex="C:\Users\Mizucofee\Documents\GitHub\Hatsuyuki-Android-Chinachu-Client\app\build\intermediates\pre-dexed\debug\reactive-streams-1.0.0_15ee6bdf4a140628e9dbab0fcb5c32b14c5ce657.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="C:\Users\Mizucofee\.android\build-cache\90d85d58d0b6f762161a7f09de60b9d6dae85ef1\output\jars\classes.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="25.0.2"
-        sha1="152de8da301561dcb0946471697a420d8f7a68c5">
-        <dex dex="C:\Users\Mizucofee\Documents\GitHub\Hatsuyuki-Android-Chinachu-Client\app\build\intermediates\pre-dexed\debug\classes_a0ac5f74b1a3925e7cc9eba7e007bb53ef9594a0.jar" />
     </item>
 
 </items>

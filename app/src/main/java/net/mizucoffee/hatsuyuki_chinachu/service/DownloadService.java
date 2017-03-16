@@ -78,17 +78,17 @@ public class DownloadService extends IntentService {
 
         mDataManager = new DataManager(getSharedPreferences("HatsuyukiChinachu", Context.MODE_PRIVATE));
         Program downloaded = null;
-        mProgramList = mDataManager.getDownloadedList();
-        int i= 0;
-        if(mDataManager.getDownloadedList() != null)
-            for(Program r : mDataManager.getDownloadedList()) {
-                if (r.getId().equals(mProgram.getId())) {
-                    downloaded = r;
-                    mProgramList.remove(i);
-                    break;
-                }
-                i++;
-            }
+//        mProgramList = mDataManager.getDownloadedList();
+//        int i= 0;
+//        if(mDataManager.getDownloadedList() != null)
+//            for(Program r : mDataManager.getDownloadedList()) {
+//                if (r.getId().equals(mProgram.getId())) {
+//                    downloaded = r;
+//                    mProgramList.remove(i);
+//                    break;
+//                }
+//                i++;
+//            }
 
         if(!imageDL()) {
             failed();
@@ -100,11 +100,11 @@ public class DownloadService extends IntentService {
         }
         stopForeground(true);
 
-        downloaded.setDownloading(false);
+//        downloaded.setDownloading(false);
         mProgramList.add(downloaded);
-        mDataManager.setDownloadedList(mProgramList);
+//        mDataManager.setDownloadedList(mProgramList);
 
-        mProgram.setDownloading(false);
+//        mProgram.setDownloading(false);
 
         Intent bcIntent = new Intent();
         bcIntent.putExtra("isSuccess", true);
@@ -130,7 +130,7 @@ public class DownloadService extends IntentService {
         bcIntent.putExtra("id", mProgram.getId());
         bcIntent.setAction("RETURN_STATUS");
         getBaseContext().sendBroadcast(bcIntent);
-        mDataManager.setDownloadedList(mProgramList);
+//        mDataManager.setDownloadedList(mProgramList);
         NotificationCompat.Builder builder2 = new NotificationCompat.Builder(getApplicationContext());
         builder2.setSmallIcon(R.mipmap.ic_launcher);
 

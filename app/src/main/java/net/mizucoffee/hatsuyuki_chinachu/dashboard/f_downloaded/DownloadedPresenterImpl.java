@@ -7,12 +7,9 @@ import net.mizucoffee.hatsuyuki_chinachu.R;
 import net.mizucoffee.hatsuyuki_chinachu.chinachu.model.program.Program;
 import net.mizucoffee.hatsuyuki_chinachu.enumerate.ListType;
 import net.mizucoffee.hatsuyuki_chinachu.enumerate.SortType;
-import net.mizucoffee.hatsuyuki_chinachu.tools.CategoryComparator;
-import net.mizucoffee.hatsuyuki_chinachu.tools.DateComparator;
-import net.mizucoffee.hatsuyuki_chinachu.tools.TitleComparator;
+import net.mizucoffee.hatsuyuki_chinachu.model.ProgramItem;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class DownloadedPresenterImpl implements DownloadedPresenter {
@@ -37,14 +34,14 @@ public class DownloadedPresenterImpl implements DownloadedPresenter {
 
     @Override
     public void getDownloaded(){
-        List<Program> programList = mDownloadedInteractor.getDownloadedList();
+        List<ProgramItem> programList = mDownloadedInteractor.getDownloadedList();
         if(programList == null) {
             mDownloadedView.showSnackBar(App.getContext().getString(R.string.lets_download));
             // DLしてみましょうを入れるか
             return;
         }
 
-        mDownloadedList = programList;
+//        mDownloadedList = programList;
         sort();
         mAdapter.setRecorded(mDownloadedList);
         mAdapter.setListType(mListType);
@@ -83,29 +80,29 @@ public class DownloadedPresenterImpl implements DownloadedPresenter {
     }
 
     private void sort(){
-        switch (mSortType){
-            case DATE_ASC:
-                Collections.sort(mDownloadedList, new DateComparator());
-                break;
-            case DATE_DES:
-                Collections.sort(mDownloadedList, new DateComparator());
-                Collections.reverse(mDownloadedList);
-                break;
-            case TITLE_ASC:
-                Collections.sort(mDownloadedList, new TitleComparator());
-                break;
-            case TITLE_DES:
-                Collections.sort(mDownloadedList, new TitleComparator());
-                Collections.reverse(mDownloadedList);
-                break;
-            case CATEGORY_ASC:
-                Collections.sort(mDownloadedList, new CategoryComparator());
-                break;
-            case CATEGORY_DES:
-                Collections.sort(mDownloadedList, new CategoryComparator());
-                Collections.reverse(mDownloadedList);
-                break;
-        }
+//        switch (mSortType){
+//            case DATE_ASC:
+//                Collections.sort(mDownloadedList, new DateComparator());
+//                break;
+//            case DATE_DES:
+//                Collections.sort(mDownloadedList, new DateComparator());
+//                Collections.reverse(mDownloadedList);
+//                break;
+//            case TITLE_ASC:
+//                Collections.sort(mDownloadedList, new TitleComparator());
+//                break;
+//            case TITLE_DES:
+//                Collections.sort(mDownloadedList, new TitleComparator());
+//                Collections.reverse(mDownloadedList);
+//                break;
+//            case CATEGORY_ASC:
+//                Collections.sort(mDownloadedList, new CategoryComparator());
+//                break;
+//            case CATEGORY_DES:
+//                Collections.sort(mDownloadedList, new CategoryComparator());
+//                Collections.reverse(mDownloadedList);
+//                break;
+//        }
 
     }
 }
