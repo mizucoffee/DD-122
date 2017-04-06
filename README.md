@@ -9,7 +9,7 @@
 ![Hatsuyuki](https://raw.githubusercontent.com/Hatsuyuki-Project/Hatsuyuki-Android-Chinachu-Client/master/Hatsuyuki.png)
 
 ## 概要...です...
-初雪...です。たまには...頑張ります。
+はつゆき...です。たまには...頑張ります。
 こたつで...アニメを見たい...ので作ります。
 
 [<img src="https://dply.me/rlr6yr/button/large" alt="Try it on your device via DeployGate">](https://dply.me/bfymsx)
