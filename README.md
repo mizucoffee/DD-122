@@ -1,6 +1,6 @@
-# Hatsuyuki Android Chinachu Client
+# DD-122
 
-[![Build Status](https://img.shields.io/travis/Hatsuyuki-Project/Hatsuyuki-Android-Chinachu-Client.svg?style=flat-square&branch=master)](https://travis-ci.org/Hatsuyuki-Project/Hatsuyuki-Android-Chinachu-Client)
+[![Build Status](https://img.shields.io/travis/Hatsuyuki-Project/DD-122.svg?style=flat-square&branch=master)](https://travis-ci.org/Hatsuyuki-Project/DD-122)
 [![GitHub issues](https://img.shields.io/github/issues/Hatsuyuki-Project/Hatsuyuki-Android-Chinachu-Client.svg?style=flat-square)](https://github.com/Hatsuyuki-Project/Hatsuyuki-Android-Chinachu-Client/issues)
 [![GitHub pull requests](https://img.shields.io/github/issues-pr/Hatsuyuki-Project/Hatsuyuki-Android-Chinachu-Client.svg?style=flat-square)](https://github.com/Hatsuyuki-Project/Hatsuyuki-Android-Chinachu-Client/pulls)
 [![license](https://img.shields.io/github/license/mashape/apistatus.svg?style=flat-square)](http://kawakawaritsuki.mit-license.org/)
