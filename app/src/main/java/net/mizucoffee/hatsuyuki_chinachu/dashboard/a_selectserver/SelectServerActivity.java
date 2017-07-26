@@ -50,7 +50,6 @@ public class SelectServerActivity extends AppCompatActivity implements SelectSer
     protected void onResume() {
         super.onResume();
         mPresenter.checkStatus();
-
     }
 
     @Override

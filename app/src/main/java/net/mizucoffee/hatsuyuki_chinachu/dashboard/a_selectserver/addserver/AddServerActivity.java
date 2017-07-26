@@ -9,6 +9,8 @@ import android.widget.EditText;
 import com.google.gson.Gson;
 
 import net.mizucoffee.hatsuyuki_chinachu.R;
+import net.mizucoffee.hatsuyuki_chinachu.dashboard.DashboardViewModel;
+import net.mizucoffee.hatsuyuki_chinachu.databinding.ActivityAddServerBinding;
 import net.mizucoffee.hatsuyuki_chinachu.model.ServerConnection;
 import net.mizucoffee.hatsuyuki_chinachu.tools.Shirayuki;
 
@@ -16,21 +18,22 @@ import butterknife.BindView;
 
 public class AddServerActivity extends AppCompatActivity implements AddServerView{
 
-    private AddServerPresenter mPresenter;
+    private ActivityAddServerBinding mBinding;
+    private AddServerViewModel mAddServerVM;
 
     @BindView(R.id.fab)
     public FloatingActionButton fab;
 
-    @BindView(R.id.name_et)
-    public EditText nameEt;
-    @BindView(R.id.host_et)
-    public EditText hostEt;
-    @BindView(R.id.port_et)
-    public EditText portEt;
-    @BindView(R.id.username_et)
-    public EditText usernameEt;
-    @BindView(R.id.password_et)
-    public EditText passwordEt;
+//    @BindView(R.id.name_et)
+//    public EditText nameEt;
+//    @BindView(R.id.host_et)
+//    public EditText hostEt;
+//    @BindView(R.id.port_et)
+//    public EditText portEt;
+//    @BindView(R.id.username_et)
+//    public EditText usernameEt;
+//    @BindView(R.id.password_et)
+//    public EditText passwordEt;
     int position;
 
     private boolean isEdit = false;
@@ -38,10 +41,10 @@ public class AddServerActivity extends AppCompatActivity implements AddServerVie
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mAddServerVM = new AddServerViewModel(this);
+
         setContentView(R.layout.activity_add_server);
         Shirayuki.initActivity(this);
-        
-        mPresenter = new AddServerPresenterImpl(this);
 
         if (getIntent().getStringExtra("data") != null) {
             ServerConnection sc = new Gson().fromJson(getIntent().getStringExtra("data"),ServerConnection.class);
@@ -93,7 +96,6 @@ public class AddServerActivity extends AppCompatActivity implements AddServerVie
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        mPresenter.onDestroy();
     }
 
     @Override

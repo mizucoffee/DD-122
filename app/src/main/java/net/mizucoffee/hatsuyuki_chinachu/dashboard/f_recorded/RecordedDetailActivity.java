@@ -45,10 +45,7 @@ public class RecordedDetailActivity extends AppCompatActivity {
         @Override
         public void handleMessage(Message msg){
             if(!msg.getData().getString("id").equals(mProgram.getId())) return;
-            if (msg.getData().getBoolean("isSuccess"))
-                binding.downloadBtn.setText(getString(R.string.downloaded));
-            else
-                binding.downloadBtn.setText(getString(R.string.download));
+            binding.downloadBtn.setText(getString(msg.getData().getBoolean("isSuccess") ? R.string.downloaded : R.string.download));
         }
     };
 
@@ -77,7 +74,7 @@ public class RecordedDetailActivity extends AppCompatActivity {
                     mDownloaded = r;
 
         if(mDownloaded != null) {
-            binding.downloadBtn.setText(mDownloaded.getDownloading() ? getString(R.string.downloaded) : getString(R.string.downloading));
+            binding.downloadBtn.setText(  getString(mDownloaded.getDownloading() ? R.string.downloaded : R.string.downloading));
             binding.downloadBtn.setEnabled(false);
         }
 

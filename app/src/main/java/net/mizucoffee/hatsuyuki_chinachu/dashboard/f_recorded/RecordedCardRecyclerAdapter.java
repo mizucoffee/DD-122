@@ -38,7 +38,6 @@ public class RecordedCardRecyclerAdapter extends RecyclerView.Adapter<RecordedCa
         mContext = context;
     }
 
-
     @Override
     public int getItemCount() {
         return mProgram.size();
