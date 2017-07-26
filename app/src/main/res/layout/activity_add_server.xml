@@ -7,9 +7,7 @@
         <variable name="addServerVM" type="net.mizucoffee.hatsuyuki_chinachu.dashboard.a_selectserver.addserver.AddServerViewModel"/>
     </data>
 
-    <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fitsSystemWindows="true"
@@ -48,6 +46,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="text"
+                    android:text="@={addServerVM.name}"
+                    app:error="@{addServerVM.nameError}"
                     android:hint="@string/server_name"
                     android:id="@+id/name_et" />
 
@@ -69,6 +69,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/host_address"
+                        app:error="@{addServerVM.hostError}"
+                        android:text="@={addServerVM.host}"
                         android:inputType="text"
                         android:ems="5"
                         android:id="@+id/host_et"
@@ -85,7 +87,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:inputType="numberDecimal"
-                        android:text="@string/default_port"
+                        app:error="@{addServerVM.portError}"
+                        android:text="@={addServerVM.port}"
                         android:hint="@string/port"
                         android:ems="5"
                         android:id="@+id/port_et" />
@@ -101,6 +104,7 @@
                 <android.support.v7.widget.AppCompatEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:text="@={addServerVM.username}"
                     android:inputType="text"
                     android:hint="@string/username"
                     android:id="@+id/username_et" />
@@ -115,6 +119,7 @@
                 <android.support.v7.widget.AppCompatEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:text="@={addServerVM.password}"
                     android:inputType="textPassword"
                     android:hint="@string/password"
                     android:id="@+id/password_et" />

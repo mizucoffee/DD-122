@@ -3,18 +3,21 @@ package net.mizucoffee.hatsuyuki_chinachu.dashboard.a_selectserver.addserver;
 import android.content.Context;
 import android.databinding.BindingAdapter;
 import android.databinding.ObservableField;
-import android.support.v7.widget.GridLayoutManager;
 import android.view.View;
 import android.widget.EditText;
 
-import net.mizucoffee.hatsuyuki_chinachu.dashboard.f_recorded.RecordedCardRecyclerAdapter;
-import net.mizucoffee.hatsuyuki_chinachu.enumerate.ListType;
 import net.mizucoffee.hatsuyuki_chinachu.model.ServerConnection;
-import net.mizucoffee.hatsuyuki_chinachu.tools.Shirayuki;
 
-class AddServerViewModel {
+import io.reactivex.Observable;
+import io.reactivex.subjects.PublishSubject;
 
-    AddServerInteractor mAddServerInteractor;
+public class AddServerViewModel {
+
+    AddServerModel mAddServerModel;
+    static final int FINISHED = 0;
+
+    private final PublishSubject<Integer> finishedSubject = PublishSubject.create();
+    final Observable<Integer> finished = (Observable<Integer>) finishedSubject;
 
     public final ObservableField<String> name = new ObservableField<>();
     public final ObservableField<String> host = new ObservableField<>();
@@ -22,48 +25,50 @@ class AddServerViewModel {
     public final ObservableField<String> username = new ObservableField<>();
     public final ObservableField<String> password = new ObservableField<>();
 
-    AddServerViewModel(AddServerView addServerView) {
-        this.mAddServerInteractor = new AddServerInteractorImpl(mAddServerView.getActivitySharedPreferences("HatsuyukiChinachu", Context.MODE_PRIVATE));
+    public final ObservableField<String> nameError = new ObservableField<>();
+    public final ObservableField<String> hostError = new ObservableField<>();
+    public final ObservableField<String> portError = new ObservableField<>();
+
+    int mPosition = -1;
+
+    AddServerViewModel(AddServerActivity activity) {
+        this.mAddServerModel = new AddServerModel(activity.getSharedPreferences("HatsuyukiChinachu", Context.MODE_PRIVATE));
+        name.set("Server");
+        host.set("");
+        port.set("10772");
+        username.set("");
+        password.set("");
     }
 
-
-    public void addServerConnection(ServerConnection sc) {
-        mAddServerInteractor.addServerConnection(sc);
-        mAddServerView.finishActivity();
-    }
-
-    public void editedServerconnection(ServerConnection sc, int position) {
-        mAddServerInteractor.editedServerConnection(sc,position);
-        mAddServerView.finishActivity();
+    void setData(ServerConnection sc,int pos){
+        name.set(sc.getName());
+        host.set(sc.getHost());
+        port.set(sc.getPort());
+        username.set(sc.getUsername());
+        password.set(sc.getPassword());
+        mPosition = pos;
     }
 
     public void onClickFab(View v){
-        if(host.get().equals("")) {hostEt.setError("入力してください"); return;}
-        if(Integer.parseInt(port.getText().toString()) < 1 || Integer.parseInt(portEt.getText().toString()) > 65535) {portEt.setError("ポート番号は1-65535で指定される必要があります"); return;}
+        if(name.get().equals("")) {nameError.set("入力してください"); return;}
+        if(host.get().equals("")) {hostError.set("入力してください"); return;}
+        if(Integer.parseInt(port.get()) < 1 || Integer.parseInt(port.get()) > 65535) {portError.set("ポート番号は1-65535で指定される必要があります"); return;}
 
         ServerConnection sc = new ServerConnection();
 
-        if(nameEt.getText().toString().equals(""))
-            sc.setName("Server");
+        sc.setName(name.get().equals("") ? "Server" : name.get());
+        sc.setHost(host.get());
+        sc.setPort(port.get().equals("") ? "10772" : port.get());
+
+        sc.setUsername(username.get());
+        sc.setPassword(password.get());
+
+        if(mPosition >= 0)
+            mAddServerModel.saveServerConnection(sc,mPosition);
         else
-            sc.setName(nameEt.getText().toString());
+            mAddServerModel.addServerConnection(sc);
 
-        sc.setHost(hostEt.getText().toString());
-
-        if(portEt.getText().toString().equals(""))
-            sc.setPort("10772");
-        else
-            sc.setPort(portEt.getText().toString());
-
-        sc.setUsername(usernameEt.getText().toString());
-        sc.setPassword(passwordEt.getText().toString());
-
-        if(isEdit)
-            mPresenter.editedServerconnection(sc,position);
-        else {
-            sc.setId(System.currentTimeMillis());
-            mPresenter.addServerConnection(sc);
-        }
+        finishedSubject.onNext(FINISHED);
     }
 
     //=================================
@@ -71,11 +76,12 @@ class AddServerViewModel {
     //=================================
 
     @BindingAdapter("error")
-    public static void setAdapterList(EditText et, String text) {
-        if (adapter != null) {
-            Shirayuki.log(adapter.getListType().name());
-            rv.setLayoutManager(new GridLayoutManager(rv.getContext(), adapter.getListType() == ListType.CARD_COLUMN2 ? 2 : 1));
+    public static void setError(EditText et, String text) {
+        if (et != null && text != null) {
+            if(text.equals(""))
+                et.setError(null);
+            else
+                et.setError(text);
         }
-        rv.setAdapter(adapter);
     }
 }
