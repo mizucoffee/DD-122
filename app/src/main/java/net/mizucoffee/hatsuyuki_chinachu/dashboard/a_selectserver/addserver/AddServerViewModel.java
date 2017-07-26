@@ -78,9 +78,6 @@ public class AddServerViewModel {
     @BindingAdapter("error")
     public static void setError(EditText et, String text) {
         if (et != null && text != null) {
-            if(text.equals(""))
-                et.setError(null);
-            else
                 et.setError(text);
         }
     }
