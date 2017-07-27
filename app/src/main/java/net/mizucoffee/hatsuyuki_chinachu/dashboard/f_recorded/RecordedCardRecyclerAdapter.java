@@ -106,10 +106,6 @@ public class RecordedCardRecyclerAdapter extends RecyclerView.Adapter<RecordedCa
 
             switch (listType){
                 case CARD_COLUMN1:
-                    playBtn = itemView.findViewById(R.id.play_btn);
-                    detailBtn = itemView.findViewById(R.id.detail_btn);
-                    deleteBtn = itemView.findViewById(R.id.delete_btn);
-                    break;
                 case CARD_COLUMN2:
                     playBtn = itemView.findViewById(R.id.play_btn);
                     detailBtn = itemView.findViewById(R.id.detail_btn);

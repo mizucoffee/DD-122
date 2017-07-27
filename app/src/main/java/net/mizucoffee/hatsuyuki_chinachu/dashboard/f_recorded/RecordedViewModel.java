@@ -25,6 +25,7 @@ import java.util.List;
 public class RecordedViewModel {
 
     public final ObservableField<RecordedCardRecyclerAdapter> list = new ObservableField<>();
+    public final ObservableField<Integer> column = new ObservableField<>();
 
     private RecordedModel mRecordedModel;
     private ListType mListType = ListType.CARD_COLUMN1;
@@ -35,6 +36,7 @@ public class RecordedViewModel {
     RecordedViewModel(RecordedFragment fragment){
         mRecordedModel = new RecordedModel(fragment.getActivity().getSharedPreferences("HatsuyukiChinachu", Context.MODE_PRIVATE));
         mAdapter = new RecordedCardRecyclerAdapter((DashboardActivity)fragment.getActivity());
+        column.set(1); //TODO: デフォルト変更
         subscribe();
     }
 
@@ -62,6 +64,7 @@ public class RecordedViewModel {
 
         mAdapter.notifyDataSetChanged();
         list.set(mAdapter);
+        column.set(mAdapter.getListType() == ListType.CARD_COLUMN2 ? 2 : 1);
     }
 
     void reloadRecorded(){
@@ -121,10 +124,11 @@ public class RecordedViewModel {
 
     @BindingAdapter("adapterList")
     public static void setAdapterList(RecyclerView rv, RecordedCardRecyclerAdapter adapter) {
-        if (adapter != null) {
-            Shirayuki.log(adapter.getListType().name());
-            rv.setLayoutManager(new GridLayoutManager(rv.getContext(), adapter.getListType() == ListType.CARD_COLUMN2 ? 2 : 1));
-        }
         rv.setAdapter(adapter);
+    }
+
+    @BindingAdapter("gridColumn")
+    public static void setGridColumn(RecyclerView rv, int i) {
+        rv.setLayoutManager(new GridLayoutManager(rv.getContext(), i));
     }
 }
