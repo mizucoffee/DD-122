@@ -8,74 +8,75 @@
             type="net.mizucoffee.hatsuyuki_chinachu.model.ProgramItem"
             />
     </data>
+
     <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="match_parent"
         android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:foreground="?attr/selectableItemBackground"
+        android:orientation="vertical"
         app:backgroundCategory="@{program.category}">
 
         <TextView
+            android:id="@+id/title_tv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="18sp"
-            android:paddingStart="8dp"
-            android:paddingEnd="0dp"
-            tools:text="Example title"
-            android:textColor="#000"
-            android:id="@+id/title_tv"
             android:maxLines="1"
-            android:text="@{program.title}" />
+            android:paddingEnd="0dp"
+            android:paddingStart="8dp"
+            android:text="@{program.title}"
+            android:textColor="#000"
+            android:textSize="18sp"
+            tools:text="Example title" />
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:orientation="horizontal"
             android:layout_height="64dp"
+            android:layout_marginBottom="2dp"
             android:layout_marginLeft="4dp"
             android:layout_marginRight="4dp"
-            android:layout_marginBottom="2dp">
+            android:orientation="horizontal">
 
             <ImageView
+                android:id="@+id/image_view"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:adjustViewBounds="true"
-                android:id="@+id/image_view"
-                app:thumbUrl="@{program.thumbUrl}"/>
+                app:thumbUrl="@{program.thumbUrl}" />
 
             <LinearLayout
-                android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/des_tv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="14sp"
-                    android:paddingStart="8dp"
-                    android:paddingEnd="0dp"
-                    android:id="@+id/des_tv"
-                    android:text="@{program.description}"
                     android:lines="2"
-                    android:paddingTop="8dp" />
+                    android:paddingEnd="0dp"
+                    android:paddingStart="8dp"
+                    android:paddingTop="8dp"
+                    android:text="@{program.description}"
+                    android:textSize="14sp" />
 
                 <TextView
+                    android:id="@+id/time_tv"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:textSize="14sp"
                     android:paddingEnd="16sp"
                     android:paddingStart="16dp"
-                    android:id="@+id/time_tv"
+                    android:paddingTop="4dp"
                     android:text="@{program.date}"
                     android:textAlignment="textEnd"
-                    android:paddingTop="4dp" />
+                    android:textSize="14sp" />
             </LinearLayout>
         </LinearLayout>
 
         <TextView
+            android:id="@+id/textView"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:id="@+id/textView"
             android:background="#CCC" />
 
     </LinearLayout>

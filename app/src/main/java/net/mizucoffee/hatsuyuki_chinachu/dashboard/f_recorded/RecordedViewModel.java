@@ -47,11 +47,10 @@ public class RecordedViewModel {
             setAdapterToRecyclerView(mProgramList);
         });
         mRecordedModel.error.subscribe(i -> {
-            if(i == RecordedModel.NOT_FOUND){
+            if(i == RecordedModel.NOT_FOUND)
                 Shirayuki.log("error: NotFound");
-            }else if(i == RecordedModel.FAILURE){
+            if(i == RecordedModel.FAILURE)
                 Shirayuki.log("error: FAILURE");
-            }
 //            mRecordedView.removeRecyclerView();
 //            mRecordedView.showSnackBar(App.getContext().getString(R.string.failed_connect));
         });
