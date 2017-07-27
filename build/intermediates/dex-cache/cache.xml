@@ -2,13 +2,22 @@
 <items version="2" >
 
     <item
-        is-multidex="false"
-        jar="/Applications/Android Studio.app/Contents/gradle/m2repository/com/android/databinding/baseLibrary/2.3.3/baseLibrary-2.3.3.jar"
-        jumboMode="false"
+        is-multidex="true"
+        jar="/Users/mizucoffee/DD-122/app/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
+        jumboMode="true"
         optimize="true"
         revision="25.0.2"
-        sha1="eb3399988a52099b0127e27fb5bed666eca86ace">
-        <dex dex="/Users/mizucoffee/DD-122/app/build/intermediates/pre-dexed/debug/baseLibrary-2.3.3_a13c89973c1c8bce4f7e9a2f1b7ba7e93f86f6c7.jar" />
+        sha1="c81d304c4fa0541d69ce0f5452b134e334a604c2">
+        <dex dex="/Users/mizucoffee/DD-122/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run-bootstrap_d41abedd104330f414076e44bcaadd303af730ff/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/mizucoffee/DD-122/app/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="3be78ebc2706b2e1fe2f12d5726887a92d6c183b">
+        <dex dex="/Users/mizucoffee/DD-122/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run_f762cbb76011ececda0dacd610a7c8974b681b89/classes.dex" />
     </item>
 
 </items>

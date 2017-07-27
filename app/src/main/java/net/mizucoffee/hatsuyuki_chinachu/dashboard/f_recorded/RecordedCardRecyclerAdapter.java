@@ -9,7 +9,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.LinearLayout;
 
 import com.google.gson.Gson;
@@ -96,9 +95,9 @@ public class RecordedCardRecyclerAdapter extends RecyclerView.Adapter<RecordedCa
 
     static class ViewHolder extends RecyclerView.ViewHolder {
         private final ViewDataBinding binding;
-        private Button playBtn;
-        private Button detailBtn;
-        private Button deleteBtn;
+        private View playBtn;
+        private View detailBtn;
+        private View deleteBtn;
         private LinearLayout linearLayout;
 
         ViewHolder(View itemView, ListType listType) {
@@ -107,10 +106,14 @@ public class RecordedCardRecyclerAdapter extends RecyclerView.Adapter<RecordedCa
 
             switch (listType){
                 case CARD_COLUMN1:
+                    playBtn = itemView.findViewById(R.id.play_btn);
+                    detailBtn = itemView.findViewById(R.id.detail_btn);
+                    deleteBtn = itemView.findViewById(R.id.delete_btn);
+                    break;
                 case CARD_COLUMN2:
-                    playBtn = (Button)itemView.findViewById(R.id.play_btn);
-                    detailBtn = (Button)itemView.findViewById(R.id.detail_btn);
-                    deleteBtn = (Button)itemView.findViewById(R.id.delete_btn);
+                    playBtn = itemView.findViewById(R.id.play_btn);
+                    detailBtn = itemView.findViewById(R.id.detail_btn);
+                    deleteBtn = itemView.findViewById(R.id.delete_btn);
                     break;
                 case LIST:
                     linearLayout = (LinearLayout)itemView.findViewById(R.id.linearLayout);

@@ -13,8 +13,8 @@ import io.reactivex.subjects.PublishSubject;
 
 public class AddServerViewModel {
 
-    AddServerModel mAddServerModel;
-    static final int FINISHED = 0;
+    private AddServerModel mAddServerModel;
+    public static final int FINISHED = 0;
 
     private final PublishSubject<Integer> finishedSubject = PublishSubject.create();
     final Observable<Integer> finished = (Observable<Integer>) finishedSubject;
@@ -29,7 +29,7 @@ public class AddServerViewModel {
     public final ObservableField<String> hostError = new ObservableField<>();
     public final ObservableField<String> portError = new ObservableField<>();
 
-    int mPosition = -1;
+    private int mPosition = -1;
 
     AddServerViewModel(AddServerActivity activity) {
         this.mAddServerModel = new AddServerModel(activity.getSharedPreferences("HatsuyukiChinachu", Context.MODE_PRIVATE));

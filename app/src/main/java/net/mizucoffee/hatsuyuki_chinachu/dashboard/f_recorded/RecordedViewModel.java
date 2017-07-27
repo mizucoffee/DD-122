@@ -4,8 +4,12 @@ import android.content.Context;
 import android.databinding.BindingAdapter;
 import android.databinding.ObservableField;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 
+import net.mizucoffee.hatsuyuki_chinachu.R;
+import net.mizucoffee.hatsuyuki_chinachu.dashboard.DashboardActivity;
 import net.mizucoffee.hatsuyuki_chinachu.enumerate.ListType;
 import net.mizucoffee.hatsuyuki_chinachu.enumerate.SortType;
 import net.mizucoffee.hatsuyuki_chinachu.model.ProgramItem;
@@ -29,9 +33,9 @@ public class RecordedViewModel {
     private List<ProgramItem> mProgramList;
 
     RecordedViewModel(RecordedFragment fragment){
-        mRecordedModel = new RecordedModel(fragment.getActivitySharedPreferences("HatsuyukiChinachu", Context.MODE_PRIVATE));
+        mRecordedModel = new RecordedModel(fragment.getActivity().getSharedPreferences("HatsuyukiChinachu", Context.MODE_PRIVATE));
+        mAdapter = new RecordedCardRecyclerAdapter((DashboardActivity)fragment.getActivity());
         subscribe();
-        mAdapter = new RecordedCardRecyclerAdapter(fragment.getDashboardActivity());
     }
 
     private void subscribe(){
@@ -60,52 +64,56 @@ public class RecordedViewModel {
         list.set(mAdapter);
     }
 
-    void getRecorded(){
+    void reloadRecorded(){
         mRecordedModel.getRecordedList();
-    }
-
-    void changeListType(ListType type){
-        mListType = type;
-        setAdapterToRecyclerView(mProgramList);
-    }
-
-    void changeSortType(SortType type){
-        mSortType = type;
-        setAdapterToRecyclerView(mProgramList);
-    }
-
-    void searchWord(String word){
-        ArrayList<ProgramItem> list = new ArrayList<>();
-        for(ProgramItem r: mProgramList) if(r.getTitle().contains(word)) list.add(r);
-        setAdapterToRecyclerView(list);
     }
 
     private List<ProgramItem> sort(List<ProgramItem> items){
         switch (mSortType){
-            case DATE_ASC:
-                Collections.sort(items, new DateComparator());
-                break;
-            case DATE_DES:
-                Collections.sort(items, new DateComparator());
-                Collections.reverse(items);
-                break;
-            case TITLE_ASC:
-                Collections.sort(items, new TitleComparator());
-                break;
-            case TITLE_DES:
-                Collections.sort(items, new TitleComparator());
-                Collections.reverse(items);
-                break;
-            case CATEGORY_ASC:
-                Collections.sort(items, new CategoryComparator());
-                break;
-            case CATEGORY_DES:
-                Collections.sort(items, new CategoryComparator());
-                Collections.reverse(items);
-                break;
+            case DATE_ASC: Collections.sort(items, new DateComparator()); break;
+            case DATE_DES: Collections.sort(items, new DateComparator()); Collections.reverse(items); break;
+            case TITLE_ASC: Collections.sort(items, new TitleComparator()); break;
+            case TITLE_DES: Collections.sort(items, new TitleComparator()); Collections.reverse(items); break;
+            case CATEGORY_ASC: Collections.sort(items, new CategoryComparator()); break;
+            case CATEGORY_DES: Collections.sort(items, new CategoryComparator()); Collections.reverse(items); break;
         }
         return items;
     }
+
+    PopupMenu.OnMenuItemClickListener sortMenuListener = (menu) -> {
+        mSortType = SortType.DATE_DES;
+        switch (menu.getItemId()) {
+            case R.id.dateasc: mSortType = SortType.DATE_ASC; break;
+            case R.id.datedes: mSortType = SortType.DATE_DES; break;
+            case R.id.titleasc: mSortType = SortType.TITLE_ASC; break;
+            case R.id.titledes: mSortType = SortType.TITLE_DES; break;
+            case R.id.catasc: mSortType = SortType.CATEGORY_ASC; break;
+            case R.id.catdes: mSortType = SortType.CATEGORY_DES; break;
+        }
+        setAdapterToRecyclerView(mProgramList);
+        return false;
+    };
+
+    PopupMenu.OnMenuItemClickListener listMenuListener = (menu) -> {
+        mListType = menu.getItemId() == R.id.column1 ? ListType.CARD_COLUMN1 : menu.getItemId() == R.id.column2 ? ListType.CARD_COLUMN2 : ListType.LIST;
+        setAdapterToRecyclerView(mProgramList);
+        return false;
+    };
+
+    SearchView.OnQueryTextListener onSearch = new SearchView.OnQueryTextListener() {
+        @Override
+        public boolean onQueryTextSubmit(String query) {
+            return false;
+        }
+
+        @Override
+        public boolean onQueryTextChange(String word) {
+            ArrayList<ProgramItem> list = new ArrayList<>();
+            for(ProgramItem r: mProgramList) if(r.getTitle().contains(word)) list.add(r);
+            setAdapterToRecyclerView(list);
+            return false;
+        }
+    };
 
     //=================================
     // DataBinding Custom Listener

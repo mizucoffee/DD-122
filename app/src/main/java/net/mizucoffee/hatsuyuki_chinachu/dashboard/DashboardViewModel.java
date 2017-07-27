@@ -136,18 +136,17 @@ public class DashboardViewModel {
 
     void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == 1 && resultCode == RESULT_OK) {
-            if (currentMenuId == R.id.nav_recorded)
-                mRecordedFragment.reload();
+//            if (currentMenuId == R.id.nav_recorded)
+//                mRecordedFragment.reload();
             if (currentMenuId == R.id.nav_downloads)
                 mDownloadedFragment.reload();
         }
     }
 
     boolean onBackPressed() {
-        if (currentMenuId == R.id.nav_recorded) {
-            if (mRecordedFragment.isSearchBarVisible())
-                mRecordedFragment.setSearchBarInVisible();
-        } else if (currentMenuId == R.id.nav_downloads) {
+        if (currentMenuId == R.id.nav_recorded)
+            mRecordedFragment.onBackButton();
+        else if (currentMenuId == R.id.nav_downloads) {
             if (mDownloadedFragment.isSearchBarVisible())
                 mDownloadedFragment.setSearchBarInVisible();
         } else
