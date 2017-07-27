@@ -23,13 +23,13 @@ public class RecordedFragment extends Fragment{
 
     private RecordedViewModel mRecordedVM;
     private SearchView mSearchView;
-    private FragmentRecordedBinding binding;
+    private FragmentRecordedBinding mBinding;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
-        binding = DataBindingUtil.inflate(inflater,R.layout.fragment_recorded, container, false);
-        return binding.getRoot();
+        mBinding = DataBindingUtil.inflate(inflater,R.layout.fragment_recorded, container, false);
+        return mBinding.getRoot();
     }
 
     @Override
@@ -38,8 +38,8 @@ public class RecordedFragment extends Fragment{
         ((AppCompatActivity)getActivity()).setSupportActionBar(findById(getActivity(),R.id.toolbar));
 
         mRecordedVM = new RecordedViewModel(this);
-        binding.setRecordedVM(mRecordedVM);
-        binding.recycler.setHasFixedSize(true);
+        mBinding.setRecordedVM(mRecordedVM);
+        mBinding.recycler.setHasFixedSize(true);
 
         setHasOptionsMenu(true);
     }
@@ -79,7 +79,7 @@ public class RecordedFragment extends Fragment{
     @Override
     public void onStart() {
         super.onStart();
-        mRecordedVM.reloadRecorded();
+        mRecordedVM.reload();
     }
 
     public void onBackButton(){

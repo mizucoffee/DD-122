@@ -63,8 +63,7 @@ public class SelectServerCardRecyclerAdapter extends RecyclerView.Adapter<Select
 
     @Override
     public SelectServerCardRecyclerAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = mLayoutInflater.inflate(R.layout.card_select_server_layout, parent, false);
-        return new ViewHolder(view);
+        return new ViewHolder(mLayoutInflater.inflate(R.layout.card_select_server_layout, parent, false));
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {

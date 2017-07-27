@@ -3,25 +3,34 @@ package net.mizucoffee.hatsuyuki_chinachu.dashboard.f_live;
 import android.content.SharedPreferences;
 
 import net.mizucoffee.hatsuyuki_chinachu.chinachu.ChinachuApi;
+import net.mizucoffee.hatsuyuki_chinachu.chinachu.model.broadcasting.Program;
 import net.mizucoffee.hatsuyuki_chinachu.dashboard.DashboardInteractor;
 import net.mizucoffee.hatsuyuki_chinachu.model.ServerConnection;
 import net.mizucoffee.hatsuyuki_chinachu.tools.DataManager;
 
+import java.util.List;
+
+import io.reactivex.Observable;
+import io.reactivex.subjects.PublishSubject;
+import retrofit2.Call;
 import retrofit2.Callback;
+import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class LiveInteractorImpl implements LiveInteractor {
+public class LiveModel {
 
     private ChinachuApi api;
     private DataManager mDataManager;
 
-    LiveInteractorImpl(SharedPreferences sp){
+    private final PublishSubject<List<Program>> liveItemsSubject = PublishSubject.create();
+    final Observable<List<Program>> liveItems = (Observable<List<Program>>) liveItemsSubject;
+
+    LiveModel(SharedPreferences sp){
         mDataManager = new DataManager(sp);
         refreshServerConnection();
     }
 
-    @Override
     public void getServerConnection(DashboardInteractor.OnLoadFinishedListener listener){
         ServerConnection s = mDataManager.getServerConnection();
         if(s == null){
@@ -31,8 +40,7 @@ public class LiveInteractorImpl implements LiveInteractor {
         listener.onSuccess(s);
     }
 
-    @Override
-    public void refreshServerConnection(){
+    private void refreshServerConnection(){
         getServerConnection(new DashboardInteractor.OnLoadFinishedListener() {
             @Override
             public void onSuccess(ServerConnection sc) {
@@ -51,8 +59,18 @@ public class LiveInteractorImpl implements LiveInteractor {
         });
     }
 
-    @Override
-    public void getLiveList(Callback callback){
-        if(api != null) api.getBroadcasting().enqueue(callback);
+    public void getLiveList(){
+        refreshServerConnection();
+        if(api != null) api.getBroadcasting().enqueue(new Callback<List<Program>>() {
+            @Override
+            public void onResponse(Call<List<Program>> call, Response<List<Program>> response) {
+                liveItemsSubject.onNext(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<List<Program>> call, Throwable t) {
+                liveItemsSubject.onNext(null);
+            }
+        });
     }
 }

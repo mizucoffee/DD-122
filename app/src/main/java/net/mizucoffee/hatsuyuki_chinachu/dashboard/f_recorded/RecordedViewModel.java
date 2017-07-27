@@ -66,7 +66,7 @@ public class RecordedViewModel {
         column.set(mAdapter.getListType() == ListType.CARD_COLUMN2 ? 2 : 1);
     }
 
-    void reloadRecorded(){
+    void reload(){
         mRecordedModel.getRecordedList();
     }
 
