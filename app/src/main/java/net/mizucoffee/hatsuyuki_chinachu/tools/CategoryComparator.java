@@ -1,12 +1,12 @@
 package net.mizucoffee.hatsuyuki_chinachu.tools;
 
-import net.mizucoffee.hatsuyuki_chinachu.chinachu.model.program.Program;
+import net.mizucoffee.hatsuyuki_chinachu.model.ProgramItem;
 
 import java.util.Comparator;
 
-public class CategoryComparator implements Comparator<Program> {
+public class CategoryComparator implements Comparator<ProgramItem> {
     @Override
-    public int compare(Program r1, Program r2) {
+    public int compare(ProgramItem r1, ProgramItem r2) {
         return getId(r1.getCategory()) < getId(r2.getCategory()) ? -1 : 1;
     }
 

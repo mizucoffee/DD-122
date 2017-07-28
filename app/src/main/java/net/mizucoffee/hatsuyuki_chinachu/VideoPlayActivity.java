@@ -77,11 +77,10 @@ public class VideoPlayActivity extends AppCompatActivity{
         mSimpleExoPlayerView.setUseController(true);
         mSimpleExoPlayerView.requestFocus();
         mSimpleExoPlayerView.setControllerVisibilityListener((int v) -> {
-            if(v == VISIBLE){
+            if(v == VISIBLE)
                 mToolbar.setVisibility(VISIBLE);
-            } else if (v == GONE){
+            else if (v == GONE)
                 mToolbar.setVisibility(GONE);
-            }
         });
         mSimpleExoPlayerView.setPlayer(mPlayer);
 

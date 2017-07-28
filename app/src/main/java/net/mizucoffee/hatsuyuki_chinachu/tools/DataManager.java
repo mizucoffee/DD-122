@@ -5,7 +5,7 @@ import android.content.SharedPreferences;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-import net.mizucoffee.hatsuyuki_chinachu.chinachu.model.program.Program;
+import net.mizucoffee.hatsuyuki_chinachu.model.ProgramItem;
 import net.mizucoffee.hatsuyuki_chinachu.model.ServerConnection;
 
 import java.util.ArrayList;
@@ -83,14 +83,16 @@ public class DataManager {
         return null;
     }
 
-    public void setDownloadedList(List<Program> programs){
+    public void setDownloadedList(List<ProgramItem> programs){
         SharedPreferences.Editor editor = mSharedPreferences.edit();
         editor.putString("DownloadedList", new Gson().toJson(programs));
         editor.apply();
     }
 
-    public List<Program> getDownloadedList(){
+    public ArrayList<ProgramItem> getDownloadedList(){
         String s = mSharedPreferences.getString("DownloadedList","");
-        return new Gson().fromJson(s, new TypeToken<List<Program>>(){}.getType());
+        ArrayList<ProgramItem> list = new Gson().fromJson(s, new TypeToken<ArrayList<ProgramItem>>(){}.getType());
+        if(list == null) list = new ArrayList<>();
+        return list;
     }
 }

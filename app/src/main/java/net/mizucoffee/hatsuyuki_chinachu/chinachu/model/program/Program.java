@@ -1,7 +1,11 @@
 package net.mizucoffee.hatsuyuki_chinachu.chinachu.model.program;
 
+import net.mizucoffee.hatsuyuki_chinachu.model.ProgramItem;
+
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 public class Program {
@@ -21,17 +25,10 @@ public class Program {
     private Boolean isManualReserved;
     private Boolean isConflict;
     private Boolean isSigTerm;
-    private Boolean isDownloading = false;
     private Tuner tuner;
     private String recorded;
 
-    public Boolean getDownloading() {
-        return isDownloading;
-    }
 
-    public void setDownloading(Boolean downloading) {
-        isDownloading = downloading;
-    }
 
     private String command;
     private String recordedFormat;
@@ -197,6 +194,28 @@ public class Program {
         this.additionalProperties.put(name, value);
     }
 
+    public ProgramItem getProgramItem(String server){
+        ProgramItem pi = new ProgramItem();
+        pi.setTitle(title);
+        pi.setDescription(detail);
+        pi.setThumbUrl("http://" + server + "/api/recorded/" + id + "/preview.png");
+        pi.setCategory(category);
+        pi.setStart(start);
+        pi.setEnd(end);
+        pi.setSeconds(seconds);
+        pi.setId(id);
+        pi.setSubtitle(subTitle);
+        pi.setChannelId(channel.getId());
+        pi.setChannelName(channel.getName());
+        pi.setChannelUrl("http://" + server + "/api/channel/" + channel.getId() + "/logo.png");
+
+        SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy/MM/dd E HH:mm", Locale.getDefault());
+        SimpleDateFormat sdf2 = new SimpleDateFormat("HH:mm", Locale.getDefault());
+
+        pi.setDate(sdf1.format(start)+"-"+sdf2.format(end) + " " + (seconds / 60) + "min");
+
+        return pi;
+    }
 
 
 }

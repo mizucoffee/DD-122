@@ -1,0 +1,22 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="recordedVM"
+            type="net.mizucoffee.hatsuyuki_chinachu.dashboard.f_recorded.RecordedViewModel"
+            />
+    </data>
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/recycler"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            app:adapterList="@{recordedVM.list}"
+            app:gridColumn="@{recordedVM.column}"/>
+
+    </FrameLayout>
+</layout>

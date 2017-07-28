@@ -19,13 +19,10 @@ import com.squareup.picasso.Picasso;
 import net.mizucoffee.hatsuyuki_chinachu.R;
 import net.mizucoffee.hatsuyuki_chinachu.VideoPlayActivity;
 import net.mizucoffee.hatsuyuki_chinachu.chinachu.model.broadcasting.Program;
-import net.mizucoffee.hatsuyuki_chinachu.dashboard.DashboardActivity;
 import net.mizucoffee.hatsuyuki_chinachu.tools.DataManager;
 import net.mizucoffee.hatsuyuki_chinachu.tools.Shirayuki;
 
-import java.text.SimpleDateFormat;
 import java.util.List;
-import java.util.Locale;
 
 import butterknife.ButterKnife;
 
@@ -33,14 +30,14 @@ public class LiveCardRecyclerAdapter extends RecyclerView.Adapter<LiveCardRecycl
 
     private List<Program> mProgram;
     private LayoutInflater      mLayoutInflater;
-    private DashboardActivity   mContext;
+    private Context             mContext;
     private DataManager         mDataManager;
 
-    public LiveCardRecyclerAdapter(DashboardActivity context) {
+    public LiveCardRecyclerAdapter(Context context) {
         super();
         this.mContext        = context;
         this.mLayoutInflater = LayoutInflater.from(context);
-        this.mDataManager    = new DataManager(context.getActivitySharedPreferences("HatsuyukiChinachu", Context.MODE_PRIVATE));
+        this.mDataManager    = new DataManager(context.getSharedPreferences("HatsuyukiChinachu", Context.MODE_PRIVATE));
     }
 
     @Override
@@ -55,13 +52,12 @@ public class LiveCardRecyclerAdapter extends RecyclerView.Adapter<LiveCardRecycl
     @Override
     public void onBindViewHolder(final ViewHolder vh, int position) {
         Program program = mProgram.get(vh.getAdapterPosition());
-        SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy/MM/dd E HH:mm", Locale.getDefault());
-        SimpleDateFormat sdf2 = new SimpleDateFormat("HH:mm", Locale.getDefault());
 
         vh.channelTv.setText(program.getChannel().getName());
         vh.titleTv.setText(program.getTitle());
 //        vh.detailTv.setText(program.getDetail());
         Picasso.with(mContext).load("http://" + mDataManager.getServerConnection().getAddress() + "/api/channel/" + program.getChannel().getId() + "/logo.png").into(vh.imageView);
+//        Shirayuki.log("http://" + mDataManager.getServerConnection().getAddress() + "/api/channel/" + program.getChannel().getId() + "/logo.png");
         vh.colorll.setBackgroundColor(ContextCompat.getColor(mContext, Shirayuki.getBackgroundColorFromCategory(program.getCategory())));
 
         vh.cardLayout.setOnClickListener(v -> {//http://192.168.50.50:10472/api/channel/1gudbls/watch.webm
