@@ -77,8 +77,8 @@ public class RecordedFragment extends Fragment{
     }
 
     @Override
-    public void onStart() {
-        super.onStart();
+    public void onResume() {
+        super.onResume();
         mRecordedVM.reload();
     }
 

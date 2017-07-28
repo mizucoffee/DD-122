@@ -27,9 +27,20 @@ public class ProgramItem extends BaseObservable {
     private String channelName;
     private String channelId;
     private long start;
-
+    private long end;
+    private long seconds;
     private Boolean isDownloading = false;
 
+    @Bindable
+    public long getEnd() {
+        return end;
+    }
+    @Bindable
+    public long getSeconds() {
+        return seconds;
+    }
+
+    @Bindable
     public Boolean getDownloading() {
         return isDownloading;
     }
@@ -38,10 +49,12 @@ public class ProgramItem extends BaseObservable {
         isDownloading = downloading;
     }
 
+    @Bindable
     public String getId() {
         return id;
     }
 
+    @Bindable
     public long getStart() {
         return start;
     }
@@ -139,6 +152,18 @@ public class ProgramItem extends BaseObservable {
         this.channelName = channelName;
         notifyChange();
     }
+
+
+    public void setSeconds(long seconds) {
+        this.seconds = seconds;
+    }
+
+
+
+    public void setEnd(long end) {
+        this.end = end;
+    }
+
 
     public void setStart(long start) {
         this.start = start;

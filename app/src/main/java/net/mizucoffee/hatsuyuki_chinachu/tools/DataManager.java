@@ -89,9 +89,9 @@ public class DataManager {
         editor.apply();
     }
 
-    public List<ProgramItem> getDownloadedList(){
+    public ArrayList<ProgramItem> getDownloadedList(){
         String s = mSharedPreferences.getString("DownloadedList","");
-        List<ProgramItem> list = new Gson().fromJson(s, new TypeToken<List<ProgramItem>>(){}.getType());
+        ArrayList<ProgramItem> list = new Gson().fromJson(s, new TypeToken<ArrayList<ProgramItem>>(){}.getType());
         if(list == null) list = new ArrayList<>();
         return list;
     }

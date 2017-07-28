@@ -138,17 +138,18 @@ public class DashboardViewModel {
         if (requestCode == 1 && resultCode == RESULT_OK) {
 //            if (currentMenuId == R.id.nav_recorded)
 //                mRecordedFragment.reload();
-            if (currentMenuId == R.id.nav_downloads)
-                mDownloadedFragment.reload();
+//            if (currentMenuId == R.id.nav_downloads)
+//                mDownloadedFragment.reload();
         }
     }
 
     boolean onBackPressed() {
         if (currentMenuId == R.id.nav_recorded)
             mRecordedFragment.onBackButton();
+        else if (currentMenuId == R.id.nav_live)
+            mLiveFragment.onBackButton();
         else if (currentMenuId == R.id.nav_downloads) {
-            if (mDownloadedFragment.isSearchBarVisible())
-                mDownloadedFragment.setSearchBarInVisible();
+            mDownloadedFragment.onBackButton();
         } else
             return false;
         return true;

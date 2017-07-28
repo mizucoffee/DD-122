@@ -201,6 +201,8 @@ public class Program {
         pi.setThumbUrl("http://" + server + "/api/recorded/" + id + "/preview.png");
         pi.setCategory(category);
         pi.setStart(start);
+        pi.setEnd(end);
+        pi.setSeconds(seconds);
         pi.setId(id);
         pi.setSubtitle(subTitle);
         pi.setChannelId(channel.getId());

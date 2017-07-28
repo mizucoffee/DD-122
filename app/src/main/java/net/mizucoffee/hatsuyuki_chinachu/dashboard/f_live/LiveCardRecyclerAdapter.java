@@ -57,7 +57,7 @@ public class LiveCardRecyclerAdapter extends RecyclerView.Adapter<LiveCardRecycl
         vh.titleTv.setText(program.getTitle());
 //        vh.detailTv.setText(program.getDetail());
         Picasso.with(mContext).load("http://" + mDataManager.getServerConnection().getAddress() + "/api/channel/" + program.getChannel().getId() + "/logo.png").into(vh.imageView);
-        Shirayuki.log("http://" + mDataManager.getServerConnection().getAddress() + "/api/channel/" + program.getChannel().getId() + "/logo.png");
+//        Shirayuki.log("http://" + mDataManager.getServerConnection().getAddress() + "/api/channel/" + program.getChannel().getId() + "/logo.png");
         vh.colorll.setBackgroundColor(ContextCompat.getColor(mContext, Shirayuki.getBackgroundColorFromCategory(program.getCategory())));
 
         vh.cardLayout.setOnClickListener(v -> {//http://192.168.50.50:10472/api/channel/1gudbls/watch.webm

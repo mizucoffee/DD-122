@@ -66,4 +66,8 @@ public class LiveFragment extends Fragment {
         super.onStart();
         mLiveVM.reload();
     }
+
+    public void onBackButton(){
+        if (!mSearchView.isIconified()) mSearchView.setIconified(true);
+    }
 }
