@@ -6,6 +6,8 @@ import android.content.Context;
 import com.jakewharton.picasso.OkHttp3Downloader;
 import com.squareup.picasso.Picasso;
 
+import net.mizucoffee.hatsuyuki_chinachu.tools.DataModel;
+
 public class App extends Application {
 
     private static Context mContext;
@@ -14,6 +16,7 @@ public class App extends Application {
     public void onCreate() {
         super.onCreate();
         mContext = this;
+        DataModel.Companion.init(getSharedPreferences("HatsuyukiChinachu", Context.MODE_PRIVATE));
 
         Picasso.Builder builder = new Picasso.Builder(this);
         builder.downloader(new OkHttp3Downloader(this,Integer.MAX_VALUE));

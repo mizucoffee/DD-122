@@ -25,7 +25,6 @@ public class Program {
     private Boolean isManualReserved;
     private Boolean isConflict;
     private Boolean isSigTerm;
-    private Tuner tuner;
     private String recorded;
 
 
@@ -154,13 +153,13 @@ public class Program {
         this.isSigTerm = isSigTerm;
     }
 
-    public Tuner getTuner() {
-        return tuner;
-    }
+//    public Tuner getTuner() {
+//        return tuner;
+//    }
 
-    public void setTuner(Tuner tuner) {
-        this.tuner = tuner;
-    }
+//    public void setTuner(Tuner tuner) {
+//        this.tuner = tuner;
+//    }
 
     public String getRecorded() {
         return recorded;
@@ -194,11 +193,10 @@ public class Program {
         this.additionalProperties.put(name, value);
     }
 
-    public ProgramItem getProgramItem(String server){
+    public ProgramItem getProgramItem(){
         ProgramItem pi = new ProgramItem();
         pi.setTitle(title);
         pi.setDescription(detail);
-        pi.setThumbUrl("http://" + server + "/api/recorded/" + id + "/preview.png");
         pi.setCategory(category);
         pi.setStart(start);
         pi.setEnd(end);
@@ -207,7 +205,7 @@ public class Program {
         pi.setSubtitle(subTitle);
         pi.setChannelId(channel.getId());
         pi.setChannelName(channel.getName());
-        pi.setChannelUrl("http://" + server + "/api/channel/" + channel.getId() + "/logo.png");
+//        pi.setChannelUrl("http://" + server + "/api/channel/" + channel.getId() + "/logo.png");
 
         SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy/MM/dd E HH:mm", Locale.getDefault());
         SimpleDateFormat sdf2 = new SimpleDateFormat("HH:mm", Locale.getDefault());

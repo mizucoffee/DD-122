@@ -24,11 +24,11 @@ public class SelectServerCardRecyclerAdapter extends RecyclerView.Adapter<Select
     private ArrayList<ServerConnection> connections;
     private LayoutInflater mLayoutInflater;
 
-    private final PublishSubject<ServerConnection> serverConnectionSubject = PublishSubject.create();
-    final Observable<ServerConnection> serverConnection = (Observable<ServerConnection>) serverConnectionSubject;
+    private final PublishSubject<ServerConnection> cardOnClickSubject = PublishSubject.create();
+    final Observable<ServerConnection> cardOnClick = (Observable<ServerConnection>) cardOnClickSubject;
 
-    private final PublishSubject<MenuModel> menuSubject = PublishSubject.create();
-    final Observable<MenuModel> menu = (Observable<MenuModel>) menuSubject;
+    private final PublishSubject<MenuModel> menuOnItemClickSubject = PublishSubject.create();
+    final Observable<MenuModel> menuOnItemClick = (Observable<MenuModel>) menuOnItemClickSubject;
 
     SelectServerCardRecyclerAdapter(Context context, ArrayList<ServerConnection> connections) {
         super();
@@ -46,14 +46,14 @@ public class SelectServerCardRecyclerAdapter extends RecyclerView.Adapter<Select
         vh.serverName.setText(connections.get(vh.getAdapterPosition()).getName());
         vh.serverHost.setText(connections.get(vh.getAdapterPosition()).getHost());
 
-        vh.card.setOnClickListener((view) -> serverConnectionSubject.onNext(connections.get(position)));
+        vh.card.setOnClickListener((view) -> cardOnClickSubject.onNext(connections.get(position)));
 
         vh.imageButton.setOnClickListener(view -> {
             PopupMenu popup = new PopupMenu(view.getContext(), view);
             MenuInflater inflater = popup.getMenuInflater();
             inflater.inflate(R.menu.select_popup_menu, popup.getMenu());
             popup.setOnMenuItemClickListener(item -> {
-                menuSubject.onNext(new MenuModel(item,vh.getAdapterPosition()));
+                menuOnItemClickSubject.onNext(new MenuModel(item,vh.getAdapterPosition()));
                 return false;
             });
             popup.show();

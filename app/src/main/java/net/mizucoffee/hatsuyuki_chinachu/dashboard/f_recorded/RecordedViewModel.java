@@ -1,6 +1,5 @@
 package net.mizucoffee.hatsuyuki_chinachu.dashboard.f_recorded;
 
-import android.content.Context;
 import android.databinding.BindingAdapter;
 import android.databinding.ObservableField;
 import android.support.v7.widget.GridLayoutManager;
@@ -13,7 +12,10 @@ import net.mizucoffee.hatsuyuki_chinachu.dashboard.DashboardActivity;
 import net.mizucoffee.hatsuyuki_chinachu.enumerate.ListType;
 import net.mizucoffee.hatsuyuki_chinachu.enumerate.SortType;
 import net.mizucoffee.hatsuyuki_chinachu.model.ProgramItem;
+import net.mizucoffee.hatsuyuki_chinachu.model.ServerConnection;
 import net.mizucoffee.hatsuyuki_chinachu.tools.CategoryComparator;
+import net.mizucoffee.hatsuyuki_chinachu.tools.ChinachuModel;
+import net.mizucoffee.hatsuyuki_chinachu.tools.DataModel;
 import net.mizucoffee.hatsuyuki_chinachu.tools.DateComparator;
 import net.mizucoffee.hatsuyuki_chinachu.tools.Shirayuki;
 import net.mizucoffee.hatsuyuki_chinachu.tools.TitleComparator;
@@ -27,32 +29,29 @@ public class RecordedViewModel {
     public final ObservableField<RecordedCardRecyclerAdapter> list = new ObservableField<>();
     public final ObservableField<Integer> column = new ObservableField<>();
 
-    private RecordedModel mRecordedModel;
     private ListType mListType = ListType.CARD_COLUMN1;
     private SortType mSortType = SortType.DATE_DES;
     private RecordedCardRecyclerAdapter mAdapter;
     private List<ProgramItem> mProgramList;
 
+    private ServerConnection currentSc;
+
     RecordedViewModel(RecordedFragment fragment){
-        mRecordedModel = new RecordedModel(fragment.getActivity().getSharedPreferences("HatsuyukiChinachu", Context.MODE_PRIVATE));
-        mAdapter = new RecordedCardRecyclerAdapter((DashboardActivity)fragment.getActivity());
-        column.set(1); //TODO: デフォルト変更
         subscribe();
+        DataModel.Companion.getInstance().getCurrentServerConnection();
+        mAdapter = new RecordedCardRecyclerAdapter((DashboardActivity)fragment.getActivity(), currentSc.getAddress());
+        column.set(1); //TODO: デフォルト変更
     }
 
     private void subscribe(){
-        mRecordedModel.programItems.subscribe(programItems -> {
+        ChinachuModel.INSTANCE.getProgramItems().subscribe(programItems -> {
             Shirayuki.log("success");
             mProgramList = programItems;
             setAdapterToRecyclerView(mProgramList);
         });
-        mRecordedModel.error.subscribe(i -> {
-            if(i == RecordedModel.NOT_FOUND)
-                Shirayuki.log("error: NotFound");
-            if(i == RecordedModel.FAILURE)
-                Shirayuki.log("error: FAILURE");
-//            mRecordedView.removeRecyclerView();
-//            mRecordedView.showSnackBar(App.getContext().getString(R.string.failed_connect));
+        DataModel.Companion.getInstance().getCurrentServerConnection.subscribe(sc -> {
+            currentSc = sc;
+            ChinachuModel.INSTANCE.getRecordedList(sc.getAddress());
         });
     }
 
@@ -67,7 +66,7 @@ public class RecordedViewModel {
     }
 
     void reload(){
-        mRecordedModel.getRecordedList();
+        DataModel.Companion.getInstance().getCurrentServerConnection();
     }
 
     private List<ProgramItem> sort(List<ProgramItem> items){

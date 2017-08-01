@@ -9,7 +9,6 @@ import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
-import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 import net.mizucoffee.hatsuyuki_chinachu.tools.Shirayuki;
@@ -19,8 +18,16 @@ public class ProgramItem extends BaseObservable {
     private String title;
     private String description;
     private String date;
-    private String thumbUrl;
-    private String channelUrl;
+
+    public String getSimpleDate() {
+        return simpleDate;
+    }
+
+    public void setSimpleDate(String simpleDate) {
+        this.simpleDate = simpleDate;
+    }
+
+    private String simpleDate;
     private String id;
     private String category;
     private String subtitle;
@@ -60,11 +67,6 @@ public class ProgramItem extends BaseObservable {
     }
 
     @Bindable
-    public String getChannelUrl() {
-        return channelUrl;
-    }
-
-    @Bindable
     public String getCategory() {
         return category;
     }
@@ -79,10 +81,6 @@ public class ProgramItem extends BaseObservable {
         return description;
     }
 
-    @Bindable
-    public String getThumbUrl() {
-        return thumbUrl;
-    }
 
     @Bindable
     public String getTitle() {
@@ -109,11 +107,6 @@ public class ProgramItem extends BaseObservable {
         notifyChange();
     }
 
-    public void setChannelUrl(String channelUrl) {
-        this.channelUrl = channelUrl;
-        notifyChange();
-    }
-
     public void setId(String id) {
         this.id = id;
     }
@@ -130,11 +123,6 @@ public class ProgramItem extends BaseObservable {
 
     public void setDate(String date){
         this.date = date;
-        notifyChange();
-    }
-
-    public void setThumbUrl(String thumbUrl){
-        this.thumbUrl = thumbUrl;
         notifyChange();
     }
 
@@ -174,21 +162,6 @@ public class ProgramItem extends BaseObservable {
         if(category == null) return;
         Shirayuki.log(category);
         linearLayout.setBackgroundColor(ContextCompat.getColor(linearLayout.getContext(), Shirayuki.getBackgroundColorFromCategory(category)));
-    }
-
-    @BindingAdapter("thumbUrl")
-    public static void setThumbUrl(ImageView i, String url){
-        Picasso.with(i.getContext()).load(url + "?pos=30").into(i, new Callback() {
-            @Override
-            public void onSuccess() {
-
-            }
-
-            @Override
-            public void onError() {
-                Picasso.with(i.getContext()).load(url + "?pos=0").into(i);
-            }
-        });
     }
 
     @BindingAdapter("channelUrl")

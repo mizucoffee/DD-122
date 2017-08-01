@@ -2,7 +2,6 @@ package net.mizucoffee.hatsuyuki_chinachu.service;
 
 import android.app.IntentService;
 import android.app.NotificationManager;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -15,7 +14,6 @@ import com.google.gson.Gson;
 import net.mizucoffee.hatsuyuki_chinachu.App;
 import net.mizucoffee.hatsuyuki_chinachu.R;
 import net.mizucoffee.hatsuyuki_chinachu.chinachu.model.program.Program;
-import net.mizucoffee.hatsuyuki_chinachu.tools.DataManager;
 import net.mizucoffee.hatsuyuki_chinachu.tools.Shirayuki;
 
 import java.io.File;
@@ -36,7 +34,6 @@ public class DownloadService extends IntentService {
 
     private String mAddress;
     private Program mProgram;
-    private DataManager mDataManager;
     private List<Program> mProgramList;
     public static int ONGOING_NOTIFICATION_ID = 1;
 
@@ -76,12 +73,11 @@ public class DownloadService extends IntentService {
         builder.setOngoing(true);
         startForeground(ONGOING_NOTIFICATION_ID, builder.build());
 
-        mDataManager = new DataManager(getSharedPreferences("HatsuyukiChinachu", Context.MODE_PRIVATE));
         Program downloaded = null;
-//        mProgramList = mDataManager.getDownloadedList();
+//        mProgramList = mDataModel.getDownloadedList();
 //        int i= 0;
-//        if(mDataManager.getDownloadedList() != null)
-//            for(Program r : mDataManager.getDownloadedList()) {
+//        if(mDataModel.getDownloadedList() != null)
+//            for(Program r : mDataModel.getDownloadedList()) {
 //                if (r.getId().equals(mProgram.getId())) {
 //                    downloaded = r;
 //                    mProgramList.remove(i);
@@ -102,7 +98,7 @@ public class DownloadService extends IntentService {
 
 //        downloaded.setDownloading(false);
         mProgramList.add(downloaded);
-//        mDataManager.setDownloadedList(mProgramList);
+//        mDataModel.setDownloadedList(mProgramList);
 
 //        mProgram.setDownloading(false);
 
@@ -130,7 +126,7 @@ public class DownloadService extends IntentService {
         bcIntent.putExtra("id", mProgram.getId());
         bcIntent.setAction("RETURN_STATUS");
         getBaseContext().sendBroadcast(bcIntent);
-//        mDataManager.setDownloadedList(mProgramList);
+//        mDataModel.setDownloadedList(mProgramList);
         NotificationCompat.Builder builder2 = new NotificationCompat.Builder(getApplicationContext());
         builder2.setSmallIcon(R.mipmap.ic_launcher);
 

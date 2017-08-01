@@ -1,6 +1,5 @@
 package net.mizucoffee.hatsuyuki_chinachu.dashboard;
 
-import android.content.Context;
 import android.content.Intent;
 import android.databinding.BindingAdapter;
 import android.databinding.ObservableField;
@@ -16,8 +15,10 @@ import android.widget.LinearLayout;
 
 import net.mizucoffee.hatsuyuki_chinachu.R;
 import net.mizucoffee.hatsuyuki_chinachu.dashboard.f_downloaded.DownloadedFragment;
+import net.mizucoffee.hatsuyuki_chinachu.dashboard.f_guide.GuideFragment;
 import net.mizucoffee.hatsuyuki_chinachu.dashboard.f_live.LiveFragment;
 import net.mizucoffee.hatsuyuki_chinachu.dashboard.f_recorded.RecordedFragment;
+import net.mizucoffee.hatsuyuki_chinachu.tools.DataModel;
 import net.mizucoffee.hatsuyuki_chinachu.tools.Shirayuki;
 
 import io.reactivex.Observable;
@@ -49,7 +50,6 @@ public class DashboardViewModel {
     private final String SERVER_NAME;
     private final String SERVER_HOST;
 
-    private DashboardModel mDashboardModel;
     private static FragmentManager mFragmentManager;
 
     private int currentMenuId = R.id.nav_recorded;
@@ -59,7 +59,6 @@ public class DashboardViewModel {
     //=================================
 
     DashboardViewModel(DashboardActivity activity) {
-        mDashboardModel = new DashboardModel(activity.getSharedPreferences("HatsuyukiChinachu", Context.MODE_PRIVATE));
         subscribe();
         SERVER_NAME = activity.getString(R.string.server_name);
         SERVER_HOST = activity.getString(R.string.host_address);
@@ -87,15 +86,10 @@ public class DashboardViewModel {
     }
 
     private void subscribe(){
-        mDashboardModel.serverConnection.subscribe(serverConnection -> {
+        DataModel.Companion.getInstance().getCurrentServerConnection.subscribe(serverConnection -> {
             Shirayuki.log("success");
             name.set(serverConnection.getName());
             mNavHost.set(serverConnection.getHost());
-        });
-        mDashboardModel.error.subscribe(s -> {
-            Shirayuki.log("error");
-            name.set(SERVER_NAME);
-            mNavHost.set(SERVER_HOST);
         });
     }
     //=================================
@@ -156,7 +150,7 @@ public class DashboardViewModel {
     }
 
     void refreshConnection(){
-        mDashboardModel.getServerConnection();
+        DataModel.Companion.getInstance().getCurrentServerConnection();
     }
 
     //=================================

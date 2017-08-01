@@ -1,6 +1,5 @@
 package net.mizucoffee.hatsuyuki_chinachu.dashboard.f_downloaded;
 
-import android.content.Context;
 import android.databinding.BindingAdapter;
 import android.databinding.ObservableField;
 import android.support.v7.widget.GridLayoutManager;
@@ -14,6 +13,7 @@ import net.mizucoffee.hatsuyuki_chinachu.enumerate.ListType;
 import net.mizucoffee.hatsuyuki_chinachu.enumerate.SortType;
 import net.mizucoffee.hatsuyuki_chinachu.model.ProgramItem;
 import net.mizucoffee.hatsuyuki_chinachu.tools.CategoryComparator;
+import net.mizucoffee.hatsuyuki_chinachu.tools.DataModel;
 import net.mizucoffee.hatsuyuki_chinachu.tools.DateComparator;
 import net.mizucoffee.hatsuyuki_chinachu.tools.Shirayuki;
 import net.mizucoffee.hatsuyuki_chinachu.tools.TitleComparator;
@@ -30,7 +30,6 @@ public class DownloadedViewModel {
     public final ObservableField<DownloadedCardRecyclerAdapter> list = new ObservableField<>();
     public final ObservableField<Integer> column = new ObservableField<>();
 
-    private DownloadedModel mDownloadedModel;
     private DownloadedCardRecyclerAdapter mAdapter;
     private ListType mListType = ListType.CARD_COLUMN1;
     private SortType mSortType = SortType.DATE_DES;
@@ -40,13 +39,12 @@ public class DownloadedViewModel {
     final Observable<String> snack = (Observable<String>) snackSubject;
 
     DownloadedViewModel(DownloadedFragment downloadedFragment){
-        mDownloadedModel = new DownloadedModel(downloadedFragment.getActivity().getSharedPreferences("HatsuyukiChinachu", Context.MODE_PRIVATE));
         mAdapter = new DownloadedCardRecyclerAdapter(downloadedFragment.getActivity());
         subscribe();
     }
 
     private void subscribe(){
-        mDownloadedModel.programItems.subscribe(programItems -> {
+        DataModel.Companion.getInstance().getDownloadedList.subscribe(programItems -> {
             Shirayuki.log("success");
             mDownloadedList = programItems;
             setAdapterToRecyclerView(mDownloadedList);
@@ -65,7 +63,7 @@ public class DownloadedViewModel {
     }
 
     void reload(){
-        mDownloadedModel.getDownloadedList();
+        DataModel.Companion.getInstance().getDownloadedList();
     }
 
     private List<ProgramItem> sort(List<ProgramItem> items){

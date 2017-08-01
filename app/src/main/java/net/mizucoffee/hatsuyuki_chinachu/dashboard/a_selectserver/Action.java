@@ -4,14 +4,14 @@ import android.app.AlertDialog;
 
 import net.mizucoffee.hatsuyuki_chinachu.model.ServerConnection;
 
-public class ActionModel {
+public class Action {
 
     private SelectServerViewModel.ACTION_LIST action;
     private int position;
     private ServerConnection sc;
     private AlertDialog.OnClickListener onClickListener;
 
-    public ActionModel(SelectServerViewModel.ACTION_LIST act){
+    public Action(SelectServerViewModel.ACTION_LIST act){
         action = act;
     }
 
@@ -19,13 +19,13 @@ public class ActionModel {
         return onClickListener;
     }
 
-    public ActionModel(SelectServerViewModel.ACTION_LIST act, AlertDialog.OnClickListener onClick){
+    public Action(SelectServerViewModel.ACTION_LIST act, AlertDialog.OnClickListener onClick){
         action = act;
         onClickListener = onClick;
 
     }
 
-    public ActionModel(SelectServerViewModel.ACTION_LIST act,int pos, ServerConnection sc){
+    public Action(SelectServerViewModel.ACTION_LIST act, int pos, ServerConnection sc){
         action = act;
         position = pos;
         this.sc = sc;

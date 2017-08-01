@@ -1,19 +1,18 @@
 package net.mizucoffee.hatsuyuki_chinachu.dashboard.a_selectserver.addserver;
 
-import android.content.Context;
 import android.databinding.BindingAdapter;
 import android.databinding.ObservableField;
 import android.view.View;
 import android.widget.EditText;
 
 import net.mizucoffee.hatsuyuki_chinachu.model.ServerConnection;
+import net.mizucoffee.hatsuyuki_chinachu.tools.DataModel;
 
 import io.reactivex.Observable;
 import io.reactivex.subjects.PublishSubject;
 
 public class AddServerViewModel {
 
-    private AddServerModel mAddServerModel;
     public static final int FINISHED = 0;
 
     private final PublishSubject<Integer> finishedSubject = PublishSubject.create();
@@ -32,7 +31,6 @@ public class AddServerViewModel {
     private int mPosition = -1;
 
     AddServerViewModel(AddServerActivity activity) {
-        this.mAddServerModel = new AddServerModel(activity.getSharedPreferences("HatsuyukiChinachu", Context.MODE_PRIVATE));
         name.set("Server");
         host.set("");
         port.set("10772");
@@ -64,9 +62,9 @@ public class AddServerViewModel {
         sc.setPassword(password.get());
 
         if(mPosition >= 0)
-            mAddServerModel.saveServerConnection(sc,mPosition);
+            DataModel.Companion.getInstance().setServerConnection(sc,mPosition);
         else
-            mAddServerModel.addServerConnection(sc);
+            DataModel.Companion.getInstance().addServerConnection(sc);
 
         finishedSubject.onNext(FINISHED);
     }

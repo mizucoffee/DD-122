@@ -5,17 +5,17 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:id="@+id/rootLl"
+    android:id="@+id/root_ll"
     android:clickable="true"
     android:background="@color/bg_variety"
     android:foreground="?android:attr/selectableItemBackground">
 
     <TextView
-        android:id="@+id/titleTv"
+        android:id="@+id/title_tv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="2dp"
-        android:text="23:25 ダウンタウンのガキの使いやあらへんで！"
+        tools:text="23:25 ダウンタウンのガキの使いやあらへんで！"
         android:textStyle="bold" />
 
     <LinearLayout
@@ -30,11 +30,11 @@
         </LinearLayout>
 
         <TextView
-            android:id="@+id/desTv"
+            android:id="@+id/des_tv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
-            android:text="今週のガキはダウンタウン２Ｓトーク！松本がジムで超恥ずかしい失態＆コンビニトイレのマナーに苦言！浜田そっくりキャラのお菓子会社へ共演を打診！衝撃の回答は！？ ◇番組内容 今週のガキの使いは超豪華！一本丸ごとダウンタウン２Ｓトーク！松本がジムでやってしまった恥ずかしすぎるミスを告白＆コンビニトイレでのマナーに苦言！そのぶっとんだ解決策とは！？浜田は今では考えられないマネ ◇　　　　　　　　 ジャーへの仕打ちを激白し松本も爆笑！？そして急展開！あの浜田そっくりのキャラがいる企業へ番組側から共演を勝手にオファー！先方の回答に浜田焦りまくり！？等など話題盛りだくさん！あっという間の３０分！ ◇出演者 ダウンタウン（松本人志、浜田雅功）" />
+            tools:text="今週のガキはダウンタウン２Ｓトーク！松本がジムで超恥ずかしい失態＆コンビニトイレのマナーに苦言！浜田そっくりキャラのお菓子会社へ共演を打診！衝撃の回答は！？ ◇番組内容 今週のガキの使いは超豪華！一本丸ごとダウンタウン２Ｓトーク！松本がジムでやってしまった恥ずかしすぎるミスを告白＆コンビニトイレでのマナーに苦言！そのぶっとんだ解決策とは！？浜田は今では考えられないマネ ◇　　　　　　　　 ジャーへの仕打ちを激白し松本も爆笑！？そして急展開！あの浜田そっくりのキャラがいる企業へ番組側から共演を勝手にオファー！先方の回答に浜田焦りまくり！？等など話題盛りだくさん！あっという間の３０分！ ◇出演者 ダウンタウン（松本人志、浜田雅功）" />
     </LinearLayout>
 
 </LinearLayout>

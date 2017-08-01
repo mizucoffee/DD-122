@@ -1,9 +1,11 @@
-package net.mizucoffee.hatsuyuki_chinachu.chinachu.model.broadcasting;
+package net.mizucoffee.hatsuyuki_chinachu.chinachu.model;
 
-import net.mizucoffee.hatsuyuki_chinachu.chinachu.model.program.Channel;
+import net.mizucoffee.hatsuyuki_chinachu.model.ProgramItem;
 
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 public class Program {
@@ -167,6 +169,27 @@ public class Program {
         this.additionalProperties.put(name, value);
     }
 
+    public ProgramItem getProgramItem(){
+        ProgramItem pi = new ProgramItem();
+        pi.setTitle(title);
+        pi.setDescription(detail);
+        pi.setCategory(category);
+        pi.setStart(start);
+        pi.setEnd(end);
+        pi.setSeconds(seconds);
+        pi.setId(id);
+        pi.setSubtitle(subTitle);
+        pi.setChannelId(channel.getId());
+        pi.setChannelName(channel.getName());
 
+        SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy/MM/dd E HH:mm", Locale.getDefault());
+        SimpleDateFormat sdf2 = new SimpleDateFormat("HH:mm", Locale.getDefault());
+
+        pi.setDate(sdf1.format(start)+"-"+sdf2.format(end) + " " + (seconds / 60) + "min");
+
+        pi.setSimpleDate(sdf2.format(start));
+
+        return pi;
+    }
 
 }

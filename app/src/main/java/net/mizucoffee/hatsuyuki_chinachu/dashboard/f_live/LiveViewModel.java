@@ -1,6 +1,5 @@
 package net.mizucoffee.hatsuyuki_chinachu.dashboard.f_live;
 
-import android.content.Context;
 import android.databinding.BindingAdapter;
 import android.databinding.ObservableField;
 import android.support.v7.widget.RecyclerView;
@@ -8,7 +7,10 @@ import android.support.v7.widget.SearchView;
 
 import net.mizucoffee.hatsuyuki_chinachu.App;
 import net.mizucoffee.hatsuyuki_chinachu.R;
-import net.mizucoffee.hatsuyuki_chinachu.chinachu.model.broadcasting.Program;
+import net.mizucoffee.hatsuyuki_chinachu.chinachu.model.Program;
+import net.mizucoffee.hatsuyuki_chinachu.model.ServerConnection;
+import net.mizucoffee.hatsuyuki_chinachu.tools.ChinachuModel;
+import net.mizucoffee.hatsuyuki_chinachu.tools.DataModel;
 import net.mizucoffee.hatsuyuki_chinachu.tools.Shirayuki;
 
 import java.text.Normalizer;
@@ -25,18 +27,19 @@ public class LiveViewModel {
     private final PublishSubject<String> snackSubject = PublishSubject.create();
     final Observable<String> snack = (Observable<String>) snackSubject;
 
-    private LiveModel mLiveModel;
     private LiveCardRecyclerAdapter mAdapter;
     private List<Program> mProgramList;
 
+    private ServerConnection currentSc;
+
     LiveViewModel(LiveFragment liveFragment){
-        mLiveModel = new LiveModel(liveFragment.getActivity().getSharedPreferences("HatsuyukiChinachu", Context.MODE_PRIVATE));
-        mAdapter = new LiveCardRecyclerAdapter(liveFragment.getActivity());
         subscribe();
+        DataModel.Companion.getInstance().getCurrentServerConnection();
+        mAdapter = new LiveCardRecyclerAdapter(liveFragment.getActivity(),currentSc.getAddress());
     }
 
     void subscribe(){
-        mLiveModel.liveItems.subscribe(response -> {
+        ChinachuModel.broadcast.subscribe(response -> {
             Shirayuki.log("success");
             mProgramList = response;
             if(response == null){
@@ -48,10 +51,14 @@ public class LiveViewModel {
             mAdapter.notifyDataSetChanged();
             list.set(mAdapter);
         });
+        DataModel.Companion.getInstance().getCurrentServerConnection.subscribe(sc -> {
+            currentSc = sc;
+        });
     }
 
     void reload(){
-        mLiveModel.getLiveList();
+        DataModel.Companion.getInstance().getCurrentServerConnection();
+        ChinachuModel.INSTANCE.getBroadcastList(currentSc.getAddress());
     }
 
     SearchView.OnQueryTextListener onSearch = new SearchView.OnQueryTextListener() {

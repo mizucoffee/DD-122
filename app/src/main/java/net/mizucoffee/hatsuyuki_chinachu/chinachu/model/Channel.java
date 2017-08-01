@@ -1,4 +1,4 @@
-package net.mizucoffee.hatsuyuki_chinachu.chinachu.model.broadcasting;
+package net.mizucoffee.hatsuyuki_chinachu.chinachu.model;
 
 public class Channel {
 

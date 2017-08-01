@@ -18,8 +18,7 @@ import com.squareup.picasso.Picasso;
 
 import net.mizucoffee.hatsuyuki_chinachu.R;
 import net.mizucoffee.hatsuyuki_chinachu.VideoPlayActivity;
-import net.mizucoffee.hatsuyuki_chinachu.chinachu.model.broadcasting.Program;
-import net.mizucoffee.hatsuyuki_chinachu.tools.DataManager;
+import net.mizucoffee.hatsuyuki_chinachu.chinachu.model.Program;
 import net.mizucoffee.hatsuyuki_chinachu.tools.Shirayuki;
 
 import java.util.List;
@@ -31,13 +30,13 @@ public class LiveCardRecyclerAdapter extends RecyclerView.Adapter<LiveCardRecycl
     private List<Program> mProgram;
     private LayoutInflater      mLayoutInflater;
     private Context             mContext;
-    private DataManager         mDataManager;
+    private String              mAddress;
 
-    public LiveCardRecyclerAdapter(Context context) {
+    public LiveCardRecyclerAdapter(Context context,String address) {
         super();
         this.mContext        = context;
         this.mLayoutInflater = LayoutInflater.from(context);
-        this.mDataManager    = new DataManager(context.getSharedPreferences("HatsuyukiChinachu", Context.MODE_PRIVATE));
+        mAddress = address;
     }
 
     @Override
@@ -49,6 +48,11 @@ public class LiveCardRecyclerAdapter extends RecyclerView.Adapter<LiveCardRecycl
         this.mProgram = program;
     }
 
+    void setAddress(String a){
+        mAddress = a;
+        notifyDataSetChanged();
+    }
+
     @Override
     public void onBindViewHolder(final ViewHolder vh, int position) {
         Program program = mProgram.get(vh.getAdapterPosition());
@@ -56,13 +60,13 @@ public class LiveCardRecyclerAdapter extends RecyclerView.Adapter<LiveCardRecycl
         vh.channelTv.setText(program.getChannel().getName());
         vh.titleTv.setText(program.getTitle());
 //        vh.detailTv.setText(program.getDetail());
-        Picasso.with(mContext).load("http://" + mDataManager.getServerConnection().getAddress() + "/api/channel/" + program.getChannel().getId() + "/logo.png").into(vh.imageView);
-//        Shirayuki.log("http://" + mDataManager.getServerConnection().getAddress() + "/api/channel/" + program.getChannel().getId() + "/logo.png");
+        Picasso.with(mContext).load("http://" + mAddress + "/api/channel/" + program.getChannel().getId() + "/logo.png").into(vh.imageView);
+//        Shirayuki.log("http://" + mDataModel.getServerConnection().getAddress() + "/api/channel/" + program.getChannel().getId() + "/logo.png");
         vh.colorll.setBackgroundColor(ContextCompat.getColor(mContext, Shirayuki.getBackgroundColorFromCategory(program.getCategory())));
 
         vh.cardLayout.setOnClickListener(v -> {//http://192.168.50.50:10472/api/channel/1gudbls/watch.webm
             SharedPreferences spf = PreferenceManager.getDefaultSharedPreferences(mContext);
-            String url = "http://" + mDataManager.getServerConnection().getAddress() + "/api/channel/" + program.getChannel().getId() + "/watch.webm" +
+            String url = "http://" + mAddress + "/api/channel/" + program.getChannel().getId() + "/watch.webm" +
                     "?ext=webm" +
                     "&c%3Av=vp9" +
                     Shirayuki.getResolutionFromVideoSize(spf.getString("download_video_size", "720p (HD) (Recommended)")) +

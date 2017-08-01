@@ -1,6 +1,5 @@
 package net.mizucoffee.hatsuyuki_chinachu.dashboard.f_recorded;
 
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -25,21 +24,21 @@ import com.google.gson.Gson;
 import net.mizucoffee.hatsuyuki_chinachu.R;
 import net.mizucoffee.hatsuyuki_chinachu.databinding.ActivityDetailBinding;
 import net.mizucoffee.hatsuyuki_chinachu.model.ProgramItem;
+import net.mizucoffee.hatsuyuki_chinachu.model.ServerConnection;
 import net.mizucoffee.hatsuyuki_chinachu.service.DownloadBroadcastReceiver;
 import net.mizucoffee.hatsuyuki_chinachu.service.DownloadService;
-import net.mizucoffee.hatsuyuki_chinachu.tools.DataManager;
+import net.mizucoffee.hatsuyuki_chinachu.tools.ChinachuModel;
+import net.mizucoffee.hatsuyuki_chinachu.tools.DataModel;
 import net.mizucoffee.hatsuyuki_chinachu.tools.Shirayuki;
-
-import java.util.List;
 
 public class RecordedDetailActivity extends AppCompatActivity {
 
     private ProgramItem mProgram;
     private ProgramItem mDownloaded = null; // if NOT mDownloaded then NULL
-    private DataManager mDataManager;
     private DownloadBroadcastReceiver receiver;
 
     private ActivityDetailBinding binding;
+    private ServerConnection currentSc;
 
     Handler mHandler = new Handler(){
         @Override
@@ -55,10 +54,12 @@ public class RecordedDetailActivity extends AppCompatActivity {
         mProgram = new Gson().fromJson(getIntent().getStringExtra("program"), ProgramItem.class);
         setTheme(Shirayuki.getThemeFromCategory(mProgram.getCategory()));
 
-        mDataManager = new DataManager(getSharedPreferences("HatsuyukiChinachu", Context.MODE_PRIVATE));
+
         binding = DataBindingUtil.setContentView(this,R.layout.activity_detail);
         binding.setProgram(mProgram);
         binding.setDetail(this);
+
+        subscribe();
 
         setSupportActionBar(binding.toolbar);
         setTitle(mProgram.getTitle());
@@ -68,20 +69,28 @@ public class RecordedDetailActivity extends AppCompatActivity {
 
         ViewCompat.setBackgroundTintList(binding.downloadBtn,ColorStateList.valueOf(ContextCompat.getColor(this,Shirayuki.getBackgroundColorFromCategory(mProgram.getCategory()))));
 
-        if(mDataManager.getDownloadedList() != null)
-            for(ProgramItem r : mDataManager.getDownloadedList())
-                if(r.getId().equals(mProgram.getId()))
-                    mDownloaded = r;
-
-        if(mDownloaded != null) {
-            binding.downloadBtn.setText(  getString(mDownloaded.getDownloading() ? R.string.downloaded : R.string.downloading));
-            binding.downloadBtn.setEnabled(false);
-        }
+        DataModel.Companion.getInstance().getCurrentServerConnection();
+        DataModel.Companion.getInstance().getDownloadedList();
 
         receiver = new DownloadBroadcastReceiver(mHandler);
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction("RETURN_STATUS");
         registerReceiver(receiver,intentFilter);
+    }
+
+    private void subscribe(){
+        DataModel.Companion.getInstance().getDownloadedList.subscribe(list -> {
+            for(ProgramItem r : list)
+                if(r.getId().equals(mProgram.getId())) {
+                    binding.downloadBtn.setText(  getString(mDownloaded.getDownloading() ? R.string.downloaded : R.string.downloading));
+                    binding.downloadBtn.setEnabled(false);
+                    mDownloaded = r;
+                }
+        });
+        DataModel.Companion.getInstance().getCurrentServerConnection.subscribe(sc -> {
+            currentSc = sc;
+            ChinachuModel.INSTANCE.getRecordedList(sc.getAddress());
+        });
     }
 
     @Override
@@ -97,7 +106,7 @@ public class RecordedDetailActivity extends AppCompatActivity {
     }
 
     public void onClickFab(View v){
-        Uri uri = Uri.parse("http://" + mDataManager.getServerConnection().getAddress() + "/api/recorded/" + mProgram.getId() + "/watch.mp4");
+        Uri uri = Uri.parse("http://" + currentSc.getAddress() + "/api/recorded/" + mProgram.getId() + "/watch.mp4");
         startActivity(new Intent(Intent.ACTION_VIEW).setPackage("org.videolan.vlc").setDataAndTypeAndNormalize(uri, "video/*"));
     }
 
@@ -117,13 +126,11 @@ public class RecordedDetailActivity extends AppCompatActivity {
                         binding.downloadBtn.setText(getString(R.string.downloading));
                         binding.downloadBtn.setEnabled(false);
 
-                        List<ProgramItem> list = mDataManager.getDownloadedList();
-                        list.add(mProgram);
-                        mDataManager.setDownloadedList(list);
+                        DataModel.Companion.getInstance().addDownloadedList(mProgram);
 
                         Intent intent = new Intent(this, DownloadService.class);
                         intent.putExtra("recorded",new Gson().toJson(mProgram));
-                        intent.putExtra("address",mDataManager.getServerConnection().getAddress());
+                        intent.putExtra("address", currentSc.getAddress());
                         this.startService(intent);
                     })
                     .setNegativeButton(getString(R.string.cancel), null)

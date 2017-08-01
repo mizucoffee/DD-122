@@ -1,6 +1,5 @@
 package net.mizucoffee.hatsuyuki_chinachu.dashboard.a_selectserver;
 
-import android.content.Context;
 import android.databinding.BindingAdapter;
 import android.databinding.ObservableField;
 import android.support.v7.widget.RecyclerView;
@@ -8,6 +7,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import net.mizucoffee.hatsuyuki_chinachu.R;
+import net.mizucoffee.hatsuyuki_chinachu.tools.DataModel;
 import net.mizucoffee.hatsuyuki_chinachu.tools.Shirayuki;
 
 import io.reactivex.Observable;
@@ -18,68 +18,64 @@ import static net.mizucoffee.hatsuyuki_chinachu.dashboard.a_selectserver.SelectS
 import static net.mizucoffee.hatsuyuki_chinachu.dashboard.a_selectserver.SelectServerViewModel.ACTION_LIST.INTENT_ADD;
 import static net.mizucoffee.hatsuyuki_chinachu.dashboard.a_selectserver.SelectServerViewModel.ACTION_LIST.INTENT_EDIT;
 import static net.mizucoffee.hatsuyuki_chinachu.dashboard.a_selectserver.SelectServerViewModel.ACTION_LIST.SNACK_REGISTER;
-import static net.mizucoffee.hatsuyuki_chinachu.dashboard.a_selectserver.SelectServerViewModel.ACTION_LIST.SNACK_SELECT;
 
 public class SelectServerViewModel {
 
     enum ACTION_LIST {INTENT_ADD, INTENT_EDIT, FINISH, SNACK_REGISTER, SNACK_SELECT,ALERT}
 
-    private final PublishSubject<ActionModel> actionSubject = PublishSubject.create();
-    final Observable<ActionModel> action = (Observable<ActionModel>) actionSubject;
+    private final PublishSubject<Action> actionSubject = PublishSubject.create();
+    final Observable<Action> action = (Observable<Action>) actionSubject;
 
-    private SelectServerModel mSelectServerModel;
     public final ObservableField<SelectServerCardRecyclerAdapter> adapter = new ObservableField<>();
 
     private SelectServerActivity activity;
 
     SelectServerViewModel(SelectServerActivity selectServerActivity) {
-        this.mSelectServerModel = new SelectServerModel(selectServerActivity.getSharedPreferences("HatsuyukiChinachu", Context.MODE_PRIVATE));
         activity = selectServerActivity;
         subscribe();
-        mSelectServerModel.loadServerConnections();
+        DataModel.Companion.getInstance().getAllServerConnection();
     }
 
     private void subscribe() {
-        mSelectServerModel.serverConnections.subscribe(serverConnections -> {
+        DataModel.Companion.getInstance().getAllServerConnection.subscribe(sc -> {
             Shirayuki.log("success");
-            if (serverConnections.size() == 0) {
-                actionSubject.onNext(new ActionModel(SNACK_REGISTER));
+            if (sc.size() == 0) {
+                actionSubject.onNext(new Action(SNACK_REGISTER));
             } else {
-                if (mSelectServerModel.getServerConnection() == null)
-                    actionSubject.onNext(new ActionModel(SNACK_SELECT));
-                adapter.set(new SelectServerCardRecyclerAdapter(activity, serverConnections));
+                adapter.set(new SelectServerCardRecyclerAdapter(activity, sc));
 
-                adapter.get().serverConnection.subscribe(serverConnection -> {
-                    mSelectServerModel.setServerConnection(serverConnection);
-                    actionSubject.onNext(new ActionModel(FINISH));
+                adapter.get().cardOnClick.subscribe(serverConnection -> {
+                    DataModel.Companion.getInstance().setCurrentServerConnection(serverConnection);
+                    actionSubject.onNext(new Action(FINISH));
                 });
-                adapter.get().menu.subscribe(itemModel -> {
+                adapter.get().menuOnItemClick.subscribe(itemModel -> {
                     MenuItem item = itemModel.getItem();
                     int position = itemModel.getPosition();
 
                     switch (item.getItemId()) {
                         case R.id.menu_delete:
-                            actionSubject.onNext(new ActionModel(ALERT,(dialogInterface, i) -> {
-                                mSelectServerModel.deleteServerConnection(position);
-                                mSelectServerModel.loadServerConnections();
+                            actionSubject.onNext(new Action(ALERT,(dialogInterface, i) -> {
+                                DataModel.Companion.getInstance().removeServerConnectionWithIndex(i);
+                                DataModel.Companion.getInstance().getAllServerConnection();
                             }));
                             break;
 
                         case R.id.menu_edit:
-                            actionSubject.onNext(new ActionModel(INTENT_EDIT,position,mSelectServerModel.editServerConnection(position)));
+                            DataModel.Companion.getInstance().getServerConnectionWithIndex(position);
                             break;
                     }
                 });
             }
         });
+        DataModel.Companion.getInstance().getServerConnectionWithIndex.subscribe(sc -> actionSubject.onNext(new Action(INTENT_EDIT,sc.getIndex(),sc)));
     }
 
     void reload(){
-        mSelectServerModel.loadServerConnections();
+        DataModel.Companion.getInstance().getAllServerConnection();
     }
 
     public void onClickFab(View v) {
-        actionSubject.onNext(new ActionModel(INTENT_ADD));
+        actionSubject.onNext(new Action(INTENT_ADD));
     }
 
     @BindingAdapter("adapterList")

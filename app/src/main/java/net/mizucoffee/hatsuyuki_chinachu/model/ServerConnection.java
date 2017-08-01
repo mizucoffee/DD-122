@@ -2,7 +2,7 @@ package net.mizucoffee.hatsuyuki_chinachu.model;
 
 public class ServerConnection {
 
-    private long id;
+    protected long id;
 
     public long getId() {
         return id;
@@ -12,13 +12,13 @@ public class ServerConnection {
         this.id = id;
     }
 
-    private String mName;
+    protected String mName;
 
-    private String mHost;
-    private String mPort;
+    protected String mHost;
+    protected String mPort;
 
-    private String mUsername;
-    private String mPassword;
+    protected String mUsername;
+    protected String mPassword;
 
     public String getName() {
         return mName;
