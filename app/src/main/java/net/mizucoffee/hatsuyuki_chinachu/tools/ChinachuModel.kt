@@ -1,7 +1,7 @@
 package net.mizucoffee.hatsuyuki_chinachu.tools
 
+//import rx.Observable
 import io.reactivex.Observable
-import io.reactivex.Observer
 import io.reactivex.subjects.PublishSubject
 import net.mizucoffee.hatsuyuki_chinachu.chinachu.ChinachuApi
 import net.mizucoffee.hatsuyuki_chinachu.chinachu.model.program.Program
@@ -14,6 +14,8 @@ import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.*
 
+
+
 object ChinachuModel {
 
     private val programItemsSubject = PublishSubject.create<ArrayList<ProgramItem>>()
@@ -22,8 +24,12 @@ object ChinachuModel {
     private val broadcastSubject = PublishSubject.create<List<net.mizucoffee.hatsuyuki_chinachu.chinachu.model.Program>>()
     @JvmField val broadcast = broadcastSubject as Observable<List<net.mizucoffee.hatsuyuki_chinachu.chinachu.model.Program>>
 
-    @JvmField
-    var getAllPrograms: Observer<net.mizucoffee.hatsuyuki_chinachu.chinachu.model.Program>? = null
+    private val allProgramsSubject = PublishSubject.create<List<net.mizucoffee.hatsuyuki_chinachu.chinachu.model.Program>>()
+    @JvmField val allPrograms = allProgramsSubject as Observable<List<net.mizucoffee.hatsuyuki_chinachu.chinachu.model.Program>>
+
+
+//    @JvmField
+//    var getAllPrograms: Observer<List<net.mizucoffee.hatsuyuki_chinachu.chinachu.model.Program>>? = null
 
     fun getAllPrograms(address: String) {
         val retrofit = Retrofit.Builder()
@@ -34,8 +40,23 @@ object ChinachuModel {
 
         val api = retrofit.create(ChinachuApi::class.java)
 
-        api?.allPrograms?.subscribe(getAllPrograms)
+        api!!.allPrograms!!.enqueue(object : Callback<List<net.mizucoffee.hatsuyuki_chinachu.chinachu.model.Program>> {
+            override fun onResponse(call: Call<List<net.mizucoffee.hatsuyuki_chinachu.chinachu.model.Program>>, response: Response<List<net.mizucoffee.hatsuyuki_chinachu.chinachu.model.Program>>) {
+                allProgramsSubject.onNext(response.body())
+            }
+
+            override fun onFailure(call: Call<List<net.mizucoffee.hatsuyuki_chinachu.chinachu.model.Program>>, t: Throwable) {
+                allProgramsSubject.onError(t)
+            }
+        })
+        Shirayuki.log("======================================================================")
+//        api!!.allPrograms!!.subscribe (
+//                { it.forEach { Shirayuki.log(it.title) } },
+//                { e -> println("Damn: $e") },
+//                { println("Completed") })
     }
+
+
     fun getBroadcastList(address: String){
         val retrofit = Retrofit.Builder()
                 .baseUrl("http://$address/")
@@ -51,7 +72,7 @@ object ChinachuModel {
             }
 
             override fun onFailure(call: Call<List<net.mizucoffee.hatsuyuki_chinachu.chinachu.model.Program>>, t: Throwable) {
-                broadcastSubject.onNext(null)
+                broadcastSubject.onError(t)
             }
         })
     }

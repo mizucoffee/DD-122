@@ -33,6 +33,8 @@ public class GuideViewModel {
         mRecyclerViews = r;
         mAdapter = new GuideRecyclerAdapter((DashboardActivity)fragment.getActivity());
         subscribe();
+        DataModel.Companion.getInstance().getCurrentServerConnection();
+        ChinachuModel.INSTANCE.getAllPrograms(currentSc.getAddress());
     }
 
     private void subscribe(){
@@ -42,24 +44,18 @@ public class GuideViewModel {
             @Override
             public void onNext(ServerConnection serverConnection) {
                 ChinachuModel.INSTANCE.getAllPrograms(serverConnection.getAddress());
+                currentSc = serverConnection;
             }
 
             @Override public void onError(Throwable e) {}
 
             @Override public void onComplete() {}
         });
-        ChinachuModel.getAllPrograms = new Observer<Program>() {
-            @Override public void onSubscribe(Disposable d) {}
-
-            @Override
-            public void onNext(Program program) {
-                Shirayuki.log(program.getTitle());
+        ChinachuModel.allPrograms.subscribe(programs -> {
+            for (Program p:programs) {
+                Shirayuki.log(p.getTitle());
             }
-
-            @Override public void onError(Throwable e) {}
-
-            @Override public void onComplete() {}
-        };
+        });
     }
 
     private void setAdapterToRecyclerView(List<ProgramItem> programList){

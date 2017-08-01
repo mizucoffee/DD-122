@@ -4,7 +4,6 @@ import net.mizucoffee.hatsuyuki_chinachu.chinachu.model.Program;
 
 import java.util.List;
 
-import io.reactivex.Observable;
 import retrofit2.Call;
 import retrofit2.http.GET;
 
@@ -13,7 +12,7 @@ public interface ChinachuApi {
     Call<List<net.mizucoffee.hatsuyuki_chinachu.chinachu.model.program.Program>> getRecorded();
 
     @GET("/api/schedule/programs.json")
-    Observable<Program> getAllPrograms();
+    Call<List<net.mizucoffee.hatsuyuki_chinachu.chinachu.model.Program>> getAllPrograms();
 
     @GET("/api/schedule/broadcasting.json")
     Call<List<Program>> getBroadcasting();
