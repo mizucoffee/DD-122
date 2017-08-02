@@ -5,6 +5,8 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutCompat;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.view.LayoutInflater;
@@ -39,13 +41,20 @@ public class GuideFragment extends Fragment{
         super.onViewCreated(view, savedInstanceState);
         ((AppCompatActivity)getActivity()).setSupportActionBar(findById(getActivity(),R.id.toolbar));
 
-        for (int i = 0; i < column; i++) { //TODO: チャンネル数をAPI
-            recyclerViews.add(i,new RecyclerView(getActivity()));
+        mRecordedVM = new GuideViewModel(this);
+        mBinding.setGuideVM(mRecordedVM);
+    }
+
+    protected ArrayList<RecyclerView> addRecyclerView(int num){
+        for (int i = 0; i < num; i++) {
+            RecyclerView r = new RecyclerView(getActivity());
+            r.setLayoutManager(new GridLayoutManager(getActivity(), 1));
+            r.setLayoutParams(new LinearLayoutCompat.LayoutParams(100, ViewGroup.LayoutParams.WRAP_CONTENT));
+            recyclerViews.add(r);
+
             mBinding.rootLl.addView(recyclerViews.get(i));
         }
-
-        mRecordedVM = new GuideViewModel(this,recyclerViews);
-        mBinding.setGuideVM(mRecordedVM);
+        return recyclerViews;
     }
 
     @Override

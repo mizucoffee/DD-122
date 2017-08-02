@@ -3,57 +3,12 @@
 
     <item
         is-multidex="true"
-        jar="/Users/mizucoffee/.gradle/caches/modules-2/files-2.1/io.reactivex/rxjava/1.1.5/ece7b5d0870e66d8226dab6dcf47a2b12afff061/rxjava-1.1.5.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="ece7b5d0870e66d8226dab6dcf47a2b12afff061">
-        <dex dex="/Users/mizucoffee/DD-122/app/build/intermediates/transforms/dex/debug/folders/1000/10/rxjava-1.1.5_7574dd047f46580906d955eb79200c01b7b2d4d5/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/Users/mizucoffee/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib-jre7/1.1.3-2/3fe54c7558c903868351ac79b792d152bca958f2/kotlin-stdlib-jre7-1.1.3-2.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="3fe54c7558c903868351ac79b792d152bca958f2">
-        <dex dex="/Users/mizucoffee/DD-122/app/build/intermediates/transforms/dex/debug/folders/1000/10/kotlin-stdlib-jre7-1.1.3-2_1770e695ac93ae0830aa0313fdec0d4189b6ed95/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/Users/mizucoffee/.gradle/caches/modules-2/files-2.1/org.jetbrains/annotations/13.0/919f0dfe192fb4e063e7dacadee7f8bb9a2672a9/annotations-13.0.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="919f0dfe192fb4e063e7dacadee7f8bb9a2672a9">
-        <dex dex="/Users/mizucoffee/DD-122/app/build/intermediates/transforms/dex/debug/folders/1000/10/annotations-13.0_3ebd230a53f8fb2ee6fba1f1a34e829f889b1186/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
         jar="/Users/mizucoffee/DD-122/app/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
         jumboMode="true"
         optimize="true"
         revision="25.0.2"
-        sha1="14118498d311253f4b630474383f0265c8fccd2d">
+        sha1="d612f67b903092ce3046dbc513a9df01b177dbe6">
         <dex dex="/Users/mizucoffee/DD-122/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run-bootstrap_d41abedd104330f414076e44bcaadd303af730ff/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/Users/mizucoffee/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib/1.1.3-2/9b44c139a4ec57031e0c84ba0e49ba16df6d801c/kotlin-stdlib-1.1.3-2.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="9b44c139a4ec57031e0c84ba0e49ba16df6d801c">
-        <dex dex="/Users/mizucoffee/DD-122/app/build/intermediates/transforms/dex/debug/folders/1000/10/kotlin-stdlib-1.1.3-2_3447449afd3432ac9446cc691a61c7ea9298c237/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/Users/mizucoffee/.gradle/caches/modules-2/files-2.1/com.squareup.retrofit2/adapter-rxjava/2.1.0/693eddc23e87ab13f9cf5001707ce8e7e1d1ff01/adapter-rxjava-2.1.0.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="693eddc23e87ab13f9cf5001707ce8e7e1d1ff01">
-        <dex dex="/Users/mizucoffee/DD-122/app/build/intermediates/transforms/dex/debug/folders/1000/10/adapter-rxjava-2.1.0_1505ec9b44bae2992d4c1ddd07a528adcbc6795f/classes.dex" />
     </item>
     <item
         is-multidex="true"
