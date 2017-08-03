@@ -16,7 +16,7 @@ public class App extends Application {
     public void onCreate() {
         super.onCreate();
         mContext = this;
-        DataModel.Companion.init(getSharedPreferences("HatsuyukiChinachu", Context.MODE_PRIVATE));
+        DataModel.Companion.init(getSharedPreferences("HatsuyukiChinachu", Context.MODE_PRIVATE)); // ちょくちょく落ちるのクソ
 
         Picasso.Builder builder = new Picasso.Builder(this);
         builder.downloader(new OkHttp3Downloader(this,Integer.MAX_VALUE));

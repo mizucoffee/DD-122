@@ -7,25 +7,45 @@
             type="net.mizucoffee.hatsuyuki_chinachu.dashboard.f_guide.GuideViewModel"
             />
     </data>
-    <HorizontalScrollView
+    <!--<HorizontalScrollView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent">-->
+
+        <!--<LinearLayout-->
+            <!--android:id="@+id/root_ll"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:orientation="horizontal"-->
+            <!--app:recyclerColumn="@{guideVM.column}">-->
+
+            <!--<android.support.v7.widget.RecyclerView-->
+                <!--android:layout_width="100dp"-->
+                <!--android:background="@color/animePrimary"-->
+                <!--android:id="@+id/aaa"-->
+                <!--android:layout_height="match_parent">-->
+
+            <!--</android.support.v7.widget.RecyclerView>-->
+
+        <!--</LinearLayout>-->
+
+    <!--</HorizontalScrollView>-->
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <LinearLayout
-            android:id="@+id/root_ll"
+        <android.support.design.widget.TabLayout
+            android:id="@+id/tabs"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
+            android:layout_height="wrap_content"/>
 
-            <android.support.v7.widget.RecyclerView
-                android:layout_width="100dp"
-                android:background="@color/animePrimary"
-                android:id="@+id/aaa"
-                android:layout_height="match_parent">
+        <android.support.v4.view.ViewPager
+            android:id="@+id/pager"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            app:adapter="@{guideVM.adapter}"/>
 
-            </android.support.v7.widget.RecyclerView>
+    </LinearLayout>
 
-        </LinearLayout>
-
-    </HorizontalScrollView>
 </layout>

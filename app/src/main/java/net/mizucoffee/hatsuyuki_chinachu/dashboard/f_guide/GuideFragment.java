@@ -3,11 +3,9 @@ package net.mizucoffee.hatsuyuki_chinachu.dashboard.f_guide;
 
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutCompat;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,18 +14,14 @@ import android.view.ViewGroup;
 import net.mizucoffee.hatsuyuki_chinachu.R;
 import net.mizucoffee.hatsuyuki_chinachu.databinding.FragmentGuideBinding;
 
-import java.util.ArrayList;
-
 import static butterknife.ButterKnife.findById;
 
 public class GuideFragment extends Fragment{
 
-    private GuideViewModel mRecordedVM;
+    private GuideViewModel mGuideVM;
     private SearchView mSearchView;
     private FragmentGuideBinding mBinding;
-    private ArrayList<RecyclerView> recyclerViews = new ArrayList<>();
 
-    private int column = 5;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -41,25 +35,21 @@ public class GuideFragment extends Fragment{
         super.onViewCreated(view, savedInstanceState);
         ((AppCompatActivity)getActivity()).setSupportActionBar(findById(getActivity(),R.id.toolbar));
 
-        mRecordedVM = new GuideViewModel(this);
-        mBinding.setGuideVM(mRecordedVM);
-    }
+        mBinding.tabs.setTabMode(TabLayout.MODE_SCROLLABLE);
+        mBinding.tabs.setTabGravity(TabLayout.GRAVITY_FILL);
+        mBinding.tabs.setupWithViewPager(mBinding.pager);
 
-    protected ArrayList<RecyclerView> addRecyclerView(int num){
-        for (int i = 0; i < num; i++) {
-            RecyclerView r = new RecyclerView(getActivity());
-            r.setLayoutManager(new GridLayoutManager(getActivity(), 1));
-            r.setLayoutParams(new LinearLayoutCompat.LayoutParams(100, ViewGroup.LayoutParams.WRAP_CONTENT));
-            recyclerViews.add(r);
+//        mBinding.pager
 
-            mBinding.rootLl.addView(recyclerViews.get(i));
-        }
-        return recyclerViews;
+//        mBinding.tabs.addTab(mBinding.tabs.newTab().setText("tab 1"));
+
+        mGuideVM = new GuideViewModel(this);
+        mBinding.setGuideVM(mGuideVM);
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        mRecordedVM.reload();
+        mGuideVM.reload();
     }
 }

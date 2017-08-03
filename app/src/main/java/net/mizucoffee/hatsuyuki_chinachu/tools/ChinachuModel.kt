@@ -8,6 +8,7 @@ import io.reactivex.subjects.PublishSubject
 import net.mizucoffee.hatsuyuki_chinachu.chinachu.ChinachuApi
 import net.mizucoffee.hatsuyuki_chinachu.chinachu.model.program.Program
 import net.mizucoffee.hatsuyuki_chinachu.model.ProgramItem
+import net.mizucoffee.hatsuyuki_chinachu.model.ScheduleModel
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -24,11 +25,8 @@ object ChinachuModel {
     private val broadcastSubject = PublishSubject.create<List<net.mizucoffee.hatsuyuki_chinachu.chinachu.model.Program>>()
     @JvmField val broadcast = broadcastSubject as Observable<List<net.mizucoffee.hatsuyuki_chinachu.chinachu.model.Program>>
 
-    private val allProgramsSubject = PublishSubject.create<ProgramItem>()
-    @JvmField val allPrograms = allProgramsSubject as Observable<ProgramItem>
-
-    private val programIdsSubject = PublishSubject.create<ArrayList<String>>()
-    @JvmField val programIds = programIdsSubject as Observable<ArrayList<String>>
+    private val allProgramsSubject = PublishSubject.create<ScheduleModel>()
+    @JvmField val allPrograms = allProgramsSubject as Observable<ScheduleModel>
 
     fun getAllPrograms(address: String) {
         val retrofit = Retrofit.Builder()
@@ -40,17 +38,18 @@ object ChinachuModel {
         val api = retrofit.create(ChinachuApi::class.java)
 
         api.allPrograms!!.subscribeOn(Schedulers.newThread()).observeOn(AndroidSchedulers.mainThread()).subscribe ({
-            val programIds = ArrayList<String>()
-            it.forEach { programIds.add(it.id) }
-            programIdsSubject.onNext(programIds)
+//            val programIds = ArrayList<String>()
+//            it.forEach { programIds.add(it.id) }
+//            programIdsSubject.onNext(programIds)
+            Shirayuki.log("ALL CHANNEL")
             it.forEach {
-                it.programs.forEach {
-                    allProgramsSubject.onNext(it.programItem)
-                }
+                allProgramsSubject.onNext(it)
+                Shirayuki.log(it.name)
             }
+            allProgramsSubject.onComplete()
         },
                 { it.printStackTrace() },
-                { println("Completed") })
+                { Shirayuki.log("Completed") })
     }
 
 

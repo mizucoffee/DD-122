@@ -1,9 +1,7 @@
 package net.mizucoffee.hatsuyuki_chinachu.tools;
 
-import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.View;
 
 import net.mizucoffee.hatsuyuki_chinachu.R;
 
@@ -26,12 +24,23 @@ public class Shirayuki {
         ButterKnife.bind(activity);
     }
 
-    public static void initFragment(Fragment f,View view){
-        ButterKnife.bind(f,view);
-    }
-
     public static void log(String msg){
-        Log.i("SHIRAYUKI",msg);
+        StackTraceElement[] steArray = Thread.currentThread().getStackTrace();
+        if (steArray.length > 3) {
+            StringBuilder sb = new StringBuilder();
+            StackTraceElement ste = steArray[3];
+            sb.append(msg)
+                    .append(" | Called from ")
+                    .append(ste.getMethodName())
+                    .append("(")
+                    .append(ste.getFileName())
+                    .append(":")
+                    .append(ste.getLineNumber())   // 行番号取得
+                    .append(")");
+            Log.i("SHIRAYUKI",sb.toString());
+        }else{
+            Log.i("SHIRAYUKI",msg);
+        }
     }
 
     public static int getBackgroundColorFromCategory(String category){
