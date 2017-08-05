@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.SearchView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,7 +18,6 @@ import static butterknife.ButterKnife.findById;
 public class GuideFragment extends Fragment{
 
     private GuideViewModel mGuideVM;
-    private SearchView mSearchView;
     private FragmentGuideBinding mBinding;
 
 

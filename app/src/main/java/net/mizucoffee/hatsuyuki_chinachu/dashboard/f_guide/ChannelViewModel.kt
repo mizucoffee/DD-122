@@ -8,7 +8,6 @@ import android.support.v4.app.FragmentPagerAdapter
 import android.widget.LinearLayout
 import io.reactivex.Observer
 import io.reactivex.disposables.Disposable
-import net.mizucoffee.hatsuyuki_chinachu.model.ProgramItem
 import net.mizucoffee.hatsuyuki_chinachu.model.ScheduleModel
 import net.mizucoffee.hatsuyuki_chinachu.model.ServerConnection
 import net.mizucoffee.hatsuyuki_chinachu.tools.ChinachuModel
@@ -24,22 +23,22 @@ class ChannelViewModel internal constructor(fragment: GuideFragment) {
     //    private GuideRecyclerAdapter mAdapter;
 
     private val mChannelList = ArrayList<ScheduleModel>()
-    private val mProgramLists = HashMap<String, ArrayList<ProgramItem>>()
 
-    lateinit var currentSc: ServerConnection
+    var currentSc: ServerConnection? = null
 
     init {
         subscribe()
 //        adapter.set(FragmentPagerAdapter(fragment.fragmentManager!!))
         DataModel.instance.getCurrentServerConnection()
-        ChinachuModel.getAllPrograms(currentSc.address)
+        if(currentSc != null)
+        ChinachuModel.getAllPrograms(currentSc?.address)
     }
 
     private fun subscribe() {
-        DataModel.instance.getCurrentServerConnection.subscribe(object : Observer<ServerConnection> {
+        DataModel.instance.getCurrentServerConnection.subscribe(object : Observer<ServerConnection?> {
             override fun onSubscribe(d: Disposable) {}
 
-            override fun onNext(serverConnection: ServerConnection) {
+            override fun onNext(serverConnection: ServerConnection?) {
                 //                ChinachuModel.INSTANCE.getAllPrograms(serverConnection.getAddress());
                 currentSc = serverConnection
             }

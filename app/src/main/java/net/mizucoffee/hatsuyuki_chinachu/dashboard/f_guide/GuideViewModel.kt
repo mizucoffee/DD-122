@@ -24,7 +24,7 @@ class GuideViewModel internal constructor(val fragment: GuideFragment) { // ã‚¯ã
 
     private val mChannelList = ArrayList<ScheduleModel>()
 
-    lateinit var currentSc: ServerConnection
+    var currentSc: ServerConnection? = null
 
     init {
         subscribe()
@@ -33,12 +33,12 @@ class GuideViewModel internal constructor(val fragment: GuideFragment) { // ã‚¯ã
     }
 
     private fun subscribe() {
-        DataModel.instance.getCurrentServerConnection.subscribe(object : Observer<ServerConnection> {
+        DataModel.instance.getCurrentServerConnection.subscribe(object : Observer<ServerConnection?> {
             override fun onSubscribe(d: Disposable) {}
-            override fun onNext(serverConnection: ServerConnection) {
+            override fun onNext(serverConnection: ServerConnection?) {
                 currentSc = serverConnection
                 Shirayuki.log("GET SERVER CON")
-                ChinachuModel.getAllPrograms(currentSc.address)
+                ChinachuModel.getAllPrograms(currentSc?.address)
             }
             override fun onError(e: Throwable) {}
             override fun onComplete() {}
@@ -52,7 +52,7 @@ class GuideViewModel internal constructor(val fragment: GuideFragment) { // ã‚¯ã
 
         ChinachuModel.allPrograms.doOnError({ it.printStackTrace() }).subscribe ({
             mChannelList.add(it)
-            Shirayuki.log("CHANNEL ADD")
+//            Shirayuki.log("CHANNEL ADD")
         },{
             it.printStackTrace()
         },{

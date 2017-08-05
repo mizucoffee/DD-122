@@ -54,7 +54,7 @@ public class RecordedFragment extends Fragment{
         mSearchView = (SearchView)menuItem.getActionView();
         mSearchView.setIconifiedByDefault(true);
         mSearchView.setSubmitButtonEnabled(false);
-        mSearchView.setOnQueryTextListener(mRecordedVM.onSearch);
+        mSearchView.setOnQueryTextListener(mRecordedVM.getOnSearch());
     }
 
     @Override
@@ -63,13 +63,13 @@ public class RecordedFragment extends Fragment{
             case R.id.menu_sort:
                 PopupMenu popup = new PopupMenu(getActivity(), findById(getActivity(), R.id.menu_sort));
                 popup.getMenuInflater().inflate(R.menu.program_sorttype_popup_menu, popup.getMenu());
-                popup.setOnMenuItemClickListener(mRecordedVM.sortMenuListener);
+                popup.setOnMenuItemClickListener(mRecordedVM.getSortMenuListener());
                 popup.show();
                 break;
             case R.id.menu_list:
                 PopupMenu popup2 = new PopupMenu(getActivity(), findById(getActivity(), R.id.menu_list));
                 popup2.getMenuInflater().inflate(R.menu.program_listtype_popup_menu, popup2.getMenu());
-                popup2.setOnMenuItemClickListener(mRecordedVM.listMenuListener);
+                popup2.setOnMenuItemClickListener(mRecordedVM.getListMenuListener());
                 popup2.show();
                 break;
         }

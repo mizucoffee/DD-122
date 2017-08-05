@@ -9,21 +9,25 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import net.mizucoffee.hatsuyuki_chinachu.R;
 import net.mizucoffee.hatsuyuki_chinachu.databinding.FragmentChannelBinding;
-import net.mizucoffee.hatsuyuki_chinachu.model.ScheduleModel;
+import net.mizucoffee.hatsuyuki_chinachu.model.ProgramItem;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ChannelFragment extends Fragment {
 
     FragmentChannelBinding mBinding;
-    ScheduleModel sm;
+    ArrayList<List<ProgramItem>> list;
 
     public ChannelFragment() {}
 
-    public static ChannelFragment newInstance(ScheduleModel channelSm) {
+    public static ChannelFragment newInstance(ArrayList<List<ProgramItem>> array) {
         Bundle args = new Bundle();
-        args.putString("channel", new Gson().toJson(channelSm));
+        args.putString("list", new Gson().toJson(array));
         ChannelFragment fragment = new ChannelFragment();
         fragment.setArguments(args);
         return fragment;
@@ -32,10 +36,10 @@ public class ChannelFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        String c = getArguments().getString("channel", "");
+        String c = getArguments().getString("list", "");
         if(c.isEmpty()) return null;
 
-        sm = new Gson().fromJson(c, ScheduleModel.class);
+        list = new Gson().fromJson(c, new TypeToken<ArrayList<List<ProgramItem>>>(){}.getType());;
 
         mBinding = DataBindingUtil.inflate(inflater,R.layout.fragment_channel, container, false);
         return mBinding.getRoot();
@@ -45,6 +49,6 @@ public class ChannelFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        mBinding.scrollView.setAdapter(new ProgramAdapter(sm));
+        mBinding.scrollView.setAdapter(new ProgramAdapter(list));
     }
 }

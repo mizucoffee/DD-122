@@ -90,7 +90,7 @@ public class DashboardViewModel {
             Shirayuki.log("success");
             name.set(serverConnection.getName());
             mNavHost.set(serverConnection.getHost());
-        });
+        },e -> {});
     }
     //=================================
     // Public Method

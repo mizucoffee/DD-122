@@ -28,7 +28,12 @@ object ChinachuModel {
     private val allProgramsSubject = PublishSubject.create<ScheduleModel>()
     @JvmField val allPrograms = allProgramsSubject as Observable<ScheduleModel>
 
-    fun getAllPrograms(address: String) {
+    fun getAllPrograms(address: String?) {
+        if(address == null){
+            allProgramsSubject.onComplete()
+            return
+        }
+
         val retrofit = Retrofit.Builder()
                 .baseUrl("http://$address/")
                 .addConverterFactory(GsonConverterFactory.create())

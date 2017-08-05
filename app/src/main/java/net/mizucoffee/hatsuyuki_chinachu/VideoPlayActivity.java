@@ -33,10 +33,6 @@ import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter;
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
 import com.google.android.exoplayer2.util.Util;
 
-import net.mizucoffee.hatsuyuki_chinachu.tools.Shirayuki;
-
-import butterknife.BindView;
-
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 
@@ -47,17 +43,19 @@ public class VideoPlayActivity extends AppCompatActivity{
     private SimpleExoPlayerView mSimpleExoPlayerView;
     private SimpleExoPlayer mPlayer;
 
-    @BindView(R.id.toolbar)
-    Toolbar mToolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_video_play);
-        Shirayuki.initActivity(this);
+//        Shirayuki.initActivity(this);
+//        ButterKnife.bind(this);
+
         View decor = this.getWindow().getDecorView();
         decor.setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
                 | View.SYSTEM_UI_FLAG_FULLSCREEN | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
+
+        Toolbar mToolbar = (Toolbar)findViewById(R.id.toolbar);
 
         setSupportActionBar(mToolbar);
 

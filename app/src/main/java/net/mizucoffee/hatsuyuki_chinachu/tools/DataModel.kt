@@ -23,7 +23,7 @@ class DataModel private constructor(private val mSharedPreferences: SharedPrefer
     private val getCurrentServerConnectionSubject = PublishSubject.create<ServerConnection>()
 
     @JvmField
-    val getCurrentServerConnection = getCurrentServerConnectionSubject as Observable<ServerConnection>
+    val getCurrentServerConnection = getCurrentServerConnectionSubject as Observable<ServerConnection?>
 
     fun addServerConnection(serverConnection: ServerConnection) {
         serverConnection.setId(System.currentTimeMillis())
@@ -58,7 +58,8 @@ class DataModel private constructor(private val mSharedPreferences: SharedPrefer
                     getCurrentServerConnectionSubject.onNext(it)
                     f = true
                 }
-        if(!f) getCurrentServerConnectionSubject.onError(NullPointerException())
+//        if(!f)getCurrentServerConnectionSubject.onNext(null)
+//        if(!f) getCurrentServerConnectionSubject.onError(NullPointerException())
     }
 
     fun setCurrentServerConnection(sc: ServerConnection){
