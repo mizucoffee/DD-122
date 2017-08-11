@@ -6,7 +6,7 @@
 [![license](https://img.shields.io/github/license/mashape/apistatus.svg?style=flat-square)](http://kawakawaritsuki.mit-license.org/)
 [<img src="https://img.shields.io/badge/deploygate-Download-87CEEB.svg?style=flat-square" alt="Download from deploygate">](https://dply.me/bfymsx)
 
-![Hatsuyuki](https://raw.githubusercontent.com/Hatsuyuki-Project/Hatsuyuki-Android-Chinachu-Client/master/Hatsuyuki.png)
+![Hatsuyuki](https://raw.githubusercontent.com/KawakawaRitsuki/Image/master/zeyud3df42jkshakljhkf4234.png)
 
 ## 概要...です...
 はつゆき...です。たまには...頑張ります。
